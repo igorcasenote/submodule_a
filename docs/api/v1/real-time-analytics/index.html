@@ -1,0 +1,6419 @@
+<h1 class="title">Analytics</h1>
+    
+<p>
+   Através da API do Analytics você pode consultar dados históricos de monitoramento de indicadores coletados a partir do tráfego de seu conteúdo e aplicações pela Azion.
+</p>
+
+<p>
+    Os dados estão agrupados de acordo com Produto, Configuração, Métrica e Dimensão.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">1. Consulta lista de métricas e dimensões monitoradas</a></li>
+    <li><a href="#consulta-dados-historicos-agregados-de-uma-metrica">2. Consulta dados históricos agregados de uma métrica</a></li>
+    <li><a href="#consulta-dados-historicos-agregados-de-uma-dimensao-de-uma-metrica">3. Consulta dados históricos agregados de uma dimensão de uma métrica</a></li>
+    <li><a href="#consulta-lista-de-configuracoes-monitoradas">4. Consulta lista de configurações monitoradas</a></li>
+    <li><a href="#consulta-dados-historicos-de-uma-metrica-para-uma-configuracao">5. Consulta dados históricos de uma métrica para uma configuração</a></li>
+    <li><a href="#consulta-dados-historicos-de-uma-dimensao-de-uma-metrica-para-uma-configuracao">6. Consulta dados históricos de uma dimensão de uma métrica para uma configuração</a></li>
+    <li><a href="#consulta-dados-historicos-agregados-de-uma-metrica-do-live-streaming">7. Consulta dados históricos agregados de uma métrica do Live Streaming (legacy)</a></li>
+    <li><a href="#consulta-dados-historicos-agregados-de-uma-dimensao-de-uma-metrica-do-live-streaming">8. Consulta dados históricos agregados de uma dimensão de uma métrica do Live Streaming (legacy)</a></li>
+    <li><a href="#consulta-dados-historicos-de-uma-metrica-para-um-stream-do-live-streaming">9. Consulta dados históricos de uma métrica para um Stream do Live Streaming (legacy)</a></li>
+    <li><a href="#consulta-dados-historicos-de-uma-dimensao-de-uma-metrica-para-um-stream-do-live-streaming">10. Consulta dados históricos de uma dimensão de uma métrica para um Stream do Live Streaming (legacy)</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-metricas-e-dimensoes-monitoradas">1. Consulta lista de métricas e dimensões monitoradas</h2>
+
+<p>
+    Consulta lista de nomes de métricas e respectivas dimensões para serem utilizadas como parâmetros nos demais endpoints de consulta de dados históricos do Analytics.
+</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar"><span class="bold">/analytics/metadata</span></td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/metadata
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{  
+    "data_ingested":[  
+       "total",
+       "bandwidth"
+    ],
+    "used_space":[  
+       "total"
+    ],
+    "requests_per_second_offloaded":[  
+       "offload"
+    ],
+    "connected_users":[  
+       "average",
+       "max"
+    ],
+    "data_packaged":[  
+       "total",
+       "bandwidth"
+    ],
+    "requests_per_second":[  
+       "total",
+       "saved",
+       "missed"
+    ],
+    "data_offloaded":[  
+       "offload"
+    ],
+    "bandwidth":[  
+       "total",
+       "saved",
+       "missed"
+    ],
+    "http_method":[  
+       "get",
+       "head",
+       "post",
+       "others"
+    ],
+    "requests_offloaded":[  
+       "offload"
+    ],
+    "waf":[  
+       "requests",
+       "blocked",
+       "threats",
+       "xss",
+       "rfi",
+       "sql",
+       "others"
+    ],
+    "status_code":[  
+       "2xx",
+       "200",
+       "204",
+       "206",
+       "3xx",
+       "301",
+       "302",
+       "304",
+       "4xx",
+       "400",
+       "403",
+       "404",
+       "500",
+       "502",
+       "503",
+       "5xx"
+    ],
+    "bandwidth_offloaded":[  
+       "offload"
+    ],
+    "requests":[  
+       "total",
+       "http",
+       "https",
+       "saved",
+       "missed"
+    ],
+    "images_processed":[  
+       "requests",
+       "throughput"
+    ],
+    "data_transferred":[  
+       "total",
+       "http",
+       "https",
+       "saved",
+       "missed"
+    ]
+ }
+
+
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-historicos-agregados-de-uma-metrica">2. Consulta dados históricos agregados de uma métrica</h2>
+
+<p>Retorna a série histórica de dados de uma métrica coletados para todas as configurações agregadas do produto.</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/products/</span>:prod_id<span class="bold">/aggregate/metrics/</span>:metric_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :prod_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID do produto para ser consultado.
+                    <br>
+                    <ul>
+                        <li>Content Delivery: ID 1441740010</li>
+                        <li>Cloud Storage: ID 1441740013</li>
+                        <li>Image Optimization: ID 1441110021</li>
+                        <li>Live Ingest: ID 1467740028</li>
+                        <li>Media Packager: ID 1441740014</li>
+                    </ul>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                    Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                    “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                    “now”, sendo que em caso de omissão será considerado como o valor default.
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/products/1441740010/aggregate/metrics/data_transferred?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "products":{  
+       "1441740010":{  
+          "data_transferred":{  
+             "saved":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "total":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "http":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "missed":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "https":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-historicos-agregados-de-uma-dimensao-de-uma-metrica">3. Consulta dados históricos agregados de uma dimensão de uma métrica</h2>
+
+<p>Retorna a série histórica de dados de uma dimensão de uma métrica coletada para todas as configurações agregadas do produto.</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/products/</span>:prod_id<span class="bold">/aggregate/metrics/</span>:metric_name<span class="bold">/dimensions/</span>:dim_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :prod_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID do produto para ser consultado.
+                    <br>
+                    <ul>
+                        <li>Content Delivery: ID 1441740010</li>
+                        <li>Cloud Storage: ID 1441740013</li>
+                        <li>Image Optimization: ID 1441110021</li>
+                        <li>Live Ingest: ID 1467740028</li>
+                        <li>Media Packager: ID 1441740014</li>
+                    </ul>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :dim_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da dimensão da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                    Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                    “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                    “now”, sendo que em caso de omissão será considerado como o valor default.
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>   
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/products/1441740010/aggregate/metrics/data_transferred/dimensions/total?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "products":{  
+       "1441740010":{  
+          "data_transferred":{  
+             "total":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-configuracoes-monitoradas">4. Consulta lista de configurações monitoradas</h2>
+
+<p>Retorna a lista de configurações monitoradas pelo Analytics, para ser utilizada nos demais endpoints.</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/products/</span>:prod_id<span class="bold">/configurations</span>
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :prod_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID do produto para ser consultado.
+                    <br>
+                    <ul>
+                        <li>Content Delivery: ID 1441740010</li>
+                        <li>Cloud Storage: ID 1441740013</li>
+                        <li>Image Optimization: ID 1441110021</li>
+                        <li>Live Ingest: ID 1467740028</li>
+                        <li>Media Packager: ID 1441740014</li>
+                    </ul>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/products/1441740010/configurations
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+[
+ {
+ "active" : true,
+ "id" : 1473450681,
+ "name" : "Sample 1"
+ },
+ {
+ "id" : 1453750337,
+ "active" : true,
+ "name" : "Sample 2"
+ }
+]
+
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title"  id="consulta-dados-historicos-de-uma-metrica-para-uma-configuracao">
+    5. Consulta dados históricos de uma métrica para uma configuração
+</h2>
+
+<p>Retorna a série histórica de dados de uma métrica coletados para uma configuração do produto.</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/products/</span>:prod_id<span class="bold">/configurations/</span>:conf_id<span class="bold">/metrics/</span>:metric_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :prod_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID do produto para ser consultado.
+                    <br>
+                    <ul>
+                        <li>Content Delivery: ID 1441740010</li>
+                        <li>Cloud Storage: ID 1441740013</li>
+                        <li>Image Optimization: ID 1441110021</li>
+                        <li>Live Ingest: ID 1467740028</li>
+                        <li>Media Packager: ID 1441740014</li>
+                    </ul>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID da configuração do produto a ser consultado.
+                    <br><br>
+                    Para obter o ID de uma configuração, consulte a 
+                    <a href="#consulta-lista-de-configuracoes-monitoradas" class="orng-link">Lista de Configurações</a>.
+                </td>
+
+                <td>path</td>
+                <td>number</td>
+            </tr>
+
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                    Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                    “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                    “now”, sendo que em caso de omissão será considerado como o valor default.
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/products/1441740010/configurations/1453750337/metrics/data_transferred?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "configurations":{  
+       "1453750337":{  
+          "data_transferred":{  
+             "saved":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "total":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "http":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "missed":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ],
+             "https":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-historicos-de-uma-dimensao-de-uma-metrica-para-uma-configuracao">
+    6. Consulta dados históricos de uma dimensão de uma métrica para uma configuração
+</h2>
+
+<p>Retorna a série histórica de dados de uma dimensão de uma métrica coletada para uma configuração do produto.</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/products/</span>:prod_id<span class="bold">/configurations/</span>:conf_id<span class="bold">/metrics/</span>:metric_name<span class="bold">/dimensions/</span>:dim_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :prod_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID do produto para ser consultado.
+                    <br>
+                    <ul>
+                        <li>Content Delivery: ID 1441740010</li>
+                        <li>Cloud Storage: ID 1441740013</li>
+                        <li>Image Optimization: ID 1441110021</li>
+                        <li>Live Ingest: ID 1467740028</li>
+                        <li>Media Packager: ID 1441740014</li>
+                    </ul>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    ID da configuração do produto a ser consultado.
+                    <br><br>
+                    Para obter o ID de uma configuração, consulte a 
+                    <a href="#consulta-lista-de-configuracoes-monitoradas" class="orng-link">Lista de Configurações</a>.
+                </td>
+
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    :dim_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da dimensão da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                        Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                        “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                        “now”, sendo que em caso de omissão será considerado como o valor default.
+
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/products/1441740010/configurations/1453750337/metrics/data_transferred/dimensions/total?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "configurations":{  
+       "1453750337":{  
+          "data_transferred":{  
+             "total":[  
+                [  
+                   1475290800000.0,
+                   0.0
+                ],
+                [  
+                   1475334000000.0,
+                   0.0
+                ],
+                [  
+                   1475377200000.0,
+                   0.0
+                ],
+                [  
+                   1475420400000.0,
+                   0.0
+                ],
+                [  
+                   1475463600000.0,
+                   0.0
+                ],
+                [  
+                   1475506800000.0,
+                   0.0
+                ],
+                [  
+                   1475550000000.0,
+                   0.0
+                ],
+                [  
+                   1475593200000.0,
+                   0.0
+                ],
+                [  
+                   1475636400000.0,
+                   0.0
+                ],
+                [  
+                   1475679600000.0,
+                   0.0
+                ],
+                [  
+                   1475722800000.0,
+                   0.0
+                ],
+                [  
+                   1475766000000.0,
+                   0.0
+                ],
+                [  
+                   1475809200000.0,
+                   0.0
+                ],
+                [  
+                   1475852400000.0,
+                   0.0
+                ],
+                [  
+                   1475895600000.0,
+                   0.0
+                ],
+                [  
+                   1475938800000.0,
+                   0.0
+                ],
+                [  
+                   1475982000000.0,
+                   0.0
+                ],
+                [  
+                   1476025200000.0,
+                   0.0
+                ],
+                [  
+                   1476068400000.0,
+                   0.0
+                ],
+                [  
+                   1476111600000.0,
+                   0.0
+                ],
+                [  
+                   1476154800000.0,
+                   0.0
+                ],
+                [  
+                   1476198000000.0,
+                   0.0
+                ],
+                [  
+                   1476241200000.0,
+                   0.0
+                ],
+                [  
+                   1476284400000.0,
+                   0.0
+                ],
+                [  
+                   1476327600000.0,
+                   0.0
+                ],
+                [  
+                   1476370800000.0,
+                   0.0
+                ],
+                [  
+                   1476414000000.0,
+                   0.0
+                ],
+                [  
+                   1476457200000.0,
+                   0.0
+                ],
+                [  
+                   1476500400000.0,
+                   0.0
+                ],
+                [  
+                   1476543600000.0,
+                   0.0
+                ],
+                [  
+                   1476586800000.0,
+                   0.0
+                ],
+                [  
+                   1476630000000.0,
+                   0.0
+                ],
+                [  
+                   1476673200000.0,
+                   0.0
+                ],
+                [  
+                   1476716400000.0,
+                   0.0
+                ],
+                [  
+                   1476759600000.0,
+                   0.0
+                ],
+                [  
+                   1476802800000.0,
+                   0.0
+                ],
+                [  
+                   1476846000000.0,
+                   0.0
+                ],
+                [  
+                   1476889200000.0,
+                   0.0
+                ],
+                [  
+                   1476932400000.0,
+                   0.0
+                ],
+                [  
+                   1476975600000.0,
+                   0.0
+                ],
+                [  
+                   1477018800000.0,
+                   0.0
+                ],
+                [  
+                   1477062000000.0,
+                   0.0
+                ],
+                [  
+                   1477105200000.0,
+                   0.0
+                ],
+                [  
+                   1477148400000.0,
+                   0.0
+                ],
+                [  
+                   1477191600000.0,
+                   0.0
+                ],
+                [  
+                   1477234800000.0,
+                   0.0
+                ],
+                [  
+                   1477278000000.0,
+                   0.0
+                ],
+                [  
+                   1477321200000.0,
+                   0.0
+                ],
+                [  
+                   1477364400000.0,
+                   0.0
+                ],
+                [  
+                   1477407600000.0,
+                   0.0
+                ],
+                [  
+                   1477450800000.0,
+                   0.0
+                ],
+                [  
+                   1477494000000.0,
+                   0.0
+                ],
+                [  
+                   1477537200000.0,
+                   0.0
+                ],
+                [  
+                   1477580400000.0,
+                   0.0
+                ],
+                [  
+                   1477623600000.0,
+                   0.0
+                ],
+                [  
+                   1477666800000.0,
+                   0.0
+                ],
+                [  
+                   1477710000000.0,
+                   0.0
+                ],
+                [  
+                   1477753200000.0,
+                   0.0
+                ],
+                [  
+                   1477796400000.0,
+                   0.0
+                ],
+                [  
+                   1477839600000.0,
+                   0.0
+                ],
+                [  
+                   1477882800000.0,
+                   0.0
+                ],
+                [  
+                   1477926000000.0,
+                   0.0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title"  id="consulta-dados-historicos-agregados-de-uma-metrica-do-live-streaming">
+    7. Consulta dados históricos agregados de uma métrica do Live Streaming (legacy)
+</h2>
+
+<p>
+    Retorna a série histórica de dados de uma métrica coletada para todos os Streams agregados do Live Streaming (legacy).
+</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/live_streaming/aggregate/metrics/</span>:metric_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+            
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                        Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                        “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                        “now”, sendo que em caso de omissão será considerado como o valor default.
+
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/live_streaming/aggregate/metrics/connected_users?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "products":{  
+       "live_streaming":{  
+          "connected_users":{  
+             "max":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ],
+             "average":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title"  id="consulta-dados-historicos-agregados-de-uma-dimensao-de-uma-metrica-do-live-streaming">
+    8. Consulta dados históricos agregados de uma dimensão de uma métrica do Live Streaming (legacy)
+</h2>
+
+<p>Retorna a série histórica de dados de uma dimensão de uma métrica coletada para todos os Streams agregados do produto Live Streaming (legacy).</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">	/analytics/live_streaming/aggregate/metrics/</span>:metric_name<span class="bold">/dimensions/</span>:dim_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    :dim_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                     Nome da dimensão da métrica que se deseja consultar. Para obter a lista de 
+                     dimensões de cada métrica, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+            
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                    Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                    “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                    “now”, sendo que em caso de omissão será considerado como o valor default.
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/live_streaming/aggregate/metrics/connected_users/dimensions/max?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "products":{  
+       "live_streaming":{  
+          "connected_users":{  
+             "max":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ]
+          }
+       }
+    }
+ } 
+{% endhighlight %}
+</div>
+
+                    <hr class="breaker">
+
+                    <h2 class="black-small-title"  id="consulta-dados-historicos-de-uma-metrica-para-um-stream-do-live-streaming">
+                        9. Consulta dados históricos de uma métrica para um Stream do Live Streaming (legacy)
+                    </h2>
+
+                    <p>Retorna a série histórica de dados de uma métrica coletada para um Stream do produto Live Streaming (legacy)</p>
+                    <div class="scrollTable">
+                        <table class="button-txt">
+                              <tbody>
+                                 <tr>
+                                    <td class="button-bar get"><span>GET</span></td>
+                                    <td class="txt-bar">
+                                          <span class="bold">/analytics/live_streaming/streams/</span>:stream_name<span class="bold">/metrics/</span>:metric_name
+                                    </td>
+                                 </tr>
+                              </tbody>
+                        </table>
+                     </div>
+
+                    <p>Permissão necessária: <span class="black-sm-sub"><i>Analytics</i></span></p>
+
+                    <div class="table-orange-gray">
+                        <table>
+                            <thead>
+                                <tr class="td-10">
+                                    <td>Parâmetro</td>
+                                    <td>Descrição</td>
+                                    <td>Tipo de Parâmetro</td>
+                                    <td>Tipo de Dado</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Authorization
+                                        <br><br>
+                                        (obrigatório)
+                                    </td>
+    
+                                    <td>
+                                        A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                                        <br><br>
+    
+                                        ex.:
+                                        <br><br>
+                                        Authorization:
+                                        <br>
+                                        583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                                    </td>
+                                    <td>
+                                        header
+                                    </td>
+                                    <td>
+                                        string
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        :stream_name
+                                        <br><br>
+                                        (obrigatório)
+                                    </td>
+    
+                                    <td>
+                                        Stream Name é o nome do sinal RTMP publicado. Pode ser obtido a partir da configuração de seu encoder.
+                                    </td>
+                                    <td>
+                                        path
+                                    </td>
+                                    <td>
+                                        string
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        :metric_name
+                                        <br><br>
+                                        (obrigatório)
+                                    </td>
+    
+                                    <td>
+                                        Nome da métrica que se deseja consultar. Para obter a lista de 
+                                        métricas coletadas, você pode consultar o endpoint de
+                                        <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                                        Métricas e Dimensões</a>.
+                                    </td>
+                                    <td>
+                                        path
+                                    </td>
+                                    <td>
+                                        string
+                                    </td>
+                                </tr> 
+
+                                
+                                <tr>
+                                    <td>
+                                        date_from
+                                        <br><br>
+                                        (obrigatório)
+                                    </td>
+    
+                                    <td>
+                                        Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                                        ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                                        utilizando um dos seguintes valores, sendo que nesse caso o
+                                        parâmetro date_to deverá ser omitido:
+
+                                        <ul>
+                                            <li>last-hour</li>
+                                            <li>last-3-hours</li>
+                                            <li>last-6-hours</li>
+                                            <li>last-24-hours</li>
+                                            <li>last-3-days</li>
+                                            <li>last-7-days</li>
+                                            <li>last-15-days</li>
+                                            <li>last-30-days</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        query
+                                    </td>
+                                    <td>
+                                        string
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        date_to
+                                        <br><br>
+                                        (opcional)
+                                    </td>
+    
+                                    <td>
+                                        Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                                        “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                                        “now”, sendo que em caso de omissão será considerado como o valor default.
+                                    </td>
+                                    <td>
+                                        query
+                                    </td>
+                                    <td>
+                                        string
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/live_streaming/streams/live.sdp/metrics/connected_users?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                    
+                    <p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "streams":{  
+       "live.sdp":{  
+          "connected_users":{  
+             "max":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ],
+             "average":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title"  id="consulta-dados-historicos-de-uma-dimensao-de-uma-metrica-para-um-stream-do-live-streaming">
+    10. Consulta dados históricos de uma dimensão de uma métrica para um Stream do Live Streaming (legacy)
+</h2>
+
+<p>Retorna a série histórica de dados de uma dimensão de uma métrica coletada para um Stream do produto Live Streaming (legacy)</p>
+
+<div class="scrollTable">
+   <table class="button-txt">
+      <tbody>
+         <tr>
+               <td class="button-bar get"><span>GET</span></td>
+               <td class="txt-bar">
+                  <span class="bold">/analytics/live_streaming/streams/</span>:stream_name<span class="bold">/metrics/</span>:metric_name<span class="bold">/dimensions/</span>:dim_name
+               </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Analytics</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :stream_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Stream Name é o nome do sinal RTMP publicado. Pode ser obtido a partir da configuração de seu encoder.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :metric_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+
+            <tr>
+                <td>
+                    :dim_name
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Nome da dimensão da métrica que se deseja consultar. Para obter a lista de 
+                    métricas coletadas, você pode consultar o endpoint de
+                    <a class="orng-link" href="#consulta-lista-de-metricas-e-dimensoes-monitoradas">
+                    Métricas e Dimensões</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    string
+                </td>
+            </tr> 
+            
+            <tr>
+                <td>
+                    date_from
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Data e horário de início da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) 
+                    ou “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração 
+                    utilizando um dos seguintes valores, sendo que nesse caso o
+                    parâmetro date_to deverá ser omitido:
+
+                    <ul>
+                        <li>last-hour</li>
+                        <li>last-3-hours</li>
+                        <li>last-6-hours</li>
+                        <li>last-24-hours</li>
+                        <li>last-3-days</li>
+                        <li>last-7-days</li>
+                        <li>last-15-days</li>
+                        <li>last-30-days</li>
+                    </ul>
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    date_to
+                    <br><br>
+                    (opcional)
+                </td>
+
+                <td>
+                    Data e horário de final da consulta no formato “YYYY-MM-DDThh:mm” (Local Time) ou
+                    “YYYY-MM-DDThh:mmZ” (UTC). Também poderá ser especificado duração utilizando o valor 
+                    “now”, sendo que em caso de omissão será considerado como o valor default.
+                </td>
+                <td>
+                    query
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /analytics/live_streaming/streams/live.sdp/metrics/connected_users/dimensions/max?date_from=2016-10-01T00%3A00Z&date_to=2016-11-01T00%3A00Z
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code">
+{% highlight console %}
+{  
+    "streams":{  
+       "live.sdp":{  
+          "connected_users":{  
+             "max":[  
+                [  
+                   1475290800000.0,
+                   0
+                ],
+                [  
+                   1475334000000.0,
+                   0
+                ],
+                [  
+                   1475377200000.0,
+                   0
+                ],
+                [  
+                   1475420400000.0,
+                   0
+                ],
+                [  
+                   1475463600000.0,
+                   0
+                ],
+                [  
+                   1475506800000.0,
+                   0
+                ],
+                [  
+                   1475550000000.0,
+                   0
+                ],
+                [  
+                   1475593200000.0,
+                   0
+                ],
+                [  
+                   1475636400000.0,
+                   0
+                ],
+                [  
+                   1475679600000.0,
+                   0
+                ],
+                [  
+                   1475722800000.0,
+                   0
+                ],
+                [  
+                   1475766000000.0,
+                   0
+                ],
+                [  
+                   1475809200000.0,
+                   0
+                ],
+                [  
+                   1475852400000.0,
+                   0
+                ],
+                [  
+                   1475895600000.0,
+                   0
+                ],
+                [  
+                   1475938800000.0,
+                   0
+                ],
+                [  
+                   1475982000000.0,
+                   0
+                ],
+                [  
+                   1476025200000.0,
+                   0
+                ],
+                [  
+                   1476068400000.0,
+                   0
+                ],
+                [  
+                   1476111600000.0,
+                   0
+                ],
+                [  
+                   1476154800000.0,
+                   0
+                ],
+                [  
+                   1476198000000.0,
+                   0
+                ],
+                [  
+                   1476241200000.0,
+                   0
+                ],
+                [  
+                   1476284400000.0,
+                   0
+                ],
+                [  
+                   1476327600000.0,
+                   0
+                ],
+                [  
+                   1476370800000.0,
+                   0
+                ],
+                [  
+                   1476414000000.0,
+                   0
+                ],
+                [  
+                   1476457200000.0,
+                   0
+                ],
+                [  
+                   1476500400000.0,
+                   0
+                ],
+                [  
+                   1476543600000.0,
+                   0
+                ],
+                [  
+                   1476586800000.0,
+                   0
+                ],
+                [  
+                   1476630000000.0,
+                   0
+                ],
+                [  
+                   1476673200000.0,
+                   0
+                ],
+                [  
+                   1476716400000.0,
+                   0
+                ],
+                [  
+                   1476759600000.0,
+                   0
+                ],
+                [  
+                   1476802800000.0,
+                   0
+                ],
+                [  
+                   1476846000000.0,
+                   0
+                ],
+                [  
+                   1476889200000.0,
+                   0
+                ],
+                [  
+                   1476932400000.0,
+                   0
+                ],
+                [  
+                   1476975600000.0,
+                   0
+                ],
+                [  
+                   1477018800000.0,
+                   0
+                ],
+                [  
+                   1477062000000.0,
+                   0
+                ],
+                [  
+                   1477105200000.0,
+                   0
+                ],
+                [  
+                   1477148400000.0,
+                   0
+                ],
+                [  
+                   1477191600000.0,
+                   0
+                ],
+                [  
+                   1477234800000.0,
+                   0
+                ],
+                [  
+                   1477278000000.0,
+                   0
+                ],
+                [  
+                   1477321200000.0,
+                   0
+                ],
+                [  
+                   1477364400000.0,
+                   0
+                ],
+                [  
+                   1477407600000.0,
+                   0
+                ],
+                [  
+                   1477450800000.0,
+                   0
+                ],
+                [  
+                   1477494000000.0,
+                   0
+                ],
+                [  
+                   1477537200000.0,
+                   0
+                ],
+                [  
+                   1477580400000.0,
+                   0
+                ],
+                [  
+                   1477623600000.0,
+                   0
+                ],
+                [  
+                   1477666800000.0,
+                   0
+                ],
+                [  
+                   1477710000000.0,
+                   0
+                ],
+                [  
+                   1477753200000.0,
+                   0
+                ],
+                [  
+                   1477796400000.0,
+                   0
+                ],
+                [  
+                   1477839600000.0,
+                   0
+                ],
+                [  
+                   1477882800000.0,
+                   0
+                ],
+                [  
+                   1477926000000.0,
+                   0
+                ]
+             ]
+          }
+       }
+    }
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p> 

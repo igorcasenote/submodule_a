@@ -1,0 +1,546 @@
+<h1 class="title">Network <span>Lists</span></h1>
+
+<p>Através da API de Network Lists você pode criar, consultar ou atualizar Network Lists utilizadas no Rules Engine do Novo Edge Firewall.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consultar-lista-network-lists">1. Consultar lista de Network Lists</a></li>
+    <li><a href="#consultar-dados-network-lists">2. Consultar dados de uma Network List</a></li>
+    <li><a href="#criar-network-lists">3. Criar uma nova Network List</a></li>
+    <li><a href="#sobrescrever-network-lists">4. Sobrescrever uma Network List existente</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-lista-network-lists">1. Consultar lista de Network Lists</h2>
+
+<p>Retorna a lista de Network Lists.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/network_lists</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">View Network Lists</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr  class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Accept</td>
+                <td>Informações sobre o tipo de retorno e versão </td>
+                <td>header</td>
+                <td>String; 
+                    <em>obrigatório: application/json;version=3</em></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /network_lists 
+Accept: application/json; version=3 
+Authorization: token ec6aabdc0b6bbeed826a36d8731630e36b6e3f22 
+Content-Type: application/json 
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "count": 3,
+    "total_pages": 1,
+    "schema_version": 3,
+    "links": {
+        "previous": null,
+        "next": null
+    },
+    "results": [
+        {
+            "id": 9,
+            "last_editor": "products@azion.com",
+            "last_modified": "2019-12-11T18:15:29.073687Z",
+            "list_type": "ip_cidr",
+            "name": "Azion IP"
+        },
+        {
+            "id": 17,
+            "last_editor": "products@azion.com",
+            "last_modified": "2019-12-11T18:15:35.124016Z",
+            "list_type": "asn",
+            "name": "Azion ASN"
+        },
+        {
+            "id": 20,
+            "last_editor": "products@azion.com",
+            "last_modified": "2019-12-11T18:14:10.514494Z",
+            "list_type": "countries",
+            "name": "Azion Country"
+        }
+    ]
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-network-lists">2. Consultar dados de uma Network List</h2>
+
+<p>Retorna detalhes de uma Network List. As informações que são retornadas nessa chamada se referem às Network Lists que podem estar vinculadas a um ou mais Rule Sets do Novo Edge Firewall.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/network_lists/</span>:id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">View Network Lists</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Accept</td>
+                <td>Informações sobre o tipo de retorno e versão </td>
+                <td>header</td>
+                <td>String;<br><em>obrigatório: application/json;version=3</em></td>
+            </tr>
+            <tr>
+                <td>:id<br>(obrigatório)</td>
+                <td>O id da network list que se pretende consultar.</td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /network_lists/111
+Accept: application/json; version=3
+Authorization: token cf2078926f91a6e638af3f4a6977b505edfe5942
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<p>Resposta para lista do tipo IP/CIDR:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "last_editor": "products@azion.com",
+        "last_modified": "2019-09-12T14:07:26.871995Z",
+        "list_type": "ip_cidr",
+        "name": "IP Blacklist - Azion Docs",
+        "items_values": [
+            "10.1.1.10/16",
+            "192.168.0.1",
+            "192.168.0.2/32"
+        ]
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<p>Resposta para lista do tipo ASN:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "last_editor": "RTM User Name",
+        "last_modified": "2019-09-12T14:07:26.871995Z",
+        "list_type": "asn",
+        "name": "ASN List",
+        "items_values": [
+            1234,
+            4321
+        ]
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<p>Resposta para lista do tipo Countries:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "last_editor": "RTM User Name",
+        "last_modified": "2019-09-12T14:07:26.871995Z",
+        "list_type": "countries",
+        "name": "Countries List",
+        "items_values": [
+            "CN",
+            "RU"
+        ]
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-network-lists">3. Criar uma nova Network List</h2>
+
+<p>Possibilita a criação de uma nova Network List.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/network_lists</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Edit Network Lists</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Accept</td>
+                <td>Informações sobre o tipo de retorno e versão </td>
+                <td>header</td>
+                <td>String;<br><em>obrigatório: application/json;version=3</em></td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /network_lists
+Accept: application/json; version=3
+Authorization: token cf2078926f91a6e638af3f4a6977b505edfe5941
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Network List criada pela API",
+    "items_values": [
+    	   "192.168.0.1",
+        "192.168.0.2/32",
+        "10.1.1.10/16"
+    ],
+    "list_type": "ip_cidr"
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "items_values": [
+            "10.1.1.10/16",
+            "192.168.0.1",
+            "192.168.0.2/32"
+        ],
+        "name": "Network List criada pela API",
+        "last_modified": "2019-12-11T18:28:35.349078Z",
+        "list_type": "ip_cidr",
+        "last_editor": "products@azion.com",
+        "id": 85
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-network-lists">4. Sobrescrever uma Network List </h2>
+
+<p>Sobrescreve todos os campos de uma Network List, preservando o id.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/network_lists</span>:id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Edit Network Lists</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl  %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Accept</td>
+                <td>Informações sobre o tipo de retorno e versão </td>
+                <td>header</td>
+                <td>String;<br><em>obrigatório: application/json;version=3</em></td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:id<br>(obrigatório)</td>
+                <td>Id da Network List a ser sobrescrita.</td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /network_lists/85
+Accept: application/json; version=3
+Authorization: token ec6aabdc0b6bbeed826a36d8731630e36b6e3f22
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<p>Requisição para lista do tipo IP/CIDR:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "name": "Network List Modificada pela API",
+    "items_values": [
+    	"192.168.0.5",
+        "192.168.0.2/32",
+        "10.1.1.10/16"
+    ],
+    "list_type": "ip_cidr"
+}
+{% endhighlight %}
+</div>
+
+<p>Requisição para lista do tipo ASN:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "items_values": [
+    	   "1234",
+        "4321"
+    ],
+    "name": "ASN - Azion Docs - Modificada pela API",
+    "list_type": "asn"
+}
+{% endhighlight %}
+</div>
+
+<p>Requisição para lista do tipo Countries:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "items_values": [
+    	"BR",
+    	"AG",
+    	"US"
+ ],
+    "name": "Country Modificada pela API",
+    "list_type": "countries"
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<p>Resposta para lista do tipo IP/CIDR:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "items_values": [
+            "10.1.1.10/16",
+            "192.168.0.2/32",
+            "192.168.0.5"
+        ],
+        "name": "Network List Modificada pela API",
+        "last_modified": "2019-12-11T18:31:41.780397Z",
+        "list_type": "ip_cidr",
+        "last_editor": "products@azion.com",
+        "id": 85
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<p>Resposta para lista do tipo ASN:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "items_values": [
+            1234,
+            4321
+        ],
+        "name": "ASN - Azion Docs - Modificada pela API",
+        "last_modified": "2019-12-11T18:36:07.282729Z",
+        "list_type": "asn",
+        "last_editor": "products@azion.com",
+        "id": 17
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<p>Resposta para lista do tipo Countries:</p>
+
+<div class="white-code">
+{% highlight console %}
+{
+    "results": {
+        "items_values": [
+            "BR",
+            "US",
+            "AG"
+        ],
+        "name": "Country Modificada pela API",
+        "last_modified": "2019-12-11T18:33:51.781496Z",
+        "list_type": "countries",
+        "last_editor": "products@azion.com",
+        "id": 20
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

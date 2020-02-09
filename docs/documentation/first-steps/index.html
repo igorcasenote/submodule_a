@@ -1,0 +1,282 @@
+<h1 class="title">Primeiros <span>Passos</span></h1>
+
+<p>
+    Seja bem-vindo à Azion!
+</p>
+
+<p>
+    Aqui você encontrará informações sobre os primeiros passos necessários para configurar sua conta. Sempre que necessário,
+        consulte a documentação detalhada dos produtos da Azion no menu lateral.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#ative-sua-conta">1. Ative sua conta</a></li>
+    <li><a href="#crie-um-novo-edge-application">2. Crie um novo Edge Application</a></li>
+    <li><a href="#crie-um-novo-domain-associado-ao-seu-edge-application">3. Crie um novo Domain associado ao seu Edge Application</a></li>
+    <li><a href="#altere-o-domain-de-sua-aplicacao-para-o-domain-criado">4. Altere o DNS de sua aplicação para o Domain criado</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="ative-sua-conta" >1.Ative sua conta</h2>
+
+<p>
+    Ao se cadastrar na Azion você receberá um email para ativação de sua conta. 
+    Nesse email você encontrará as instruções para confirmar seu endereço eletrônico e gerar sua senha. Seu endereço eletrônico será utilizado como usuário de acesso ao painel de controle web da Azion,
+    o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> , onde você poderá gerenciar as configurações de sua conta e produtos.
+    <br><br>
+</p>
+
+<p>
+    Caso você não receba o email, por favor verifique sua pasta Spam.
+    O email deverá ser enviado com os seguintes cabeçalhos.
+</p>
+
+<p class="blue-box">
+    From: noreply@azion.com
+    <br>
+    Subject: Please Verify Your Azion Account
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="crie-um-novo-edge-application">2. Crie um novo Edge Application</h2>
+
+<p>Após a ativação de sua conta, você deve criar seu primeiro edge application. Para criar uma nova configuração, execute os passos que seguem:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com o seu email e senha.</li>
+    <li>Preencha os campos solicitados e salve seu primeiro <em>edge application</em>.</li>
+</ol>
+
+<p>Você precisa informar os campos que seguem.</p>
+
+<p class="black-sm-sub">Name for Application</p>
+
+<p>Atribua um nome sugestivo para seu edge application. Este nome será utilizado para identificar sua configuração. Você pode utilizar o próprio domínio de sua aplicação web como nome.</p>
+
+<em>Ex.: www.azion.com</em>
+
+<p class="black-sm-sub">Main Settings</p>
+
+<p>Nesta seção são definidos os principais campos relacionados a entrega de suas aplicações.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td style="width: 25%;">Campo</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><span class="black-sm-sub">Delivery Protocol</span></td>
+                <td>Escolha o protocolo de entrega suportado por sua aplicação web:<br>
+                <ul>
+                    <li><em>HTTP:</em> caso sua aplicação suporte apenas o protocolo HTTP.</li>
+                    <li><em>HTTP</em> &amp; <em>HTTPS:</em> caso sua aplicacão suporte ambos protocolos HTTP e HTTPS. Para utilizar HTTPS, você precisará de um <a class="orng-link" href="{% tl documentation_products_edge_applications_digital_certificates %}">Digital Certificates</a>.</li>
+                </ul></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Origins</p>
+
+<p>Em Origins são definidos os dados de sua a origem. Para entender mais sobre como funciona o Edge Applications, para que serve a origem ou como realizar configurações mais avançadas de origem, consulte a documentação técnica do produto.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td style="width: 25%;">Campo</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><span class="black-sm-sub">Origin Type</span></td>
+                <td>Escolha o tipo de origem:<br>
+                <ul>
+                    <li><em>Single Origin:</em> se a Azion deve se conectar a uma origem externa para buscar os dados que não estiverem em cache.</li>
+                    <li><em>Cloud Storage:</em> se a Azion deve se conectar ao Azion Cloud Storage para buscar objetos armazenados por você.</li>
+                    <li><em>Media Packager:</em> se a Azion deve se conectar ao Azion Media Packager para entregar via HLS suas mídias (audio e video) armazenadas na Azion.</li>
+                </ul>
+                Os campos que seguem se referem a origem do tipo Single Origin.
+            </td>
+            </tr>
+            <tr>
+                <td><span class="black-sm-sub">Address</span></td>
+                <td>Defina o endereço de origem de sua aplicação, no formato FQDN (Full Qualified Domain Name), por exemplo origem.azion.com, ou endereço IP.<br><br>
+                    Por padrão a Azion se conectará em sua origem pela porta 80, para HTTP, ou 443, para HTTPS. Se desejar configurar uma porta diferente de conexão com sua origem, você pode utilizar a notação host:port nesse campo, por exemplo origem.azion.com:8080. Consulte o campo abaixo para entender opções de conexão com sua origem.<br><br>                        
+                    Você não pode configurar como origem o mesmo domínio de entrega de seu conteúdo. A origem deve possuir um endereço próprio.
+                </td>
+            </tr>
+            <tr>
+                <td><span class="black-sm-sub">Origin Protocol Policy</span></td>
+                <td>Na arquitetura de proxy reverso adotada pela Azion, seus usuários se conectam ao Intelligent Edge por HTTP ou HTTPS e você escolhe como deseja que a Azion se conecte em sua origem:<br><br>
+                    <ul>
+                        <li><span class="black-sm-sub">Preserve HTTP/HTTPS protocol:</span>  irá manter o mesmo protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário ao acessar seu conteúdo na Azion para se conectar em sua origem.</li>
+                        <li><span class="black-sm-sub">Enforce HTTP:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTP, independente do protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (80 para HTTP) se desejar.</li>
+                        <li><span class="black-sm-sub">Enforce HTTPS:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTPS, independente do protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (443 para HTTPS) se desejar.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><span class="black-sm-sub">Host Header</span></td>
+                <td>O cabeçalho Host é utilizado por sua origem para identificar o <em>virtualhost</em> e localizar seu conteúdo ou aplicação. Ao configurar uma origem no Real-Time Manager, você pode customizar a valor que deve ser enviado pela Azion no cabeçalho Host.<br><br>
+                    Utilize o valor <em>${host}</em>, no campo Host Header, caso sua origem esteja configurada para responder o <em>virtualhost</em> pelo mesmo domínio que é utilizado por seus usuários para acessar seu conteúdo na Azion. Dessa forma, você estará instruindo os edge serveres a repassarem para sua origem o mesmo cabeçalho Host que for recebido de seus visitantes.<br><br>
+                    Se necessário, você pode preencher um valor customizado de Host Header para ser enviado para sua origem. Por exemplo, <em>origin.domain.com</em>. Você deve customizar o Host Header se sua origem estiver configurada para responder um <em>virtualhost</em> em um domínio diferente do que é utilizado por seus usuários.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Cache Settings</p>
+
+<p>Nesta seção serão definidas as opções de cache para seu conteúdo. Há dois tipos de cache:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Browser Cache</span> é o cache de seu conteúdo armazenado no browser de seus usuários. Você pode definir tempo de vida (<em>time-to-live</em>, TTL) para cada conteúdo, mas terá pouca autonomia para forçar a expiração do conteúdo antes do tempo definido como TTL, caso haja necessidade de alterar o conteúdo antes do tempo.</li>
+    <li><span class="black-sm-sub">CDN Cache</span>  é o cache de seu conteúdo nos Edge Servers da Azion. Além de poder definir o TTL para cada tipo de conteúdo, você poderá executar, em tempo real, a operação de <a class="orng-link" href="{% tl documentation_products_edge_applications_real_time_purge %}">Purge</a> do conteúdo, sempre que houver necessidade de eliminar os dados armazenados no cache.</li>
+</ul>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td style="width: 25%;">Campo</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><span class="black-sm-sub">Browser Cache Settings</span></td>
+                <td>Utilize a opção <em>Honor Origin Cache Headers</em> se desejar que a Azion envie para seus usuários os mesmos cabeçalhos de controle de cache recebidos de sua origem.<br><br>
+                    Você também pode customizar o controle de Browser Cache selecionando a opção <em>Override Cache Settings</em>. Nesse caso, você deverá definir um <span class="black-sm-sub">Maximum TTL</span>, que é o tempo de vida (em segundos) máximo que o conteúdo poderá ficar em cache no browser de seus usuários.
+            </td>
+            </tr>
+            <tr>
+                <td><span class="black-sm-sub">CDN Cache Settings</span></td>
+                <td>Utilize a opção <em>Honor Origin Cache Headers</em> se desejar que a Azion respeite os cabeçalhos de controle de cache recebidos de sua origem, para gestão do cache nos Edge Servers da Azion.
+                    Você também pode customizar o controle de CDN Cache selecionando a opção <em>Override Cache Settings</em>. Nesse caso, você deverá definir um <span class="black-sm-sub">Maximum TTL</span>, que é o tempo de vida (em segundos) máximo que o conteúdo poderá ficar em cache nos Edge Servers da Azion. Você poderá, a qualquer momento, executar a Purge do conteúdo em tempo real.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Não se esqueca de salvar sua configuração clicando no botão <span class="black-sm-sub">Save</span>.</p>
+
+<p class="blue-box">Se desejar, você pode editar seu edge application recém criado para opções mais avançadas.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="crie-um-novo-domain-associado-ao-seu-edge-application">3. Crie um novo Domain associado ao seu Edge Application</h2>
+
+<p>Após a criação de seu primeiro edge application, você deve associar um ou mais domínios para acesso de seus usuários:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com o seu email e senha.</li>
+    <li>Clique no menu > Edge Services > Domains.</li>
+    <li>Clique no botão Add Domain.</li>
+    <li>Preencha os campos solicitados e salve sua configuração.</li>
+</ol>
+
+<p>Você precisa informar os campos que seguem.</p>
+
+<p class="black-sm-sub">Add Name Configuration</p>
+
+<p>Atribua um nome sugestivo para seu edge application. Este nome será utilizado para identificar sua configuração. Você pode utilizar o próprio domínio de sua aplicação web como nome.</p>
+
+<em>Ex.: www.azion.com</em>
+
+<p class="black-sm-sub">Settings</p>
+
+<p>Nesta seção são definidos os principais campos relacionados a entrega de suas aplicações.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td style="width: 25%;">Campo</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><span class="black-sm-sub">Digital Certificate</span></td>
+                <td>Se você tiver selecionado <em>HTTP & HTTPS</em> durante a criação de seu edge 
+                    application, deverá selecionar o certificado SSL que será utilizado para criptografar
+                     o seu tráfego HTTPS. A Azion disponibiliza o certificado <em>Azion (SAN)</em> 
+                     que pode ser utilizado para os domínios abaixo de <em>azioncdn.net</em>.
+
+                     <br><br>
+                     Você também poderá realizar o upload de seu Custom Certificate a qualquer momento. 
+                     Consulte a <a href="{% tl documentation_products_edge_applications_digital_certificates %}#custom-certificate" class="orng-link">documentação técnica</a>  sobre como proceder.
+                </td>
+            </tr>
+
+            <tr>
+                <td><span class="black-sm-sub">CNAMEs</span></td>
+
+                <td>
+                    Configure a lista de domínios (CNAMEs) de entrega do seu conteúdo ou aplicação. Se necessário, você pode utilizar Wildcard Domain (<em>*.yourdomain.com</em>).
+
+                    <br><br>
+                    <em>Ex.: www.azion.com</em>
+                </td>
+            </tr>
+
+            <tr>
+                <td><span class="black-sm-sub">CNAME Access Only</span></td>
+
+                <td>
+                    Por default, todas as configurações de Content Delivery recebem automaticamente um nome de domínio abaixo de <em>azioncdn.net</em>.
+
+                    <br><br>
+                    Ao marcar esta opção, você estará configurando o Content Delivery para entregar seu conteúdo ou aplicações apenas pelos domínios listados no campo CNAME.
+                </td>
+            </tr>
+
+            <tr>
+                <td><span class="black-sm-sub">Edge Application</span></td>
+
+                <td>
+                    Nesse campo você seleciona o edge application que deseja associar a este domínio de entrega.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="altere-o-domain-de-sua-aplicacao-para-o-domain-criado">4. Altere o DNS de sua aplicação para o Domain criado</h2>
+
+<p>Após associar um Domain ao seu Edge Application, você irá visualizar a listagem de configurações existentes em sua conta.</p>
+
+<p>Para cada configuração criada é atribuído automaticamente um <span class="black-sm-sub">Domain Name</span> abaixo do domínio <em>*.ha.azioncdn.net</em>.</p>
+
+<p>Você precisará desse domínio para homologar o funcionamento de sua nova configuração. Para colocar sua configuração em produção, você terá que realizar o apontamento do domínio de seu conteúdo para o Domain Name atribuído à sua configuração, através de um registro do tipo CNAME em seu servidor de DNS.</p>
+
+<p class="blue-box">Você deve homologar atentamente seu conteúdo e aplicação web antes de realizar o apontamento de DNS para o Domain Name da Azion.</p>
+
+<hr class="breaker">
+
+<p>Para continuar aprendendo sobre os produtos da Azion, consulte o menu de navegação na lateral esquerda e na cabeceira, ou realize uma busca utilizando as palavras-chave na página inicial do <a class="orng-link" href="{% tl documentation %}">Azion for Developers</a>.</p>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

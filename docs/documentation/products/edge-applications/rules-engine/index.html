@@ -1,0 +1,582 @@
+<h1 class="title">Rules <span>Engine</span></h1>
+
+<p>Você pode transferir parte da lógica das regras de negócio de sua aplicação para o Intelligent Edge da Azion utilizando as funcionalidades de serverless computing do produto Application Acceleration. Dessa forma, você constrói uma arquitetura que entrega melhor performance para seus usuários e consome menos recursos e processamento em sua origem.</p>
+
+<p>O Rules Engine foi elaborado para permitir a codificação de uma lógica de execução condicional de comportamentos e ações diretamente no Intelligent Edge da Azion, mais próximo de seus usuários e, portanto, com melhor performance e taxa de transferência para sua aplicação.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#como-funciona">1. Como funciona?</a></li>
+    <li><a href="#fases-de-processamento">2. Fases de Processamento</a></li>
+    <li><a href="#regras">3. Regras</a></li>
+    <li><a href="#funcoes">4. Funções</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="como-funciona" >1. Como funciona?</h2>
+
+<p>Cada requisição de seus usuários para sua aplicação é processada em duas fases sequenciais:</p>
+
+<ol>
+    <li>Request Phase</li>
+    <li>Reponse Phase</li>
+</ol>
+
+<p>Em cada fase de processamento, você pode definir um conjunto de regras para manipular a requisição de acordo com as necessidades de sua aplicação ou negócio. As regras são compostas por critérios, que representam as condições para execução da regra, e por comportamentos, que representam as ações que precisam ser executadas.</p>
+
+<p>O processamento das fases é sequencial e você pode utilizar como critérios um poderoso conjunto de variáveis e operadores de comparação. Caso as condições sejam atendidas, os comportamentos de cada regra são executados até que todas as regras sejam processadas ou se encontre uma regra com um comportamento finalizador no caminho (<em>Deny</em>, <em>Redirect To</em>, <em>Deliver</em>).</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="fases-de-processamento" >2. Fases de Processamento</h2>
+
+<p>As fases de processamento representam as etapas em que a requisição se encontra. São elas:</p>
+
+<p class="black-sm-sub">Fase de Requisição</p>
+
+<p>Na Request Phase seu usuário está solicitando um recurso de sua aplicação. É nesta fase que você define as regras para aceitar ou não a requisição de seu usuário. Você também deve utilizar a Request Phase para manipular a requisição de seu usuário de acordo com suas regras de negócio, bem como definir quais origens deverão tratar a requisição em cada situação, caso o conteúdo solicitado não esteja em cache.</p>
+
+<p>Você pode utilizar como condições das regras da Request Phase qualquer variável relativa aos dados enviados por seu usuário na requisição. Como a resposta ainda não foi processada por sua aplicação, nessa fase você não tem acesso a variáveis relacionadas ao conteúdo que será entregue para seu usuário.</p>
+
+<p>Nesta fase, você define também como a Azion deve gerenciar o cache de sua aplicação. Caso sua aplicação não permita nenhum tipo de cache, você pode definir as condições para ignorar o cache.</p>
+
+<p class="black-sm-sub">Fase de Resposta</p>
+
+<p>Na Response Phase você pode construir as regras para manipulação final da resposta que será entregue para seus usuários. Toda manipulação processada na Response Phase é dinâmica e será executada individualmente para cada usuário.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="regras" >3. Regras</h2>
+
+<p>As regras são compostas por Criteria, que determina o conjunto de condições que precisam ser atendidas para a execução dos Behaviors.</p>
+
+<p class="black-sm-sub">Critérios</p>
+
+<p>Em Criteria você define as condições para execução da regra. Você pode utilizar um poderoso conjunto de variáveis, operadores de comparação sobre strings e operadores lógicos para construção de sua regra de negócio.</p>
+
+<p class="gray-small-title">Variáveis</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr class="td-10">
+                <td>Variável</td>
+                <td>Descrição</td>
+                <td>Fases em que pode ser utilizada</td>
+                <td>Requisitos</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>${arg<em>_name</em>}</td>
+                <td>Argumento <em>name</em> enviado pelo usuário na linha de requisição (query string). Por exemplo, para a requisição GET <em>/path?search=test</em>, a variável <em>${arg_search}</em> assumirá o valor test.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${args}</td>
+                <td>Todos os argumentos enviados pelo usuário na linha de requisição (query string).</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${cookie_<em>name</em>}</td>
+                <td>Valor do cookie <em>name</em>. Por exemplo, para o cookie<em>_icl_current_language=pt-br</em>, a variável <em>${cookie__icl_current_language}</em> assumirá o valor <em>pt-br</em>.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Adaptive Delivery</td>
+            </tr>
+            <tr>
+                <td>${device_group}</td>
+                <td>Grupo do dispositivo do usuário. Os grupos de dispositivos são customizados pelo User Agent na aba Device Groups do Real-Time Manager.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Adaptive Delivery</td>
+            </tr>
+            <tr>
+                <td>${geoip_city_continent_code}</td>
+                <td>Código de continente com 2 letras, utilizando a base de geolocalização geoip_city. Por exemplo: <em>EU</em> para Europa, <em>NA</em> para América do Norte, <em>SA</em> para América do Sul etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_city_country_code}</td>
+                <td>Código de país com 2 letras, utilizando a base de geolocalização geoip_city. Por exemplo: <em>RU</em> para Rússia, <em>BR</em> para Brasil, <em>US</em> para Estados Unidos etc.	</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_city_country_code3}</td>
+                <td>Código de país com 3 letras, utilizando a base de geolocalização geoip_city. Por exemplo: <em>RUS</em> para Rússia, <em>BRA</em> para Brasil, <em>USA</em> para Estados Unidos etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_city_country_name}</td>
+                <td>Nome do país por extenso, utilizando a base de geolocalização geoip_city. Por exemplo: <em>United States</em>, <em>Brazil</em>, <em>Russian Federation</em> etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_country_code}</td>
+                <td>Código de país com 2 letras, utilizando a base de geolocalização geoip_country. Por exemplo: <em>RU</em> para Rússia, <em>BR</em> para Brasil, <em>US</em> para Estados Unidos etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_country_code3}</td>
+                <td>Código de país com 3 letras, utilizando a base de geolocalização geoip_country. Por exemplo: <em>RUS</em> para Rússia, <em>BRA</em> para Brasil, <em>USA</em> para Estados Unidos etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${geoip_country_name}</td>
+                <td>Nome do país por extenso, utilizando a base de geolocalização geoip_country. Por exemplo: United States, Brazil, Russian Federation etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${host}</td>
+                <td>Em ordem de precedência: o <em>host</em> name da linha de requisição, ou o valor do campo de cabeçalho Host da requisição, ou o nome do servidor atendendo a requisição.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${http_<em>name</em>}</td>
+                <td>O valor do campo de cabeçalho <em>name</em> da requisição. O argumento <em>name</em> deve ser convertido para letras minúsculas e os hífens devem ser convertidos para <em>underscore</em>. Por exemplo: <em>${http_accept}</em> assumirá o valor da campo de cabeçalho Accept da requisição HTTP.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${remote_addr}</td>
+                <td>O endereço IP do cliente que está realizando a requisição HTTP.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${remote_user}</td>
+                <td>O <em>username</em> fornecido pela autenticação básica, quando houver.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${request}</td>
+                <td>A linha completa da requisição.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${request_body}</td>
+                <td>Os argumentos de um POST, enviados no body da requisição.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${request_method}</td>
+                <td>O método HTTP da requisição. Por exemplo: <em>GET</em>, <em>POST</em>, <em>PUT</em> etc.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${request_uri}</td>
+                <td>A URI completa da requisição, com argumentos (query string).</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${scheme}</td>
+                <td>O <em>scheme</em> da requisição: <em>http</em> ou <em>https</em>.</td>
+                <td>Request Phase <br>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${sent_http_<em>name</em>}</td>
+                <td>O valor do campo de cabeçalho de resposta <em>name</em>.O argumento <em>name</em> deve ser convertido para letras minúsculas e os hífens devem ser convertidos para underscore. Por exemplo: <em>${sent_http_content_length}</em> assumirá o valor do cabeçalho Content-Length.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${status}</td>
+                <td>O <em>status code</em> da resposta.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${upstream_addr}</td>
+                <td>O endereço IP e porta da origem consultada para obtenção da resposta. Caso múltiplas origens sejam consultadas durante o processamento da requisição, os endereços serão separados por vírgula. Por exemplo: <em>192.168.1.1:80, 192.168.1.2:80</em>. Se um redirect interno de um grupo de servidores para outro ocorrer, iniciado por um “X-Accel-Redirect” ou por uma página de erro, os endereços dos diferentes grupos serão separados por “:”. Por exemplo: <em>“192.168.1.1:80, 192.168.1.2:80 : 192.168.10.1:80, 192.168.10.2:80”</em>.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${upstream_cookie_<em>name</em>}</td>
+                <td>Valor do cookie <em>name</em> enviado pela origem através do campo de cabeçalho Set-Cookie. Caso múltiplas origens sejam consultadas durante o processamento da requisição, apenas os cookies da última origem são armazenados.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${upstream_http_<em>name</em>}</td>
+                <td>Valor do campo de cabeçalho <em>name</em> enviado pela origem. O argumento <em>name</em> deve ser convertido para letras minúsculas e os hífens devem ser convertidos para <em>underscore</em>. Caso múltiplas origens sejam consultadas durante o processamento da requisição, apenas os cabeçalhos da última origem são armazenados. Por exemplo: <em>${upstream_http_server}</em> assumirá o valor do campo de cabeçalho Server enviado pela última origem consultada.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${upstream_status}</td>
+                <td><em>Status Code</em> da resposta da origem enviada para o Intelligent Edge. Caso múltiplas origens sejam consultadas durante o processamento da requisição, os <em>status codes</em> serão separados por vírgula. Se um redirect interno de um grupo de servidores para outro ocorrer, iniciado por um “X-Accel-Redirect” ou por uma página de erro, os status codes dos diferentes grupos serão separados por “:”.</td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>${uri}</td>
+                <td>A URI normalizada da requisição. O valor da <em>${uri}</em> pode mudar durante o processamento de uma requisição, por exemplo, quando ocorre um redirect interno ou quando são utilizados arquivos index.</td>
+                <td>Response Phase</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="gray-small-title">Operadores de Comparação</p>
+
+<p>A condição para execução de um regra deve ser a comparação de uma variável com um argumento. Os operadores de comparação são:</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td>Operador</td>
+                <td>Descrição</td>
+                <td>Argumento</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>is equal</td>
+                <td>O valor da variável é igual ao argumento, comparado caracter a caracter.</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>is not equal</td>
+                <td>O valor da variável não é exatamente igual ao argumento.</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>starts with</td>
+                <td>O valor da variável inicia pelo argumento.</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>does not start with</td>
+                <td>O valor da variável não inicia pelo argumento.</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>matches</td>
+                <td>O valor da variável coincide com a expressão regular informada como argumento.</td>
+                <td>regular expression</td>
+            </tr>
+            <tr>
+                <td>does not match</td>
+                <td>O valor da variável não coincide com a expressão regular informada como argumento.</td>
+                <td>regular expression</td>
+            </tr>
+            <tr>
+                <td>exists</td>
+                <td>A variável tem valor definido. Por exemplo <em>${arg_search}</em> existe se foi enviado um argumento <em>search</em> na query string da requisição.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>does not exist</td>
+                <td>A variável não tem valor definido. Por exemplo <em>${arg_search}</em> não existe se não foi enviado um argumento <em>search</em> na query string da requisição.</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="gray-small-title">Operadores Lógicos</p>
+
+<p>Múltiplas condições podem ser definidas por meio dos operadores lógicos <span class="black-sm-sub">and</span> e <span class="black-sm-sub">or</span>. O operador and tem precedência implícita sobre o operador or.</p>
+
+<p>Se necessária precedência explícita, você pode adicionar múltiplos grupos de critérios sob a lógica and.</p>
+
+<p class="black-sm-sub">Comportamentos</p>
+
+<p>Em Behavior você adiciona os comportamentos que deseja executar, caso as condições da regra sejam satisfeitas.</p>
+
+<p>Em cada fase de processamento, comportamentos distintos estão disponíveis.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr class="td-10">
+                <td>Behavior</td>
+                <td style="width: 36%;">Descrição</td>
+                <td>Fases em que pode ser utilizado</td>
+                <td>Requisitos</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Add Request Header</td>
+                <td>Adiciona um campo de cabeçalho na requisição que será enviada a origem. O campo de cabeçalho deve ser informado como argumento no formato <em>Field: value</em>.</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Add Response Cookie</td>
+                <td>Adiciona um cookie na resposta através do cabeçalho Set-Cookie. O valor do cookie deve ser informado como argumento nos formatos:<br><br>
+                    <em>&lt;cookie-name&gt;=&lt;cookie-value&gt;<br>
+                    &lt;cookie-name&gt;=&lt;cookie-value&gt;; Expires=&lt;date&gt;<br>
+                    &lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;<br>
+                    &lt;cookie-name&gt;=&lt;cookie-value&gt;; Path=&lt;path-value&gt;</em><br>                        
+                    Múltiplas diretivas também são permitidas, por exemplo:<br>
+                    <em>&lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;;<br>
+                    Path=&lt;path-value&gt;; Expires=&lt;date&gt;</em>
+                </td>
+                <td>Response Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>Add Response Header</td>
+                <td>Adiciona um campo de cabeçalho na resposta que será enviada para o usuário. O campo de cabeçalho deve ser informado como argumento no formato Field: <em>value</em>.</td>
+                <td>Response Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Bypass Cache Phase</td>
+                <td>Define que a Azion não deverá armazenar em cache a resposta de sua origem. Pula o processamento da requisição diretamente para a Response Phase.</td>
+                <td>Request Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>Capture Match Groups</td>
+                <td>Behavior de apoio para manipulação de strings.<br><br>
+                    Armazena em uma variável temporária o resultado da captura de grupos de correspondência definidos por uma regex aplicada a um dos campos da requisição HTTP disponibilizados.<br><br>
+                    Essa variável temporária pode ser posteriormente referenciada no behavior Rewrite Request para montar a string de reescrita.<br><br>
+                    Este behavior requer três argumentos:<br><br>
+                    <ul>
+                        <li><em>captured array name:</em> o nome que você deseja dar a variável temporária onde será armazenado o array de strings capturadas.</li>
+                        <li><em>subject:</em> o campo da requisição HTTP de onde você deseja capturar alguma string.</li>
+                        <li><em>regex:</em> a expressão regular usada para capturar as strings. Cada grupo capturado deve ser representado entre parênteses.</li>
+                    </ul>
+                    Por exemplo, para capturar o caminho e o nome  de um arquivo em uma requisição HTTP, você poderia utilizar:<br><br>
+                    <ul>
+                        <li><em>captured array name:</em> capture</li>
+                        <li><em>subject:</em> ${uri}</li>
+                        <li><em>regex:</em> ^(.*/)([^/]*)$</li>
+                    </ul>
+                    Você poderá referenciar a variável de captura como um array utilizando a notação %{<em>variable[index]</em>}. Por se tratar de uma variável local, você só poderá utilizá-la dentro da mesma regra que estiver configurando.<br><br>
+                    Neste exemplo, se a URI for /path/image.jpg, a variável de captura apresentará os seguintes valores:<br><br>
+                    <ul>
+                        <li>%{capture[0]} = “/path/image.jpg”</li>
+                        <li>%{capture[1]} = “/path/”</li>
+                        <li>%{capture[2]} = “image.jpg”</li>
+                    </ul>
+                    Você também pode nomear os índices, para referenciá-los usando nomes em vez de um índice numérico. Para tanto, utilize a notação <em>?&lt;name&gt;</em> como no exemplo que segue.<br><br>
+                    <ul>
+                        <li><em>captured array name:</em> capture</li>
+                        <li><em>subject:</em> ${uri}</li>
+                        <li><em>regex:</em> ^(?&lt;path&gt;.*/)(?&lt;filename&gt;[^/]*)$</li>
+                    </ul>
+                    Neste exemplo, para a mesma URI /path/image.jpg, teríamos:<br><br>
+                    <ul>
+                        <li>%{capture[0]} = “/path/image.jpg”</li>
+                        <li>%{capture[path]} = %{capture[1]} = “/path/”</li>
+                        <li>%{capture[filename]} = %{capture[2]} = “image.jpg”</li>
+                    </ul>
+                </td>
+                <td>Request Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>Deliver</td>
+                <td>Encerra o processamento da requisição e entrega o conteúdo para o usuário, sem executar nenhuma das regras seguintes. Ao utilizar o behavior Deliver, você estará forçando o término do processamento imediatamente.</td>
+                <td>Request Phase
+                    Response Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Deny (403 Forbidden)</td>
+                <td>Entrega um <em>403 Forbidden</em> para o usuário. Por se tratar de uma regra finalizadora, esse behavior encerra o processamento da requisição.</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Enable Gzip</td>
+                <td>Ativa a compressão de dados Gzip, caso suportada pelo browser do usuário.</td>
+                <td>Request Phase
+                    Response Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Enable Sliced Files</td>
+                <td>Ativa segmentação de objetos grandes em slices de 1MB, caso sua origem tenha suporte a HTTP range requests.<br><br>
+                    Utilize este behavior se você entrega mídias com mais de 1MB através da CDN para que a Azion possa iniciar a entrega do conteúdo para seus usuários mesmo antes de ter recebido todo o objeto de sua origem e, dessa forma, otimizar a performance de seu site ou aplicação.<br><br>
+                    Ao ativar esta funcionalidade, a Azion irá requisitar os objetos para sua origem via range requests e os mesmos serão cacheados na Azion com advanced cache key.<br><br>
+                    Caso sua origem não tenha suporte a range requests, a Azion só poderá iniciar a entrega de seu conteúdo para seus usuários após sua origem finalizar o envio completo do objeto.
+                </td>
+                <td>Default Rule</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Enforce HLS cache</td>
+                <td>Este behavior é incluído automaticamente pela Azion toda vez que você selecionar uma origem do tipo Live Ingest. Duas ações são executadas nessa situação:<br><br>
+                    <ul>
+                        <li>o bypass de todas suas regras da Cache Phase.</li>
+                        <li>a imposição da política de cache definida pela Azion para transmissões live em HLS.</li>
+                    </ul><br>
+                    A política de cache da Azion para transmissões live em HLS é de:<br>
+                    <ul>
+                        <li>5 segundos de cache para playlists (.m3u8).</li>
+                        <li>60 segundos de cache para chunks (.ts).</li>
+                    </ul>
+                </td>
+                <td>Request Phase</td>
+                <td>Live Ingest</td>
+            </tr>
+            <tr>
+                <td>Filter Request Header</td>
+                <td>Remove um campo de cabeçalho da requisição que será enviada para a origem. O nome do campo de cabeçalho deve ser informado como argumento.</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Filter Response Header</td>
+                <td>Remove um campo de cabeçalho da resposta que será enviada para o usuário. O nome do campo de cabeçalho deve ser informado como argumento.</td>
+                <td>Response Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Forward Cookies</td>
+                <td>Ao utilizar o behavior Forward Cookies você estará determinando que a Azion encaminhe para seus usuários o cabeçalho Set-Cookie recebido de sua origem, mesmo na situação de conteúdo em cache (cache hit). Para evitar que um usuário receba Set-Cookie de sessão de outro usuário, você deve listar todos os cookies de sessão (cookies privados) de sua aplicação na aba Cache Settings de sua configuração de Content Delivery, na seção Advanced Cache Key, em Cache by Cookie.</td>
+                <td>Request Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>Index Document</td>
+                <td>Este behavior é incluído automaticamente pela Azion toda vez que você selecionar uma origem do tipo Cloud Storage.<br><br>
+                    Você deve definir o nome do index document que estiver utilizando no Cloud Storage, tipicamente index.html ou index.htm.<br><br>
+                    Para as requisições em que a URI termine com / será entregue o conteúdo do index document.<br><br>
+                    Se você utilizar pastas no Cloud Storage para organizar seu conteúdo, certifique-se de incluir a / no final das URIs para garantir a entrega do index document.
+                </td>
+                <td>Request Phase</td>
+                <td>Cloud Storage</td>
+            </tr>
+            <tr>
+                <td>Optimize Images</td>
+                <td>Ativa a otimização de imagens.</td>
+                <td>Request Phase</td>
+                <td>Image Optimization</td>
+            </tr>
+            <tr>
+                <td>Redirect HTTP to HTTPS</td>
+                <td>Redireciona a requisição HTTP para a respectiva URL em HTTPS. Caso a requisição já seja HTTPS, não executa nenhum comportamento.</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Redirect To<br>
+                    (301 Moved Permanently)</td>
+                <td>Redireciona o usuário para uma outra URL informada como argumento, utilizando o status code <em>301 Moved Permanently</em>. Por se tratar de uma regra finalizadora, esse behavior encerra o processamento da requisição.</td>
+                <td>Request Phase	</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Redirect To<br>
+                    (302 Found)</td>
+                <td>Redireciona o usuário para uma outra URL informada como argumento, utilizando o status code <em>302 Found</em>. Por se tratar de uma regra finalizadora, esse behavior encerra o processamento da requisição.</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Rewrite Request</td>
+                <td>Modifica o path do recurso que será requisitado para a origem. Você pode reescrever o path do recurso utilizando:<br><br>
+                    <ul>
+                        <li>uma string.</li>
+                        <li>as variáveis da requisição (as mesmas que podem ser utilizadas em Criteria).</li>
+                        <li>as variáveis locais, no formato %{<em>name[index]</em>}, com o resultado de captura de strings, ao utilizar o behavior auxiliar <em>Capture Match Groups</em>.</li>
+                    </ul><br><br>
+                    Por exemplo, se você deseja que a requisição de um usuário para o recurso /original/image.jpg seja enviada para sua origem como /new/image.jpg, você pode:<br><br>
+                    <ol>
+                        <li>Utilizar o behavior auxiliar <em>Capture Match Groups</em> com os argumentos:
+                            <ul>
+                                <li><em>captured array name:</em> capture</li>
+                                <li><em>subject:</em> ${uri}</li>
+                                <li><em>regex:</em> /original/(.*)</li>
+                            </ul>
+                        </li>
+                        <li>Utilizar o behavior <em>Rewrite Request</em> com o argumento:
+                            <ul>
+                                <li>/new/%{capture[1]}</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </td>
+                <td>Request Phase</td>
+                <td>Application Acceleration</td>
+            </tr>
+            <tr>
+                <td>Set Cache Policy</td>
+                <td>Atribui a política de cache que deve ser utilizada para a requisição. As políticas de cache devem ser previamente configuradas na aba Cache Settings. Na política de cache você configura o tempo que o objeto deve ser armazenado em cache e as regras para variação dos objetos em cache (advanced cache key).</td>
+                <td>Request Phase</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Set Edge Firewall</td>
+                <td>Atribui a política de Edge Firewall que deve ser utilizada para a requisição. As políticas de Edge Firewall devem ser previamente configuradas no menu Cloud Security > Edge Firewall.</td>
+                <td>Request Phase</td>
+                <td>Edge Firewall</td>
+            </tr>
+            <tr>
+                <td>Set Origin</td>
+                <td>Atribui a origem que deve ser consultada pelo Intelligent Edge. As origens devem ser previamente configuradas na aba Origins.</td>
+                <td>Request Phase</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td>Set WAF Rule Set</td>
+                <td>Atribui a política de WAF que deve ser utilizada para a requisição. As políticas de WAF devem ser previamente configuradas no menu Cloud Security > WAF.</td>
+                <td>Request Phase</td>
+                <td>Web Application Firewall</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="funcoes" >4. Funções</h2>
+
+<p>Para os behaviors que solicitam um argumento obrigatório, como por exemplo o behavior Set Cookie, você pode utilizar as mesmas variáveis que estão disponíveis em cada fase de processamento. Dessa forma você pode, por exemplo, compor cookies ou cabeçalhos http utilizando dados coletados da requisição, tais como o grupo de dispositivo do usuário ou sua geolocalização.</p>
+
+<p>A Azion também disponibiliza para você algumas funções para simplificar a manipulação de seus argumentos:</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead class="table-header">
+            <tr>
+                <td>Função e Argumento</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>${cookie_time_offset(number)}</td>
+                <td>Retorna a data atual acrescida de um offset em segundos, informado como argumento, para ser utilizado na definição do tempo de expiracão de um cookie. Por exemplo, se você deseja que o cookie expire em 1 hora, utilize o behavior Add Response Cookie com o argumento:<br>
+                    <em>&lt;cookie-name&gt;=&lt;cookie-value&gt;; Expires=${cookie_time_offset(3600)}</em>
+                </td>
+            </tr>
+
+            <tr>
+                <td>${encode_base64(string)}</td>
+                <td>Retorna o agumento codificado em base64. Por exemplo,<br><em>${encode_base64(www.domain.com)} retornará o valor d3d3LmRvbWFpbi5jb20K</em></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<p>Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a></p> 

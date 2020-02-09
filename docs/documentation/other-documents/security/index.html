@@ -1,0 +1,307 @@
+<h1 class="title">Security</h1>
+
+<p>
+    Seja bem-vindo à Azion!
+</p>
+
+<p>
+    Aqui você encontrará informações sobre os primeiros passos necessários para configurar sua conta. Sempre que necessário,
+        consulte a documentação detalhada dos produtos da Azion no menu lateral.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#active" class="orng-link">1. Ative sua conta</a></li>
+    <li><a href="#create-conf" class="orng-link">2. Crie uma nova configuração</a></li>
+    <li><a href="#content-dns" class="orng-link">3. Altere o DNS de seu conteúdo</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="active" >1.Ative sua conta</h2>
+
+<p>
+    Ao se cadastrar na Azion você receberá um email para ativação de sua conta. 
+    Nesse email você encontrará as instruções para confirmar seu endereço eletrônico e gerar sua senha. Seu endereço eletrônico será utilizado como usuário de acesso ao painel de controle web da Azion,
+    o <a href="#" class="orng-link dont-break">Real-Time Manager</a> , onde você poderá gerenciar as configurações de sua conta e produtos.
+    <br><br>
+</p>
+
+<p>
+    Caso você não receba o email, por favor verifique sua pasta Spam.
+    O email deverá ser enviado com os seguintes cabeçalhos.
+</p>
+
+<p class="blue-box">
+    From: noreply@azion.com
+    <br>
+    Subject: Please Verify Your Azion Account
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="create-conf">2.Crie uma nova configuração</h2>
+
+<p>
+    Após a ativação de sua conta, você deve criar sua primeira configuração. 
+    Para criar uma nova configuração, execute os passos que seguem:
+</p>
+
+<ul class="orng-bar-list">
+    <li>1. Acesse o <a href="" class="orng-link dont-break">Real-Time Manager</a> com o seu email e senha.</li>
+    <li>2. Clique em <em>Deploy New Configuration.</em></li>
+    <li>3. Preencha os campos solicitados e salve sua configuração.</li>
+</ul>
+
+<p>
+    Você precisa informar os campos que seguem.
+</p>
+
+<p class="black-sm-sub">Main Settings</p>
+
+<p>
+    Nesta seção são definidos os principais campos relacionados a entrega de seu conteúdo e aplicações.
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td class="head-title">Campo</td>
+                <td class="head-descr">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>
+                    Atribua um nome sugestivo para a configuração. Este nome será utilizado 
+                    para identificar a configuração de Content Delivery. Você pode utilizar o 
+                    próprio domínio de seu site como nome.
+                    <br><br>
+                    <em>Ex.: www.azion.com</em>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Delivery Protocol</td>
+                <td>
+                    Escolha o protocolo de entrega suportado pelo seu site:
+
+                    <ul>
+                        <li><em>HTTP:</em> caso seu site suporte apenas o protocolo HTTP.</li>
+                        <li>
+                            <em>HTTP &amp; HTTPS</em>: caso seu site suporte ambos protocolos HTTP e HTTPS. Para utilizar HTTPS, 
+                            você precisará de um <a href="#" class="orng-link dont-break">Digital Certificate</a>.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Digital Certificate</td>
+                <td>
+                    Se você tiver selecionado <em>HTTP &amp; HTTPS</em> na opção anterior, deverá selecionar o certificado SSL que será utilizado para criptografar o seu tráfego HTTPS. A Azion disponibiliza o 
+                    certificado <em>Azion (SAN)</em> que pode ser utilizado para os domínios abaixo de <em>azioncdn.net</em>.
+                    <br><br>
+                    Você também poderá realizar o upload de seu Custom Certificate a 
+                    qualquer momento. Consulte a <a href="#" class="orng-link">documentação técnica</a> sobre como proceder.
+                </td>
+            </tr>
+
+            <tr>
+                <td>CNAME</td>
+                <td>
+                    Configure a lista de domínios (CNAMEs) de entrega do seu conteúdo ou aplicação.
+                    Se necessário, você pode utilizar Wildcard Domain <em>(*.yourdomain.com)</em>.
+                    <br><br>
+                    <em>Ex.: www.azion.com</em>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CNAME Access Only</td>
+                <td>
+                    Por default, todas as configurações de Content Delivery recebem automaticamente 
+                    um nome de domínio abaixo de <em>azioncdn.net</em>.
+                    <br><br>
+                    Ao marcar esta opção, você estará configurando o Content Delivery para entregar seu
+                    conteúdo ou aplicações apenas pelos domínios listados no campo CNAME.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Origin Settings</p>
+
+<p>
+    Em Origin Settings são definidos os campos relacionados a origem de seu conteúdo. Para entender mais 
+    sobre como funciona o Content Delivery, para que serve a origem ou como 
+    realizar configurações mais avançadas de origem, consulte a documentação técnica do produto.
+</p>
+
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td class="head-title">Campo</td>
+                <td class="head-descr">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Address</td>
+                <td>
+                    Defina o endereço de origem do seu conteúdo, no formato FQDN (Full Qualified Domain Name),
+                    por exemplo <em>origem.azion.com</em>, ou endereço IP.
+                    <br><br>
+
+                    Por padrão a Azion se conectará em sua origem pela porta 80, para HTTP, ou 443, para HTTPS.
+                    Se desejar configurar uma porta diferente de conexão com sua origem, você pode utilizar a notação <em>host:port</em> nesse campo, por exemplo <em>origem.azion.com:8080</em>.
+                    Consulte o campo abaixo para entender opções de conexão com sua origem.
+                    <br><br>
+
+                    Você não pode configurar como origem o mesmo domínio de entrega de seu conteúdo. 
+                    A origem deve possuir um endereço próprio.
+                    
+                </td>
+            </tr>
+
+            <tr>
+                <td>Origin Protocol Policy</td>
+                <td>
+                    Na arquitetura de proxy reverso adotada pela Azion, seus usuários se conectam ao Intelligent Edge por HTTP ou HTTPS 
+                    e você escolhe como deseja que a Azion se conecte em sua origem:
+
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">Preserve HTTP/HTTPS protocol</span>: irá manter o mesmo protocolo de conexão (HTTP ou HTTPS) e
+                            porta utilizados por seu usuário 
+                            ao acessar seu conteúdo na Azion para se conectar em sua origem.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">Enforce HTTP</span>:a conexão entre os Edge Servers da Azion e sua origem será por HTTP,
+                                independente do protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma 
+                                porta para sua origem no campo Address diferente da porta default (80 para HTTP) se desejar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">Enforce HTTPS</span>:a conexão entre os Edge Servers da Azion e 
+                            sua origem será por HTTPS, independente do protocolo de conexão (HTTP ou HTTPS) e 
+                            porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (443 para HTTPS) se desejar.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Host Header</td>
+                <td>
+                    O cabeçalho Host é utilizado por sua origem para identificar o <em>virtualhost</em> e localizar seu
+                    conteúdo ou aplicação. Ao configurar uma origem no Real-Time Manager,
+                    você pode customizar a valor que deve ser enviado pela Azion no cabeçalho Host.
+                    <br><br>
+                    Utilize o valor <em>${host}</em>, no campo Host Header, caso sua origem esteja configurada para responder o <em>virtualhost</em> pelo mesmo domínio que é utilizado por seus usuários para acessar seu conteúdo na Azion. Dessa forma, você estará instruindo os edge serveres 
+                    a repassarem para sua origem o mesmo cabeçalho Host que for recebido de seus visitantes.
+                    <br><br>
+                    Se necessário, você pode preencher um valor customizado de Host Header para ser enviado para sua origem. Por exemplo, <em>origin.domain.com</em>. Você deve customizar o Host Header se sua origem estiver configurada
+                    para responder um <em>virtualhost</em> em um domínio diferente do que é utilizado por seus usuários.
+
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Cache Settings</p>
+
+<p>Nesta seção serão definidas as opções de cache para seu conteúdo. Há dois tipos de cache:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Browser Cache</span> é o cache de seu conteúdo armazenado no browser de seus usuários. Você pode definir tempo de vida (<em>time-to-live</em>, TTL) para cada conteúdo, mas terá pouca autonomia para forçar a expiração do conteúdo antes do tempo definido como TTL, caso haja necessidade de alterar o conteúdo antes do tempo.</li>
+    <li><span class="black-sm-sub">CDN Cache</span> é o cache de seu conteúdo nos Edge Servers da Azion. Além de poder definir o TTL para cada tipo de conteúdo, você poderá executar, em tempo real, 
+        a operação de <a href="#" class="orng-link">Purge</a> do conteúdo, sempre que houver necessidade de eliminar os dados armazenados no cache.</li>
+</ul>
+
+
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td class="head-title">Campo</td>
+                <td class="head-descr">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Browser Cache Settings</td>
+                <td>
+                    Utilize a opção <em>Honor Origin</em> Cache Headers se desejar que a Azion envie para seus usuários os mesmos cabeçalhos de 
+                    controle de cache recebidos de sua origem.
+                    <br><br>
+
+                    Você também pode customizar o controle de Browser Cache selecionando a opção <em>Override Cache Settings</em>. Nesse caso, você deverá definir um <span class="black-sm-sub">Maximum TTL</span>, 
+                    que é o tempo de vida (em segundos) máximo que o conteúdo poderá ficar em cache no browser de seus usuários.
+                </td>
+            </tr>
+
+            <tr>
+                <td>CDN Cache Settings</td>
+                <td>
+                    Utilize a opção <em>Honor Origin Cache Headers</em> se desejar que a Azion respeite os cabeçalhos
+                    de controle de cache recebidos de sua origem, para gestão do cache nos Edge Servers da Azion.
+                    <br><br>
+
+                    Você também pode customizar o controle de CDN Cache selecionando a opção <em>Override Cache Settings</em>. Nesse caso, você deverá definir um <span class="black-sm-sub">Maximum TTL</span>, que é o tempo de vida (em segundos)
+                    máximo que o conteúdo poderá ficar em cache nos Edge Servers da Azion. Você poderá, a qualquer momento, executar a Purge do conteúdo em tempo real.
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    Não se esqueca de salvar sua configuração clicando no botão <span class="black-sm-sub">Save</span>. Ou, se necessário, clique no botão <span class="black-sm-sub">Add &amp; Advanced</span> para configurações mais avançadas do Content Delivery. 
+</p>
+
+<p>
+    Se você estiver interessado em configurações mais avançadas de cache (Advanced Cache Key), consulte a documentação
+    técnica do produto <a href="#" class="orng-link dont-break">Application Acceleration</a>.
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="content-dns">3. Altere o DNS de seu conteúdo</h2>
+
+<p>Após salvar sua nova configuração, você irá visualizar a listagem de configurações existentes em sua conta.</p>
+
+<p>Para cada configuração criada é atribuído automaticamente um <span class="black-sm-sub">Domain Name</span>  abaixo do domínio <em>azioncdn.net</em>.</p>
+
+<p>
+    Você precisará desse domínio para homologar o funcionamento de sua nova configuração. Para colocar sua configuração em produção, você terá que realizar o apontamento do domínio de seu conteúdo para o 
+    Domain Name atribuído à sua configuração, através de um registro do tipo CNAME em seu servidor de DNS.
+</p>
+
+<p class="blue-box">
+    Você deve homologar atentamente seu conteúdo e aplicação web antes de realizar o apontamento de DNS para o Domain Name da Azion.
+</p>
+
+<hr class="breaker">
+
+<p>
+    Para continuar aprendendo sobre os produtos da Azion, consulte o menu de navegação na lateral esquerda e na cabeceira, ou 
+    realize uma busca utilizando as palavras-chave na página inicial do <a href="#" class="orng-link dont-break">Azion for Developers</a>.
+</p>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

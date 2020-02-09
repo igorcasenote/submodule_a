@@ -1,0 +1,928 @@
+<h1 class="title">Device <span>Groups</span></h1>
+
+<p>
+    Por meio da API do Content Delivery você pode consultar, criar, 
+    remover ou atualizar suas configurações. Para gerenciamento de Device Groups 
+    (requer o produto <a href="{%tl  documentation_products_adaptative_delivery %}" class="orng-link">Adaptive Delivery</a>), utilize os endpoints que seguem.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consultar-lista-de-grupos-de-dispositivos">1. Consultar lista de grupos de dispositivos</a></li>
+    <li><a href="#consultar-dados-de-um-grupo-de-dispositivos">2. Consultar dados de um grupo de dispositivos</a></li>
+    <li><a href="#deletar-um-grupo-de-dispositivos">3. Deletar um grupo de dispositivos</a></li>
+    <li><a href="#criar-um-novo-grupo-de-dispositivos">4. Criar um novo grupo de dispositivos</a></li>
+    <li><a href="#sobrescrever-um-grupo-de-dispositivos">5. Sobrescrever um grupo de dispositivos</a></li>
+    <li><a href="#atualizar-campos-de-um-grupo-de-dispositivos">6. Atualizar campos de um grupo de dispositivos</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 id="consultar-lista-de-grupos-de-dispositivos" class="black-small-title">1. Consultar lista de grupos de dispositivos</h2>
+
+<p>Retorna a lista de grupos de dispositivos de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table >
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+                    
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1492081095/device_groups
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+                    <p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 314,
+      "name": "Mobile","user_agent":"(Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dol(f|ph)in|Skyfire|Zune)"
+   },
+   {
+      "id": 321,
+      "name": "Tablet","user_agent":"(Tablet|iPad|Silk)"
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="consultar-dados-de-um-grupo-de-dispositivos" class="black-small-title">2. Consultar dados de um grupo de dispositivos</h2>
+
+<p>Retorna dados de um grupo de dispositivos de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups/</span>:device_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table >
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+
+            <tr>
+                <td>
+                    :device_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id do grupo de dispositivos a ser consultado.
+                    Para obter o Id de um grupo de dispositivos, consulte a 
+                    <a href="#consultar-lista-de-grupos-de-dispositivos" class="orng-link">Lista de Grupos de Dispositivos</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1492081095/device_groups/314
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 314,
+    "name": "Mobile",
+    "user_agent": "(Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dol(f|ph)in|Skyfire|Zune)"
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="deletar-um-grupo-de-dispositivos" class="black-small-title">3. Deletar um grupo de dispositivos</h2>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups/</span>:device_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    Remove um grupo de dispositivos de uma configuração de Content Delivery. 
+    O grupo não pode estar em uso para ser removido.
+</p>
+
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery que possui a origem que será removida.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+
+            <tr>
+                <td>
+                    :device_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id do grupo de dispositivos a ser removido.<br>
+                    Para obter o Id de um grupo de dispositivos, consulte a 
+                    <a href="#consultar-lista-de-grupos-de-dispositivos" class="orng-link">Lista de Grupos de Dispositivos</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /content_delivery/configurations/1492081095/device_groups/321
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code">
+{% highlight console %}
+HTTP/2 204
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="criar-um-novo-grupo-de-dispositivos" class="black-small-title">4. Criar um novo grupo de dispositivos</h2>
+
+<p>Cria um novo grupo de dispositivos em uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json 
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser criada.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+
+            <tr>
+                <td>
+                    Device Group
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O grupo de dispositivos que se deseja criar deve ser enviado codificado no formato json com os seguintes campos:
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): campo obrigatório que define um nome para o grupo de dispositivos.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">user_agent</span>
+                            (string): expressão regular sobre o cabeçalho User Agent 
+                            para detecção do grupo de dispositivos.
+                        </li>
+                    </ul>
+                </td>
+                
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /content_delivery/configurations/1492081095/device_groups
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Tablet",
+    "user_agent": "(Tablet|iPad|Silk)"
+ } 
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                        
+<div class="white-code">
+{% highlight console %}
+HTTP/2 201
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 322,
+    "name": "Tablet",
+    "user_agent": "(Tablet|iPad|Silk)"
+ } 
+{% endhighlight %}
+</div>
+
+    <hr class="breaker">
+
+    <h2 id="sobrescrever-um-grupo-de-dispositivos" class="black-small-title">5. Sobrescrever um grupo de dispositivos</h2>
+
+    <p>
+        Sobrescreve todos os campos de um grupo de dispositivos, 
+        preservando o id. Considere utilizar o método PATCH no lugar de 
+        PUT, para atualizar somente alguns campos da configuração sem alterar o valor dos demais.
+    </p>
+    <div class="scrollTable">
+        <table class="button-txt">
+            <tbody>
+                <tr>
+                    <td class="button-bar accept"><span>PUT</span></td>
+                    <td class="txt-bar">
+                        <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups/</span>:device_id
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+    
+    <div class="table-orange-gray">
+        <table>
+            <thead>
+                <tr class="td-10">
+                    <td>Parâmetro</td>
+                    <td>Descrição</td>
+                    <td>Tipo de Parâmetro</td>
+                    <td>Tipo de Dado</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        Authorization
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        A autenticação por Token previamente criado através do endpoint 
+                        de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                        <br><br>
+                        ex.:
+                        <br><br>
+                        Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                    </td>
+
+                    <td>header</td>
+
+                    <td>string</td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        Content-Type
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        O tipo de codificação utilizada no Body (application/json).
+                        <br><br>
+                        ex.:
+                        <br><br>
+                        Content-Type: application/json 
+                    </td>
+                    <td>header</td>
+                    <td>string</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        :conf_id
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        Id da configuração de Content Delivery para a qual a Origem deve ser substituída.<br>
+                        Para obter o Id de uma configuração, consulte a
+                        <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                    </td>
+                    
+                    <td>
+                        path
+                    </td>
+                    <td>
+                        number
+                    </td> 
+                </tr>
+
+                <tr>
+                    <td>
+                        :device_id
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        Id do grupo de dispositivos a ser sobrescrito.
+                        Para obter o Id de uma configuração, consulte a
+                        <a href="#consultar-lista-de-grupos-de-dispositivos" class="orng-link">Lista de Grupos de Dispositivos</a>.
+                    </td>
+                    
+                    <td>
+                        path
+                    </td>
+                    <td>
+                        number
+                    </td> 
+                </tr>
+
+                <tr>
+                    <td>
+                        Device Group
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        O grupo de dispositivos que se deseja sobrescrever deve ser enviado codificado no formato json com os seguintes campos:
+                        <br><br>
+                        <ul>
+                            <li>
+                                <span class="black-sm-sub">name</span>
+                                (string): define um nome para o grupo de dispositivos.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">user_agent</span>
+                                (string): expressão regular sobre o cabeçalho User Agent para detecção do grupo de dispositivos.
+                            </li>
+                        </ul>
+                    </td>
+                    
+                    <td>
+                        body
+                    </td>
+                    <td>
+                        json
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1492081095/device_groups/314
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Mobile",
+    "user_agent": "(Mobile|iP(hone|od)|BlackBerry|IEMobile|Opera M(obi|ini))"
+ } 
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                        
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 314,
+    "name": "Mobile",
+    "user_agent": "(Mobile|iP(hone|od)|BlackBerry|IEMobile|Opera M(obi|ini))"
+} 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="atualizar-campos-de-um-grupo-de-dispositivos" class="black-small-title">6. Atualizar campos de um grupo de dispositivos</h2>
+
+<p>
+    Atualiza um ou mais campos de um grupo de dispositivos em uma configuração de Content Delivery, preservando o valor dos campos não informados.
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/device_groups/</span>:device_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v1_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json 
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+
+            <tr>
+                <td>
+                    :device_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id do grupo de dispositivos a ser atualizado
+                    Para obter o Id de um grupo de dispositivos, consulte a 
+                    <a href="#consultar-lista-de-grupos-de-dispositivos" class="orng-link">Lista de Grupos de Dispositivos</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td> 
+            </tr>
+
+            <tr>
+                <td>
+                    Device Group
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Os campos do grupo de dispositivos que se deseja atualizar devem ser enviados codificados no formato json:
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): define um nome para o grupo de dispositivos.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">user_agent</span>
+                            (string): expressão regular sobre o cabeçalho User Agent para detecção do grupo de dispositivos.
+                        </li>
+                    </ul>
+                </td>
+                
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /content_delivery/configurations/1492081095/device_groups/322
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "user_agent": "(Tablet|iPad|Kindle)"
+} 
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                            
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 322,
+    "name": "Tablet",
+    "user_agent": "(Tablet|iPad|Kindle)"
+ } 
+{% endhighlight %}
+</div>
+     
+<hr class="breaker">
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

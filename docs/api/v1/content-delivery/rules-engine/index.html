@@ -1,0 +1,735 @@
+<h1 class="title">Rules <span>Engine</span></h1>
+    
+<p>Através da API do Content Delivery você pode consultar, remover ou atualizar suas configurações existentes, bem como criar novas configurações de Content Delivery. Para Rules Engine, utilize os endpoints que seguem.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-regras-do-rules-engine">1. Consulta lista de regras do Rules Engine</a></li>
+    <li><a href="#consulta-dados-de-uma-regra-do-rules-engine">2. Consulta dados de uma regra do Rules Engine</a></li>
+    <li><a href="#deletar-uma-regra-do-rules-engine">3. Deletar uma regra do Rules Engine</a></li>
+    <li><a href="#criar-uma-nova-regra-do-rules-engine">4. Criar uma nova regra do Rules Engine</a></li>
+    <li><a href="#sobrescrever-uma-regra-do-rules-engine">5. Sobrescrever uma regra do Rules Engine</a></li>
+    <li><a href="#atualizar-campos-de-uma-regra-do-rules-engine">6. Atualizar campos de uma regra do Rules Engine</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-regras-do-rules-engine" >1. Consulta lista de regras do Rules Engine</h2>
+
+<p>Retorna a lista de regras do Rules Engine de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery a ser consultada.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.<a/>
+                </td>
+                <td>path</td>
+                <td>header</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1473450681/rules_engine
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 1380,
+      "path": "/",
+      "regex": false,
+      "protocol_policy": "http",
+      "behavior": "delivery",
+      "gzip": true,
+      "path_origin_id": 1017,
+      "forward_cookies": "none",
+      "waf_rule_set_id": null,
+      "edge_firewall_id": null,
+      "cache_settings_id": 708
+   },
+   {
+      "id": 1394,
+      "path": "\\.(jpg|jpeg|gif|png)$",
+      "regex": true,
+      "protocol_policy": "http",
+      "behavior": "image_optimization",
+      "gzip": false,
+      "path_origin_id": 1017,
+      "forward_cookies": "none",
+      "waf_rule_set_id": null,
+      "edge_firewall_id": null,
+      "cache_settings_id": 708
+   },
+   {
+      "id": 1393,
+      "path": "/1368h",
+      "regex": false,
+      "protocol_policy": "http",
+      "behavior": "delivery",
+      "gzip": true,
+      "path_origin_id": 1024,
+      "waf_rule_set_id": null,
+      "edge_firewall_id": null,
+      "cache_settings_id": 706
+   },
+   {
+      "id": 1395,
+      "path": "/0001a",
+      "regex": false,
+      "protocol_policy": "http",
+      "behavior": "delivery",
+      "gzip": true,
+      "path_origin_id": 1025,
+      "forward_cookies": "none",
+      "waf_rule_set_id": null,
+      "edge_firewall_id": null,
+      "cache_settings_id": 708
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-de-uma-regra-do-rules-engine" >2. Consulta dados de uma regra do Rules Engine</h2>
+
+<p>Retorna dados de uma regra do Rules Engine de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/:rule_id</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery a ser consultada.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigatório)</td>
+                <td>Id da regra de Rules Engine a ser consultada.<br>
+                        Para obter o Id de uma origem, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1487160529/rules_engine/1380
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 1380,
+    "path": "/",
+    "regex": false,
+    "protocol_policy": "http",
+    "behavior": "delivery",
+    "gzip": true,
+    "path_origin_id": 1017,
+    "forward_cookies": "none",
+    "waf_rule_set_id": null,
+    "edge_firewall_id": null,
+    "cache_settings_id": 708
+ }
+{% endhighlight %}
+</div>
+<hr class="breaker">
+
+<h2 class="black-small-title" id="deletar-uma-regra-do-rules-engine" >3. Deletar uma regra do Rules Engine</h2>
+
+<p>Remove uma regra do Rules Engine de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/:rule_id</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery que possui a regra que será removida.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigatório)</td>
+                <td>Id da regra de Rules Engine a ser removida.<br>
+                        Para obter o Id de uma origem, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /content_delivery/configurations/1467640447/rules_engine/2460
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 204 NO CONTENT
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-nova-regra-do-rules-engine" >4. Criar uma nova regra do Rules Engine</h2>
+
+<p>Cria uma nova regra do Rules Engine em uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/:rule_id</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser criada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>A regra que se deseja criar deve ser enviada codificada no formato json com os seguintes campos obrigatórios:
+                    <ul>
+                        <li><span class="black-sm-sub">path</span> (string): o caminho ou URI para a qual a regra deve ser aplicada. Pode ser utilizada regex para especificar o caminho.</li>
+                        <li><span class="black-sm-sub">regex</span> (boolean): define se o caminho especificado no campo “path“ deve ser tratado como string. Atribua o valor false para tratar o campo “path” como string e o valor true para tratá-lo como regex.</li>
+                        <li><span class="black-sm-sub">protocol_policy</span> (string): atribua o valor “<em>http</em>“, caso o seu conteúdo seja entregue apenas por HTTP, “<em>http,https</em>” para configurar a entrega utilizando esses dois protocolos, ou o valor “<em>redirect_to_https</em>“, se desejar configurar redirecionamento 301 de todas as requisições HTTP para as respectivas URLs em HTTPS.</li>
+                        <li><span class="black-sm-sub">behavior</span> (string): utilize os valores “<em>delivery</em>“, para definir o comportamento de proxy e cache; “<em>redirect</em>“, para informar uma URL para a qual o conteúdo deve ser redirecionado com status code 301; “<em>access_denied</em>“, para bloquear incondicionalmente o acesso a uma página com status code 403; “<em>acceleration</em>” (requer produto Application Acceleration) para utilizar qualquer funcionalidade de aceleração de aplicações;<br>  “<em>image_optimization</em>“, para utilizar qualquer funcionalidade de optimização ou manipulação de imagens.</li>
+                        <li><span class="black-sm-sub">path_origin_id</span> (number): o id da origem cadastrada na configuração de Content Delivery. Para obter o id das configurações, consulte a <a href="{% tl api_v1_content_delivery_origins %}#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.</li>
+                    </ul>
+                    E os seguintes campos opcionais:
+                    <ul>
+                        <li><span class="black-sm-sub">gzip</span> (boolean): utilize o valor true para ativar a compressão gzip, ou false, para desativá-la.</li>
+                        <li><span class="black-sm-sub">redirect_to</span> (string): utilizado em conjunto com o behavior “<em>redirect</em>” para definir a URL de destino. Utilize o valor vazio (“”) para outros behaviors, que não o “<em>redirect</em>“.</li>
+                        <li><span class="black-sm-sub">forward_cookies</span> (choice): utilizado em conjunto com o behavior “<em>acceleration</em>” para definir se os cookies devem ser transmitidos para sua origem ou se devem ser filtrados. Utilize o valor “<em>all</em>” para transmitir os cookies para a origem, ou “<em>none</em>” para filtrá-los.</li>
+                        <li><span class="black-sm-sub">waf_rule_set_id</span> (number): o id da rule set do WAF. Para obter o id das rule sets, consulte a <a href="{% tl api_v1_cloud-security_web_app_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do WAF</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set de WAF deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">edge_firewall_id</span> (number): o id da rule set do Edge Firewall. Para obter o id das rule sets, consulte a <a href="{% tl security_web_app_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do Edge Firewall</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set do Edge Firewall deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">cache_settings_id</span> (number): o id da Cache Setting que você deseja associar a esse path. Para obter o id da Cache Settings, consulte a <a href="{% tl api_v1_cloud-security_edge_firewall %}#consulta-lista-de-cache-settings" class="orng-link">Lista de Cache Settings</a>. Utilize o valor <em>null</em> para configurar a entrega de objetos respeitando os headers de cache enviados por sua origem.</li>
+                    </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /content_delivery/configurations/1473450681/rules_engine
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+   "path": "/mypath",
+   "regex": false,
+   "protocol_policy": "http,https",
+   "behavior": "delivery",
+   "gzip": true,
+   "redirect_to": "",
+   "path_origin_id": 1017,
+   "forward_cookies": "none",
+   "waf_rule_set_id": null,
+   "edge_firewall_id": null,
+   "cache_settings_id": null
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 201 CREATED
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 2460,
+    "path": "/mypath",
+    "regex": false,
+    "protocol_policy": "http,https",
+    "behavior": "delivery",
+    "gzip": true,
+    "redirect_to": "",
+    "path_origin_id": 1017,
+    "forward_cookies": "none",
+    "waf_rule_set_id": null,
+    "edge_firewall_id": null,
+    "cache_settings_id": null
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-uma-regra-do-rules-engine" >5. Sobrescrever uma regra do Rules Engine</h2>
+
+<p>Sobrescreve todos os campos de uma regra do Rules Engine, preservando o id. Os campos opcionais não informados serão substituídos pelos valores default. Considere utilizar o método PATCH no lugar de PUT, para atualizar somente alguns campos da configuração sem alterar o valor dos demais.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser substituída.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigratório)</td>
+                <td>Id da regra de Rules Engine a ser sobrescrita.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>Os novos valores de cada campo da configuração. Os campos não preenchidos serão substituídos pelo valor default. Se você desejar alterar apenas um dos campos, utilize o método PATCH ao invés do PUT.
+                    <ul>
+                        <li><span class="black-sm-sub">path</span> (string): o caminho ou URI para a qual a regra deve ser aplicada. Pode ser utilizada regex para especificar o caminho.</li>
+                        <li><span class="black-sm-sub">regex</span> (boolean): define se o caminho especificado no campo “path“ deve ser tratado como string. Atribua o valor false para tratar o campo “path” como string e o valor true para tratá-lo como regex.</li>
+                        <li><span class="black-sm-sub">protocol_policy</span> (string): atribua o valor “<em>http</em>“, caso o seu conteúdo seja entregue apenas por HTTP, “<em>http,https</em>” para configurar a entrega utilizando esses dois protocolos, ou o valor “<em>redirect_to_https</em>“, se desejar configurar redirecionamento 301 de todas as requisições HTTP para as respectivas URLs em HTTPS.</li>
+                        <li><span class="black-sm-sub">behavior</span> (string): utilize os valores “<em>delivery</em>“, para definir o comportamento de proxy e cache; “<em>redirect</em>“, para informar uma URL para a qual o conteúdo deve ser redirecionado com status code 301; “<em>access_denied</em>“, para bloquear incondicionalmente o acesso a uma página com status code 403; “<em>acceleration</em>” (requer produto Application Acceleration) para utilizar qualquer funcionalidade de aceleração de aplicações;<br>  “<em>image_optimization</em>“, para utilizar qualquer funcionalidade de optimização ou manipulação de imagens.</li>
+                        <li><span class="black-sm-sub">gzip</span> (boolean): utilize o valor true para ativar a compressão gzip, ou false, para desativá-la.</li>
+                        <li><span class="black-sm-sub">redirect_to</span> (string): utilizado em conjunto com o behavior “<em>redirect</em>” para definir a URL de destino. Utilize o valor vazio (“”) para outros behaviors, que não o “<em>redirect</em>“.</li>
+                        <li><span class="black-sm-sub">path_origin_id</span> (number): o id da origem cadastrada na configuração de Content Delivery. Para obter o id das configurações, consulte a <a href="{% tl api_v1_content_delivery_origins %}#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.</li>
+                        <li><span class="black-sm-sub">forward_cookies</span> (choice): utilizado em conjunto com o behavior “<em>acceleration</em>” para definir se os cookies devem ser transmitidos para sua origem ou se devem ser filtrados. Utilize o valor “<em>all</em>” para transmitir os cookies para a origem, ou “<em>none</em>” para filtrá-los.</li>
+                        <li><span class="black-sm-sub">waf_rule_set_id</span> (number): o id da rule set do WAF. Para obter o id das rule sets, consulte a <a href="{% tl api_v1_cloud-security_web_app_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do WAF</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set de WAF deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">edge_firewall_id</span> (number): o id da rule set do Edge Firewall. Para obter o id das rule sets, consulte a <a href="{% tl api_v1_cloud-security_edge_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do Edge Firewall</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set do Edge Firewall deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">cache_settings_id</span> (number): o id da Cache Setting que você deseja associar a esse path. Para obter o id da Cache Settings, consulte a <a href="{% tl api_v1_content_delivery_cache_settings %}#consulta-lista-de-cache-settings" class="orng-link">Lista de Cache Settings</a>. Utilize o valor <em>null</em> para configurar a entrega de objetos respeitando os headers de cache enviados por sua origem.</li>
+                    </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1473450681/rules_engine/2460
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "path": "/mypath",
+    "regex": false,
+    "protocol_policy": "http,https",
+    "behavior": "redirect",
+    "redirect_to": "https://mydomain.com/newpath"
+ }
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 2460,
+    "path": "/mypath",
+    "regex": false,
+    "protocol_policy": "http,https",
+    "behavior": "redirect",
+    "redirect_to": "https://mydomain.com/newpath"
+ }
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="atualizar-campos-de-uma-regra-do-rules-engine" >6. Atualizar campos de uma regra do Rules Engine</h2>
+
+<p>Atualiza um ou mais campos de uma regra do Rules Engine de uma configuração de Content Delivery, preservando o valor dos campos não informados.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigratório)</td>
+                <td>Id da regra de Rules Engine a ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="#consulta-lista-de-configuracoes">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>Devem ser informados um ou mais campos a serem atualizados. Os campos não informados não terão o seu valor alterado.
+                    <ul>
+                        <li><span class="black-sm-sub">path</span> (string): o caminho ou URI para a qual a regra deve ser aplicada. Pode ser utilizada regex para especificar o caminho.</li>
+                        <li><span class="black-sm-sub">regex</span> (boolean): define se o caminho especificado no campo “path“ deve ser tratado como string. Atribua o valor false para tratar o campo “path” como string e o valor true para tratá-lo como regex.</li>
+                        <li><span class="black-sm-sub">protocol_policy</span> (string): atribua o valor “<em>http</em>“, caso o seu conteúdo seja entregue apenas por HTTP, “<em>http,https</em>” para configurar a entrega utilizando esses dois protocolos, ou o valor “<em>redirect_to_https</em>“, se desejar configurar redirecionamento 301 de todas as requisições HTTP para as respectivas URLs em HTTPS.</li>
+                        <li><span class="black-sm-sub">behavior</span> (string): utilize os valores “<em>delivery</em>“, para definir o comportamento de proxy e cache; “<em>redirect</em>“, para informar uma URL para a qual o conteúdo deve ser redirecionado com status code 301; “<em>access_denied</em>“, para bloquear incondicionalmente o acesso a uma página com status code 403; “<em>acceleration</em>” (requer produto Application Acceleration) para utilizar qualquer funcionalidade de aceleração de aplicações;<br>  “<em>image_optimization</em>“, para utilizar qualquer funcionalidade de optimização ou manipulação de imagens.</li>
+                        <li><span class="black-sm-sub">gzip</span> (boolean): utilize o valor true para ativar a compressão gzip, ou false, para desativá-la.</li>
+                        <li><span class="black-sm-sub">redirect_to</span> (string): utilizado em conjunto com o behavior “<em>redirect</em>” para definir a URL de destino. Utilize o valor vazio (“”) para outros behaviors, que não o “<em>redirect</em>“.</li>
+                        <li><span class="black-sm-sub">path_origin_id</span> (number): o id da origem cadastrada na configuração de Content Delivery. Para obter o id das configurações, consulte a <a href="{% tl api_v1_content_delivery_origins %}" class="orng-link">Lista de Origens</a>.</li>
+                        <li><span class="black-sm-sub">forward_cookies</span> (choice): utilizado em conjunto com o behavior “<em>acceleration</em>” para definir se os cookies devem ser transmitidos para sua origem ou se devem ser filtrados. Utilize o valor “<em>all</em>” para transmitir os cookies para a origem, ou “<em>none</em>” para filtrá-los.</li>
+                        <li><span class="black-sm-sub">waf_rule_set_id</span> (number): o id da rule set do WAF. Para obter o id das rule sets, consulte a <a href="{% tl api_v1_cloud-security_web_app_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do WAF</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set de WAF deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">edge_firewall_id</span> (number): o id da rule set do Edge Firewall. Para obter o id das rule sets, consulte a <a href="{% tl api_v1_cloud-security_edge_firewall %}#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets do Edge Firewall</a>. Utilize o valor <em>null</em> para definir que nenhuma rule set do Edge Firewall deve ser atribuída a esse path.</li>
+                        <li><span class="black-sm-sub">cache_settings_id</span> (number): o id da Cache Setting que você deseja associar a esse path. Para obter o id da Cache Settings, consulte a <a href="{% tl api_v1_content_delivery_cache_settings %}#consulta-lista-de-cache-settings" class="orng-link">Lista de Cache Settings</a>. Utilize o valor <em>null</em> para configurar a entrega de objetos respeitando os headers de cache enviados por sua origem.</li>
+                    </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /content_delivery/configurations/1473450681/rules_engine/2460
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "behavior": "delivery",
+    "path_origin_id": 1017,
+    "cache_settings_id": 706
+ }
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+   "id": 2460,
+   "path": "/mypath",
+   "regex": false,
+   "protocol_policy": "http,https",
+   "behavior": "delivery",
+   "gzip": true,
+   "redirect_to": "",
+   "path_origin_id": 1017,
+   "forward_cookies": "none",
+   "waf_rule_set_id": null,
+   "edge_firewall_id": null,
+   "cache_settings_id": 706
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>   

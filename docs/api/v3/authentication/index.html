@@ -1,0 +1,209 @@
+<h1 class="title">Authentication</h1>
+    
+<p>
+    A autenticação e autorização de operações via Azion API é feita através de Tokens.
+</p>
+
+<p>
+    O primeiro passo é criar o Token através da autenticação de um usuário registrado no <a class="orng-link" href="https://manager.azion.com/">Real-Time Manager</a>.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#como-codificar-usuario-e-senha-em-base64">1. Como codificar Usuário e Senha em Base64</a></li>
+    <li><a href="#criacao-de-token">2. Criação de Token</a></li>
+    <li><a href="#revogacao-de-token">3. Revogacão de Token</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="como-codificar-usuario-e-senha-em-base64">1. Como codificar Usuário e Senha em Base64</h2>
+
+<p>
+    Apenas as operações de criação e revogação de token são feitas com Basic Authentication, isto é, com usuário e senha. Você pode criar e revogar o token pela própria API, mas para isso precisa codificar seu usuário e senha em base64.
+</p>
+
+<p>
+    A codificação base64 pode ser feito em linha de comando em um terminal Unix:
+</p>
+
+{% highlight console %}
+$ echo 'user@domain:password'|base64
+ dXNlckBkb21haW46cGFzc3dvcmQK
+{% endhighlight %}
+
+<p>Se você não tiver disponível um terminal Unix, pode utilizar o serviço online gratuito em <a class="orng-link" href="https://www.base64encode.org/">https://www.base64encode.org/</a>.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criacao-de-token">2. Criação de Token</h2>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar"><span class="bold">/tokens</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação básica para criação do Token se dá por meio do par “user@domain:password” 
+                    codificado em base64, enviado na requisição HTTP através 
+                    do cabeçalho “Authorization: Basic 	&lt;base64&gt;”.
+                    <br><br>
+
+                    Por exemplo, se o usuário for “user@domain” e a senha for “password” a codificação
+                    base64 resultante da string “user@domain:password” será “dXNlckBkb21haW46cGFzc3dvcmQK”
+                    e o cabeçalho a ser enviado será:
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    Basic dXNlckBkb21haW46cGFzc3dvcmQK
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code ">
+{% highlight console %}
+POST /tokens
+Accept: application/json; version=3
+Authorization: Basic dXNlckBkb21haW46cGFzc3dvcmQK
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "token": "3a110f2990cfbce7b84265cc027f992acb9743eb",
+    "created_at": "2019-04-01 13:53:28.536782+00:00",
+    "expires_at": "2019-04-02 13:53:28.536782+00:00"
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="revogacao-de-token">3. Revogacão de Token</h2>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar"><span class="bold">/tokens/</span><span>:token</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação básica para revogação do Token se dá por meio do par 
+                    “user@domain:password” codificado em base64, enviado na requisição HTTP através do cabeçalho
+                    “Authorization: Basic 	&lt;base64&gt;”.
+                    <br><br>
+
+                    Por exemplo, se o usuário for “user@domain” e a senha for “password” a codificação base64 resultante
+                    da string “user@domain:password” será “dXNlckBkb21haW46cGFzc3dvcmQK” 
+                    e o cabeçalho a ser enviado será:
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    Basic dXNlckBkb21haW46cGFzc3dvcmQK
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    :token
+                    <br><br>
+                    (obrigatório)
+                </td>
+                <td>Token que se quer deletar</td>
+                <td>path</td>
+                <td>string</td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code ">
+{% highlight console %}
+DELETE /tokens/583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Accept: application/json; version=3
+Authorization: Basic dXNlckBkb21haW46cGFzc3dvcmQK
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 204
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p> 

@@ -1,0 +1,955 @@
+<h1 class="title">Domains</h1>
+    
+<p>
+    Por meio da API de Domains você pode consultar, criar, remover ou atualizar Domains utilizados pelos Edge Applications.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consultar-lista-de-domains">1. Consulta lista de domains</a></li>
+    <li><a href="#consultar-dados-de-um-domains">2. Consulta dados de um domain</a></li>
+    <li><a href="#deletar-um-domains">3. Deletar um domain</a></li>
+    <li><a href="#criar-um-novo-domains">4. Criar um novo domain</a></li>
+    <li><a href="#sobrescrever-um-domains">5. Sobrescrever um domain</a></li>
+    <li><a href="#atualizar-campos-de-um-domains">6. Atualizar campos de um domain</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-lista-de-domains">1. Consultar lista de Domains</h2>
+
+<p>Retorna a lista de domains de uma conta.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /domains
+Accept: application/json; version=3
+Authorization: token 2909f3932069047f4736dc87e72baaddd19c9f75                  
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "count": 2,
+    "total_pages": 1,
+    "schema_version": 3,
+    "links": {
+        "previous": null,
+        "next": null
+    },
+    "results": [
+        {
+            "id": 1536580019,
+            "name": "Domain HLS Test",
+            "cnames": [
+                "www.getthiscname.com"
+            ],
+            "cname_access_only": false,
+            "digital_certificate_id": 14,
+            "edge_application_id": 1536580781,
+            "is_active": true,
+            "domain_name": "101918m.ha.azioncdn.net"
+        },
+        {
+            "id": 1541690041,
+            "name": "oh hai",
+            "cnames": [
+                "test.com"
+            ],
+            "cname_access_only": false,
+            "digital_certificate_id": null,
+            "edge_application_id": 1542500853,
+            "is_active": true,
+            "domain_name": "111918m.ha.azioncdn.net"
+        },
+    ]
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-dados-de-um-domains">2. Consultar dados de um Domain</h2>
+
+<p>Retorna dados de um Domain.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains/</span>:domain_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :domain_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O id do domain que se pretende consultar.
+                </td>
+                <td>
+                    URI
+                </td>
+                <td>
+                    Integer;
+                    <br><br>
+                    obrigatório
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /domains/1536580019
+Accept: application/json; version=3
+Authorization: token 2909f3932069047f4736dc87e72baaddd19c9f75 
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "results": {
+        "id": 1536580019,
+        "name": "Domain HLS Test",
+        "cnames": [
+            "www.getthiscname.com"
+        ],
+        "cname_access_only": false,
+        "digital_certificate_id": null,
+        "edge_application_id": 1536580781,
+        "is_active": true,
+        "domain_name": "101918m.ha.azioncdn.net"
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="deletar-um-domains">3. Deletar um Domain</h2>
+
+<p>Exclui o domain de uma conta.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains/</span>:domain_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    :domain_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O id do domain que se pretende deletar. 
+                </td>
+                <td>
+                    URI
+                </td>
+                <td>
+                    &#60;&#62;;obrigatório.
+                    <br><br>
+                    obrigatório
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /domains/1538600025
+Accept: application/json; version=3
+Authorization: token 661afbb34e714f657b8a4db7b7a7068a318a65f7
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 204
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-um-novo-domains">4. Criar um novo Domain</h2>
+
+<p>Incluir um novo domain em uma conta.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    body
+                </td>
+                <td>
+                    A Configuration que se deseja criar deve ser enviada codificada no formato json com os seguintes campos: 
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name </span>
+                            (string): o nome da configuração que se quer criar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname </span>
+                            (array of strings): a lista de domínios do site (cnames). O valor default é vazio.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname_access_only </span>
+                            (boolean): define se a entrega do conteúdo deve ser realizada apenas pelos domínios listados no campo “cname” ou se o domínio da azion (azioncdn.net) também será utilizado. O valor default é false.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">digital_certificate  </span>
+                            (number): o id do certificado SSL, previamente cadastrado na plataforma como <a href="{% tl api_v3_digital_certificates %}" class="orng-link">Custom Certificate</a>, que deve ser utilizado em caso de entrega através de https. O valor default é null, representando que o certificado SSL compartilhado da Azion será utilizado.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">edge_application_id </span>
+                            (number): o id do Edge Application que deve ser associado ao domínio. 
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">edge_application_id </span>
+                            (number): o id do Edge Application que deve ser associado ao domínio. Consulte a lista de <a href="{% tl api_v3_edge_applications %}" class="orng-link">Edge Applications</a>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active </span>
+                            (boolean): define se o domain deve ser cadastrado com ativo (em produção) ou inativo. 
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /domains
+Accept: application/json; version=3
+Authorization: token 661afbb34e714f657b8a4db7b7a7068a318a65f7
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Novo domínio criado diretamente pela API",
+    "cnames": ["www.cname1.com", "www.cname2.com"],
+    "cname_access_only": false,
+    "digital_certificate_id": null,
+    "edge_application_id": 1536580781,
+    "is_active": true
+}
+{% endhighlight %}
+</div>
+
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "results": {
+        "id": 1554220280,
+        "name": "Novo domínio criado diretamente pela API",
+        "cnames": [
+            "www.cname1.com",
+            "www.cname2.com"
+        ],
+        "cname_access_only": false,
+        "digital_certificate_id": null,
+        "edge_application_id": 1536580781,
+        "is_active": true,
+        "domain_name": "121918m.ha.azioncdn.net"
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-um-domains">5. Sobrescrever um Domain</h2>
+
+<p>
+    Sobrescreve todos os campos de um domain, preservando o id. Os campos opcionais não informados serão substituídos pelos valores default. 
+</p>
+<p>
+    Para atualizar somente alguns campos de um domain, considere utilizar o método PATCH ao invés do PUT. 
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains</span>/:domain_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    body
+                </td>
+
+                <td>
+                    A Configuration que se deseja criar deve ser enviada codificada no formato json com os seguintes campos: 
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name </span>
+                            (string): o nome da configuração que se quer criar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname </span>
+                            (array of strings): a lista de domínios do site (cnames). O valor default é vazio.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname_access_only </span>
+                            (boolean): define se a entrega do conteúdo deve ser realizada apenas pelos domínios listados no campo “cname” ou se o domínio da azion (azioncdn.net) também será utilizado. O valor default é false.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">digital_certificate  </span>
+                            (number): o id do certificado SSL, previamente cadastrado na plataforma como <a href="{% tl api_v3_digital_certificates %}" class="orng-link">Custom Certificate</a>, que deve ser utilizado em caso de entrega através de https. O valor default é null, representando que o certificado SSL compartilhado da Azion será utilizado.
+                        </li>
+      
+                        <li>
+                            <span class="black-sm-sub">edge_application_id </span>
+                            (number): o id do Edge Application que deve ser associado ao domínio. Consulte a lista de <a href="{% tl api_v3_edge_applications %}" class="orng-link">Edge Applications</a>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active </span>
+                            (boolean): define se o domain deve ser cadastrado com ativo (em produção) ou inativo. 
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /domains/1554220280
+Accept: application/json; version=3
+Authorization: token 661afbb34e714f657b8a4db7b7a7068a318a65f7
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Novo nome para o dominio",
+    "cnames": ["www.cname1.com", "www.cname2.com"],
+    "cname_access_only": false,
+    "digital_certificate_id": null,
+    "edge_application_id": 1536580781,
+    "is_active": true
+}
+{% endhighlight %}
+</div>
+                                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "results": {
+        "id": 1554220280,
+        "name": "Novo nome para o dominio",
+        "cnames": [
+            "www.cname1.com",
+            "www.cname2.com"
+        ],
+        "cname_access_only": false,
+        "digital_certificate_id": null,
+        "edge_application_id": 1536580781,
+        "is_active": true,
+        "domain_name": "131918m.ha.azioncdn.net"
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="atualizar-campos-de-um-domains">6. Atualizar campos de um Domain</h2>
+
+<p>
+    Atualiza um ou mais campos de um Domain, preservando o valor dos campos não informados. 
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/domains/</span>:domain_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Domains</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :domain_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id do Domain a ser atualizado. 
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    body
+                </td>
+
+                <td>
+                    A Configuration que se deseja criar deve ser enviada codificada no formato json com os seguintes campos: 
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name </span>
+                            (string): o nome da configuração que se quer criar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname </span>
+                            (array of strings): a lista de domínios do site (cnames). O valor default é vazio.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname_access_only </span>
+                            (boolean): define se a entrega do conteúdo deve ser realizada apenas pelos domínios listados no campo “cname” ou se o domínio da azion (azioncdn.net) também será utilizado. O valor default é false.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">digital_certificate  </span>
+                            (number): o id do certificado SSL, previamente cadastrado na plataforma como <a href="{% tl api_v3_digital_certificates %}" class="orng-link">Custom Certificate</a>, que deve ser utilizado em caso de entrega através de https. O valor default é null, representando que o certificado SSL compartilhado da Azion será utilizado.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">edge_application_id </span>
+                            (number): o id do Edge Application que deve ser associado ao domínio. Consulte a lista de <a href="{% tl api_v3_edge_applications %}" class="orng-link">Edge Applications</a>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active </span>
+                            (boolean): define se o domain deve ser cadastrado com ativo (em produção) ou inativo. 
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /domains/1536580019
+Accept: application/json; version=3
+Authorization: token 2909f3932069047f4736dc87e72baaddd19c9f75
+Content-Type: application/json          
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+	"name": "Nome alterado pela API"
+} 
+{% endhighlight %}
+</div>
+                                  
+<p class="black-sm-sub">Exemplo de Resposta</p>
+              
+<div class="white-code put">
+{% highlight console %}
+{
+    "results": {
+        "id": 1536580019,
+        "name": "Nome alterado pela API",
+        "cnames": [
+            "www.getthiscname.com"
+        ],
+        "cname_access_only": false,
+        "digital_certificate_id": null,
+        "edge_application_id": 1536580781,
+        "is_active": true,
+        "domain_name": "101918m.ha.azioncdn.net"
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>  

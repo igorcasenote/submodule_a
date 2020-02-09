@@ -1,0 +1,1011 @@
+<h1 class="title">Main <span>Settings</span></h1>
+    
+<p>
+    Através da API do Content Delivery você pode consultar, remover ou atualizar suas configurações existentes, bem como criar novas configurações de Content Delivery.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-configuracoes">1. Consulta lista de configurações</a></li>
+    <li><a href="#consulta-dados-de-uma-configuracao">2. Consulta dados de uma configuração</a></li>
+    <li><a href="#deletar-uma-configuracao">3. Deletar uma configuração</a></li>
+    <li><a href="#criar-uma-nova-configuracao">4. Criar uma nova configuração</a></li>
+    <li><a href="#sobrescrever-uma-configuracao">5. Sobrescrever uma configuração</a></li>
+    <li><a href="#atualizar-campos-de-uma-configuracao">6. Atualizar campos de uma configuração</a></li>
+</ul>
+
+<h2 id="consulta-lista-de-configuracoes" class="black-small-title">1. Consulta lista de configurações</h2>
+
+<p>Retorna a lista de configurações de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 1487160530,
+      "name": "Static Domain",
+      "domain_name": "31368h.ha.azioncdn.net",
+      "active": true,
+      "delivery_protocol": "http",
+      "digital_certificate": null,
+      "cname_access_only": false,
+      "rawlogs": false,
+      "cname": [
+         "static.yoursite.com"
+      ]
+   },
+   {
+      "id": 1487160529,
+      "name": "Your Site Name",
+      "domain_name": "21368h.ha.azioncdn.net",
+      "active": true,
+      "delivery_protocol": "http",
+      "digital_certificate": null,
+      "cname_access_only": false,
+      "rawlogs": false,
+      "cname": [
+         "www.yoursite.com"
+      ]
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="consulta-dados-de-uma-configuracao" class="black-small-title">2. Consulta dados de uma configuração</h2>
+
+<p>Retorna dados de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+    
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1487160529
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+                    
+<div class="white-code get">
+{% highlight console %}
+{
+    "id":1487160529,
+    "name": "Your Site Name",
+    "domain_name": "21368h.ha.azioncdn.net",
+    "active": true,
+    "delivery_protocol": "http",
+    "digital_certificate": null,
+    "cname_access_only": false,
+    "rawlogs": false,
+    "cname": [
+       "www.yoursite.com"
+    ],
+    "application_acceleration": true
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="deletar-uma-configuracao" class="black-small-title">3. Deletar uma configuração</h2>
+
+<p>Remove uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar"><span class="bold">/content_delivery/configurations/</span><span>:conf_id</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser removida.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /content_delivery/configurations/1467640447
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 204
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="criar-uma-nova-configuracao" class="black-small-title">4. Criar uma nova configuração</h2>
+
+<p>Cria uma nova configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A Configuration que se deseja criar deve ser enviada codificada no formato json com os seguintes campos:
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): o nome da configuração que se quer criar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">origin_address</span>
+                            (string): endereço da Origem para o Content Delivery. Pode ser utilizado endereço IP ou Hostname (FQDN) da Origem.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">origin_host_header</span>
+                            (string): o cabeçalho Host que será enviado para sua origem.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname</span>
+                            (array of strings): a lista de domínios do site (cnames). O valor default é vazio.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname_access_only </span>
+                            define se a entrega do conteúdo deve ser realizada apenas pelos domínios listados no campo “cname” ou se o 
+                            domínio da azion (azioncdn.net) também será utilizado. O valor default é <em>false</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">delivery_protocol </span>
+                            (string): use o valor <em>“http”</em> caso o conteúdo seja entregue apenas por http; ou use <em>“http,https”</em>
+                                caso o conteúdo possa ser entregue tanto por http quanto por https. O valor default é <em>“http”</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">digital_certificate</span>
+                            (number): o id do certificado SSL, previamente cadastrado na plataforma como
+                            <a href="{% tl documentation_products_edge_applications_digital_certificates %}#CustomCertificate">Custom Certificate</a>
+                            , que deve ser utilizado em caso de 
+                            entrega através de https. O valor default é <em>null</em>, 
+                            representando que o certificado SSL compartilhado da Azion será utilizado.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">origin_protocol_policy</span>
+                            (string): use o valor <em>“preserve”</em> para definir que a conexão com a 
+                            origem deve respeitar o scheme (http ou https) utilizado pelo usuário para acessar a CDN; use 
+                            <em>“http”</em> para forçar que a conexão com a origem seja por http, independente do scheme utilizado 
+                            pelo usuário; ou use “https” para forçar que a conexão com a origem seja por https, independente 
+                            do scheme utilizado pelo usuário. O valor default é  <em>“preserve“</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">browser_cache_settings</span>
+                            (choice): use o valor <em>“honor”</em> para definir que o browser do usuário deverá respeitar os cabeçalhos de cache enviados pela origem; ou use <em>“override“</em> para definir um valor customizado de browser_cache_settings_maximum_ttl. O valor default é <em>“honor“</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">browser_cache_settings_maximum_ttl</span>
+                            (number): utilizado em conjunto com browser_cache_settings em “override”, este valor define o TTL (time-to-live), em segundos, para os objetos permanecerem em browser cache. O valor default é 0.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cdn_cache_settings</span>
+                            (string): use o valor “honor” para definir que a CDN deverá respeitar os cabeçalhos 
+                            de cache enviados pela origem; use  <em>“override”</em> para definir um valor customizado de 
+                            cdn_cache_settings_maximum_ttl. O valor default é <em>“honor“</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cdn_cache_settings_maximum_ttl</span>
+                            (number): utilizado em conjunto com cdn_cache_settings em <em>“override“</em>, 
+                            este valor define o TTL, em segundos, para os objetos permanecerem em cache na CDN. O valor default é <em>null</em>.
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /content_delivery/configurations
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Your Site Name",
+    "origin_address": "yourorigin.com",
+    "cname": ["www.yoursite.com"],
+    "delivery_protocol": "http",
+    "cdn_cache_settings": "override",
+    "cdn_cache_settings_maximum_ttl": 2592000
+} 
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 201
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "active" : true,
+    "id" : 1487160529,
+    "cname" : [
+       "www.yoursite.com"
+    ],
+    "digital_certificate" : null,
+    "rawlogs" : false,
+    "delivery_protocol" : "http",
+    "cname_access_only" : false,
+    "name" : "Your Site Name",
+    "domain_name": "41368h.ha.azioncdn.net"
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="sobrescrever-uma-configuracao" class="black-small-title">5. Sobrescrever uma configuração</h2>
+
+<p>
+    Sobreescreve todos os campos de uma configuração de Content Delivery, 
+    preservando o id. Os campos não informados serão substituídos pelos 
+    valores default. Considere utilizar o método PATCH no lugar de PUT, 
+    para atualizar somente alguns campos da configuração sem alterar o valor dos demais.
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+        <table>
+            <thead>
+                <tr class="td-10">
+                    <td>Parâmetro</td>
+                    <td>Descrição</td>
+                    <td>Tipo de Parâmetro</td>
+                    <td>Tipo de Dado</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Authorization
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                        <br><br>
+
+                        ex.:
+                        <br><br>
+                        Authorization:
+                        <br>
+                        583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                    </td>
+                    <td>
+                        header
+                    </td>
+                    <td>
+                        string
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Content-Type
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        O tipo de codificação utilizada no Body (application/json).
+                        <br><br>
+                        ex.:
+                        <br><br>
+                        Content-Type: application/json
+                    </td>
+                    <td>
+                        header
+                    </td>
+                    <td>
+                        string
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        :conf_id
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        Id da configuração de Content Delivery a ser substituída.
+                        Para obter o Id de uma configuração, consulte a
+                        <a href="#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                    </td>
+                    <td>
+                        path
+                    </td>
+                    <td>
+                        number
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Configuration
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        Os novos valores de cada campo da configuração. Os campos 
+                        não preenchidos serão substituídos pelo valor default. 
+                        Se você desejar alterar apenas um dos campos, utilize o 
+                        método PATCH ao invés do PUT.
+                        <br><br>
+
+                        <ul>
+                            <li>
+                                <span class="black-sm-sub">name</span>
+                                (string): o novo nome da configuração.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cname</span>
+                                (array of strings): a lista de domínio do site (cnames). O valor default é vazio.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cname_access_only</span>
+                                (boolean): define se a entrega do conteúdo deve ser realizada apenas 
+                                pelos domínios listados no campo “cname” ou se o domínio da azion (azioncdn.net) 
+                                também será utilizado. O valor default é <em>false</em>.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">delivery_protocol</span>
+                                (string): use o valor <em>“http”</em> caso o conteúdo seja entregue apenas
+                                por http; ou use <em>“http,https”</em> caso o conteúdo possa ser 
+                                entregue tanto por http quanto por https. O valor default é <em>“http“</em>.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">digital_certificate</span>
+                                (number): o id do certificado SSL, previamente cadastrado na plataforma como 
+                                <a href="{% tl documentation_products_edge_applications_digital_certificates %}/#custom-certificate">Custom Certificate</a>
+                                , que deve ser utilizado em caso de 
+                                entrega através de https. O valor default é <em>null</em>, 
+                                representando que o certificado SSL compartilhado da Azion será utilizado.
+                            </li>
+
+
+                            <li>
+                                <span class="black-sm-sub">rawlogs</span>
+                                (boolean): define se a configuração deverá gravar logs no Cloud Storage, 
+                                para clientes que possuem o produto Rawlogs. O valor default é <em>false</em>.
+                            </li>
+
+
+                            <li>
+                                <span class="black-sm-sub">active</span> (boolean): define se a configuração está ativa. O valor default é <em>true</em>.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">application_acceleration</span>
+                                (boolean): define se o produto <a href="{% tl documentation_products_application_acceleration %}">Application Acceleration</a> está ativado para a configuração. O valor default é <em>false</em>.
+                            </li>
+                        </ul>
+                    </td>
+                    
+                    <td>
+                        body
+                    </td>
+                    <td>
+                        json
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1487160529
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Alternate Name",
+    "cname": ["www.yoursite.com"],
+    "delivery_protocol": "http",
+ } 
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+   "active" : true,
+      "id" : 1487160529,
+   "cname" : [
+      "www.yoursite.com"
+   ],
+   "digital_certificate" : null,
+   "rawlogs" : false,
+   "delivery_protocol" : "http",
+   "cname_access_only" : false,
+   "name" : "Alternate Name",
+    "domain_name": "41368h.ha.azioncdn.net"
+}    
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+ 
+<h2 id="atualizar-campos-de-uma-configuracao" class="black-small-title">6. Atualizar campos de uma configuração</h2>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v2_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser atualizada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+                <td>
+                    Devem ser informados um ou mais campos a serem atualizados.
+                    Os campos não informados não terão o seu valor alterado.
+                    <br><br>
+
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): o novo nome da configuração.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname</span>
+                            (array of strings): a lista de domínio do site (cnames).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">cname_access_only</span>
+                            (boolean): define se a entrega do conteúdo deve ser realizada apenas 
+                            pelos domínios listados no campo “cname” ou se o domínio da azion (azioncdn.net) 
+                            também será utilizado.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">delivery_protocol</span>
+                            (string): use o valor <em>“http”</em> caso o conteúdo seja entregue apenas
+                            por http; ou use <em>“http,https”</em> caso o conteúdo possa ser 
+                            entregue tanto por http quanto por https.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">digital_certificate</span>
+                            (number): o id do certificado SSL, previamente cadastrado na plataforma como 
+                            <a href="{% tl documentation_products_edge_applications_digital_certificates %}/#CustomCertificate">Custom Certificate</a>
+                            , que deve ser utilizado em caso de 
+                            entrega através de https.O valor null representa o certificado SSL compartilhado da Azion.
+                        </li>
+
+
+                        <li>
+                            <span class="black-sm-sub">rawlogs</span>
+                            (boolean): define se a configuração deverá gravar logs no Cloud Storage, para clientes que possuem o produto Rawlogs.
+                        </li>
+
+
+                        <li>
+                            <span class="black-sm-sub">active</span>
+                            (boolean): define se a configuração está ativa.
+                        </li>
+                        <li>
+                            <span class="black-sm-sub">application_acceleration</span>
+                            (boolean): define se o produto <a href="{% tl documentation_products_application_acceleration %}">Application Acceleration</a> está ativado para a configuração. O valor default é <em>false</em>.
+                        </li>
+                    </ul>
+                
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /content_delivery/configurations/1487160529
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "cname": ["www.yoursite1.com", "www.yoursite2.com"],
+} 
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                                        
+<div class="white-code ">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+   "active" : true,
+      "id" : 1487160529,
+   "cname" : [
+      "www.yoursite1.com",
+        "www.yoursite2.com"
+   ],
+   "digital_certificate" : null,
+   "rawlogs" : false,
+   "delivery_protocol" : "http",
+   "cname_access_only" : false,
+   "name" : "Your Site Name",
+   "domain_name": "41368h.ha.azioncdn.net"
+}    
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

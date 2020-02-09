@@ -1,0 +1,95 @@
+<h1 class="title">Load <span>Balancer</span></h1>
+
+<p>Para alcançar altos níveis de tolerância a falhas e performance é necessário garantir a disponibilidade do seu conteúdo e aplicações mesmo em caso de incidentes com seus servidores de origem. O Azion Load Balancer permite balancear o tráfego para suas origens, data centers ou provedores de cloud, evita o congestionamento de rede e a sobrecarga de seus servidores. Além disso, detecta falhas e provê múltiplos algoritmos que permitem distribuir a carga para as infraestruturas disponíveis, garantindo a melhor experiência para seus usuários e resultados para sua empresa.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#FuncionalidadesLoadBalancer">1. Funcionalidades do Load Balancer</a></li>
+    <li><a href="#ComoConfigurarLoadBalancer">2. Como configurar o Load Balancer</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="FuncionalidadesLoadBalancer" >1. Funcionalidades do Load Balancer</h2>
+
+<p>Com Azion Load Balancer você adiciona múltiplas origens para seu conteúdo, seleciona o método de balanceamento de carga que mais se adequa as suas necessidades e customiza timeouts e tratamento de erros.</p>
+
+<p class="black-sm-sub">Método de Balanceamento</p>
+
+<p>Você pode selecionar o método de balanceamento que define como será distribuída a carga entre suas origens:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Round-Robin:</span> define o algoritmo de balanceamento em rodízio. Leva em consideração o volume de requisições e não o tempo que cada origem demora para responder. Cada origem receberá carga proporcionalmente ao seu peso no round-robin. Origens mais lentas poderão acumular maior número de conexões em paralelo.</li>
+    <li><span class="black-sm-sub">Least connections:</span> mantém o controle do número de conexões ativas com cada origem e envia a próxima requisição sempre para a origem que tiver menor número de conexões. Assim, origens mais lentas receberão menor número de requisições, enquanto origens mais rápidas poderão atender mais requisições sequencialmente.</li>
+    <li><span class="black-sm-sub">IP Hash:</span> mantém um controle por endereço IP do usuário e tenta, sempre quando possível, associar a mesma origem para cada IP.</li>
+</ul>
+
+<p class="black-sm-sub">Host Header</p>
+
+<p>O cabeçalho Host é utilizado por sua origem para identificar o <em>virtualhost</em> e localizar seu conteúdo ou aplicação. Ao configurar uma origem no Real-Time Manager, você pode customizar a valor que deve ser enviado pela Azion no cabeçalho Host.</p>
+
+<p>Se este campo for deixado em branco, a Azion usará, por default, o mesmo endereço definido no campo Address. Deixe o campo Host Header em branco se sua origem estiver configurada para responder o <em>virtualhost</em> pelo mesmo endereço que está configurado no DNS.</p>
+
+<p>Você pode preencher um valor customizado de Host Header para ser enviado para sua origem. Por exemplo, <em>www.azion.com</em>. Você deve customizar o Host Header se sua origem estiver configurada para responder um <em>virtualhost</em> em um endereço diferente do que está configurado no DNS.</p>
+
+<p>Ou ainda, você pode utilizar a variável <em>$host</em> no campo Host Header, para instruir os edge servers para repassarem para sua origem o mesmo cabeçalho Host recebido de seus visitantes. Utilize essa configuração se tiver múltiplos <em>virtualhosts</em> sendo respondidos pela mesma origem.</p>
+
+<p class="black-sm-sub">Origin Path</p>
+
+<p>Caso precise que os Edge Servers da Azion requisitem o conteúdo de sua origem em um caminho diferente da URI, você pode definir um Origin Path. A Azion fará a concatenação do Origin Path com a URI solicitada pelo usuário.</p>
+
+<p>A definição do Origin Path é opcional. Se não for definido, será utilizada apenas a URI.</p>
+
+<p>Por exemplo, se em sua origem todo o conteúdo fica abaixo do path <em>/secure</em>, porém esse caminho não é exibido na URL para seus usuários, você pode definir o <em>/secure</em> como Origin Path em suas configurações de origem. O restante do caminho será preservado, de acordo com a requisição do usuário.</p>
+
+<p class="black-sm-sub">Origin Protocol Policy</p>
+
+<p>A arquitetura de entrega da Azion permite que você customize o tipo de conexão desejada dos Edge Servers para sua origem:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Preserve HTTP/HTTPS protocol:</span> irá manter o mesmo protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário ao acessar seu conteúdo na Azion para se conectar em sua origem.</li>
+    <li><span class="black-sm-sub">Enforce HTTP:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTP, independente do protocolo de conexão (HTTP ou  HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (80 para HTTP) se desejar.</li>
+    <li><span class="black-sm-sub">Enforce HTTPS:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTPS, independente do protocolo de conexão (HTTP ou  HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (443 para HTTPS) se desejar.</li>
+</ul>
+
+<p class="black-sm-sub">Múltiplas Origens</p>
+
+<p>Você deve adicionar múltiplas origens para alcançar altos níveis de disponibilidade e evitar que um incidente impacte na disponibilidade de seu conteúdo e aplicações.</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Address:</span> endereço IP ou hostname de sua origem. Você pode customizar a porta da origem, caso tenha definido a Origin Protocol Policy em Enforce HTTP ou Enforce HTTPS, utilizando a notação <em>host:port</em>.</li>
+    <li><span class="black-sm-sub">Weight:</span> você pode definir um peso para cada origem. Esse peso define a proporção de carga que a origem irá receber. Se você definir o peso de uma origem em 3, por exemplo, ela receberá 3 vezes mais carga do que uma origem com peso definido em 1.</li>
+    <li><span class="black-sm-sub">Server Role:</span> se o método de balanceamento selecionado por você for Round-Robin ou Least connections, você pode definir Server Role para cada origem: Primary ou Backup. As origens Backup atuarão como origens <em>standby</em> e só receberão carga se todas as origems Primary falharem.</li>
+    <li><span class="black-sm-sub">Active:</span> para retirar um servidor do balanceamento temporariamente para manutenção, você pode desativá-lo desmarcando o checkbox Active. É necessário pelo menos uma origem ativa para que o conteúdo fique disponível.</li>
+</ul>
+
+<p class="black-sm-sub">Customização de Timeouts</p>
+
+<p>O Azion Load Balancer irá consultar as origens respeitando o método de balanceamento e peso atribuidos por você. Caso alguma origem retorne um erro 404 (Not Found), um erro 5xx ou demore mais do que os timeouts configurados por você para responder, as demais origens serão consultadas antes de retornar qualquer erro para seus usuários.</p>
+
+<p>Você pode customizar os seguintes timeouts:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Connection:</span> timeout em segundos no estabelecimento da conexão com a origem.</li>
+    <li><span class="black-sm-sub">Between Bytes:</span> timeout em segundos entre bytes em uma conexão já estabelecida.</li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="ComoConfigurarLoadBalancer" >2. Como configurar o Load Balancer</h2>
+
+<p>Para configurar o Azion Load Balancer:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a> e entre no menu Content Delivery</li>
+    <li>Edite a configuração de Content Delivery desejada</li>
+    <li>Na aba Origins, adicione ou edite uma origem para seu conteúdo</li>
+    <li>Selecione Load Balancer como Origin Type e configure Method, adicione endereços e defina Timeouts</li>
+    <li>Após salvar, acesse a aba Rules Engine para editar ou adicionar regras para um ou mais <em>paths</em></li>
+    <li>Na seção Origin Settings, selecione a configuração de origem criada por você nos passos 3 e 4</li>
+</ol>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

@@ -1,0 +1,169 @@
+<h1 class="title">Content <span>Delivery</span></h1>
+    
+<p>O Azion Content Delivery acelera a entrega dos seus conteúdos, cacheando-os nos edges da CDN, muito mais próximos dos usuários finais. Seu conteúdo, incluindo os arquivos mais pesados, fica prontamente disponível, mesmo durante grandes picos de acesso ou em caso de falhas.</p>
+
+<p>O <a href="https://manager.azion.com/" class="orng-link">Azion Real-Time Manager</a> permite configurar e gerenciar funcionalidades avançadas disponíveis nos Intelligent Edges de forma simples e em tempo real. Isso inclui definir comportamentos do seu conteúdo através de regras (Rules Engine) e controlar esse conteúdo através de Custom Headers.</p>
+
+<p>Todas as operações realizadas pelo Real-Time Manager são executadas em tempo real.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#rede-de-entrega-de-conteudo">1. Rede de entrega de conteúdo</a></li>
+    <li><a href="#http-e-https">2. HTTP e HTTPS</a></li>
+    <li><a href="#manipulacao-de-cabecalhos-http">3. Manipulação de cabeçalhos HTTP</a></li>
+    <li><a href="#rules-engine">4. Rules Engine</a></li>
+    <li><a href="#live-streaming-e-vod">5. Live Streaming & VOD</a></li>
+    <li><a href="#analytics-e-data-streaming">6. Analytics & Data Streaming</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="rede-de-entrega-de-conteudo" >1. Rede de entrega de conteúdo</h2>
+
+<p>Com base em nossa rede global distribuída e mecanismos de <em>self-healing</em>, aumentamos a segurança dos seus conteúdos e aplicações web enquanto reduzimos seus custos de infraestrutura.</p>
+
+<p class="black-sm-sub">Como funciona?</p>
+
+<p>A Azion acelera o carregamento de seu site ao entregar seu conteúdo com alta taxa de transferência e baixa latência a partir dos Intelligent Edges, muito mais próximos de seus usuários.</p>
+
+<p>Quando um usuário requisita um conteúdo na internet, seu navegador ou aplicativo inicia pela resolução de DNS para traduzir o domínio solicitado para um endereço IP. Ao utilizar a Azion, você irá configurar o DNS de seu conteúdo para apontar para um endereço da Azion, que é fornecido a você ao criar uma configuração de Content Delivery.</p>
+
+<p>A Azion seleciona, através de seu SDN Router, a infraestrutura de Intelligent Edge mais próxima do usuário, reduzindo latência e aumentando a velocidade da transferência do conteúdo.</p>
+
+<p>Ao contar com a ampla rede de entrega de conteúdo da Azion, você ganha escalabilidade e <em>throughput</em>.</p>
+
+<p class="black-sm-sub">Cache de conteúdo</p>
+
+<p>Essa arquitetura de proxy reverso viabiliza que você entregue seu conteúdo com muito mais eficiência.  O conteúdo que estiver em cache (<em>cache hit</em>) nos Intelligent Edges pode ser entregue diretamente para seus usuários, sem necessidade de acessar sua origem. Além de aumentar o desempenho e escalabilidade para seu conteúdo, você poderá economizar em sua infraestrutura de origem.</p>
+
+<p>Um <em>cache miss</em> ocorre quando um conteúdo é solicitado e não está cacheado nos edges. A Azion minimiza o efeito do <em>cache miss</em>, ao manter uma conexão keepalive com sua origem, sempre que possível, evitando o overhead do handshake TCP/IP. Independente do volume de requisições simultâneas realizadas aos Intelligent Edges da Azion, cada edge buscará o conteúdo em sua origem apenas uma vez por <em>cache miss</em>, o que reduz substancialmente o impacto em sua infraestrutura.</p>
+
+<p class="black-sm-sub">Configurações de Browser Cache</p>
+
+<p>Browser Cache é  a área de armazenamento temporário nos dispositivos dos seus usuários. Ao utilizar com eficiência o browser cache, você melhora a performance de seu site e reduz o tráfego de dados.</p>
+
+<p>Você pode definir as configurações de browser cache para seu conteúdo em sua origem, através do cabeçalho HTTP de Cache-Control. Se preferir, a Azion simplificou o processo para você e permite que você sobreescreva as definições de browser cache para seu conteúdo através do Real-Time Manager, de forma simples e amigável.</p>
+
+<p class="black-sm-sub">Configurações de CDN Cache</p>
+
+<p>CDN Cache é o armazenamento temporário do seu conteúdo nos Intelligent Edges da Azion.</p>
+
+<p>Você também pode definir as configurações de CDN cache para seu conteúdo em sua origem, através do cabeçalho HTTP de Cache-Control ou, se preferir, a Azion simplificou o processo para você e permite que você sobreescreva as definições de CDN cache para seu conteúdo através do Real-Time Manager, de forma mais simples e amigável.</p>
+
+<p>Para aumentar a disponibilidade de seu conteúdo mesmo em caso de falha de sua origem, a Azion provê o mecanismo de <em>stale while revalidate</em>.</p>
+
+<p class="black-sm-sub">Origem</p>
+
+<p>A Azion trabalha com uma arquitetura de proxy reverso, através da qual seus usuários se conectarão nos Intelligent Edges da Azion, que poderão realizar o cache de seu conteúdo, além de contar com um amplo arsenal de otimização. Nessa arquitetura, o conteúdo precisa ser disponibilizado a partir de uma origem, que pode ser um servidor em sua infraestrutura, um serviço na <em>cloud</em> ou um dos produtos da Azion.</p>
+
+<ul class="list-v">
+    <li><a href="{% tl documentation_products_content_delivery_single_origin %}">Single Origin</a></li>
+    <li><a href="{% tl documentation_products_cloud_storage %}">Cloud Storage</a></li>
+    <li><a href="{% tl documentation_products_load_balancer %}">Load Balancer</a></li>
+    <li>Media Packager</li>
+    <li><a href="{% tl documentation_products_live_ingest %}">Live Ingest</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="http-e-https" >2. HTTP e HTTPS</h2>
+
+<p>Na Azion você pode utilizar as versões HTTP/1.0, HTTP/1.1 e <a href="{% tl documentation_how_to_configurations_http2 %}" class="orng-link">HTTP/2</a>. Além disso, não há tarifação adicional sobre o tráfego HTTPS.</p>
+
+<p>O uso de HTTPS garante a você segurança na transmissão de dados de seus clientes pela internet, demonstra a confiabilidade de seu site e a autenticidade de seu domínio, além de melhorar o rankeamento de seu site nos motores de busca como o Google. Para utilizar HTTPS, você precisará de um certificado SSL. Consulte a documentação de <a href="{% tl documentation_products_edge_applications_digital_certificates %}" class="orng-link">Digital Certificates</a> para obter mais informações.</p>
+
+<p class="black-sm-sub">Redirect HTTP para HTTPS</p>
+
+<p>Você pode configurar a Azion para fazer redirect de HTTP para HTTPS de forma simples e ágil. Se o seu conteúdo estiver preparado para respeitar o esquema de conexão, você poderá configurar a Azion para redirecionar todo ou parte do seu tráfego de HTTP para HTTPS simplesmente selecionado essa opção no Rules Engine.</p>
+
+<p>Você ganhará agilidade no processo de migração e evitará o gerenciamento de redirects em sua origem.</p>
+
+<p class="black-sm-sub">Conexão ponto-a-ponto</p>
+
+<p>Na arquitetura de proxy reverso adotada pela Azion, seus usuários se conectam ao Intelligent Edge por HTTP ou HTTPS e você escolhe como deseja que a Azion se conecte em sua origem:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Preserve HTTP/HTTPS protocol:</span> irá manter o mesmo protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário ao acessar seu conteúdo na Azion para se conectar em sua origem.</li>
+    <li><span class="black-sm-sub">Enforce HTTP:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTP, independente do protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (80 para HTTP) se desejar.</li>
+    <li><span class="black-sm-sub">Enforce HTTPS:</span> a conexão entre os Edge Servers da Azion e sua origem será por HTTPS, independente do protocolo de conexão (HTTP ou HTTPS) e porta utilizados por seu usuário para acessar seu conteúdo na Azion. Com essa opção, você pode customizar uma porta para sua origem no campo Address diferente da porta default (443 para HTTPS) se desejar.</li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="manipulacao-de-cabecalhos-http" >3. Manipulação de cabeçalhos HTTP</h2>
+
+<p>Você pode adicionar ou remover cabeçalhos HTTP através do Real-Time Manager. Adicione ou remova cabeçalhos HTTP antes de enviar a resposta para seus usuários. Adicione ou remova cabeçalhos HTTP antes de enviar a requisição para sua origem.</p>
+
+<p>Você ganha simplicidade e agilidade no processo de manipulação de cabeçalhos HTTP através de uma interface amigável e em tempo real.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="rules-engine" >4. Rules Engine</h2>
+
+<p>Rules Engine é a interface no Real-Time Manager onde você define comportamentos por <em>path</em> do seu conteúdo. Você pode utilizar expressões regulares para ganhar maior flexibilidade na definição de seus <em>paths</em>.</p>
+
+<p>Adicione ou edite um ou mais <em>paths</em> no Rules Engine para definir o comportamento esperado:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Delivery:</span> é o compartamento de cache e entrega do conteúdo. Suporta os métodos HTTP GET, HEAD e OPTIONS.</li>
+    <li><span class="black-sm-sub">Access Denied:</span> evita o acesso indesejado de seus usuários a um ou mais <em>paths</em>, retornando um <em>403 Forbidden</em>.</li>
+    <li><span class="black-sm-sub">Redirect:</span> você pode migrar conteúdo de um <em>path</em> para outro realizando um redirect (301).</li>
+</ul>
+
+<p>Utilize a funcionalidade de Gzip para comprimir seus arquivos de texto (<em>text/*</em>), otimizando a entrega de seu conteúdo.</p>
+
+<p>Você também pode estender as funcionalidades do produto Content Delivery, ao contratar:</p>
+
+<ul class="list-v">
+    <li><a href="{% tl documentation_products_application_acceleration %}">Application Acceleration</a></li>
+    <li><a href="{% tl documentation_products_image_optimization %}">Image Optimization</a></li>
+    <li><a href="{% tl documentation_products_edge_firewall %}">Edge Firewall</a></li>
+    <li><a href="{% tl documentation_products_web_application_firewall %}">Web Application Firewall</a></li>
+    <li><a href="{% tl documentation_products_adaptative_delivery %}">Adaptive Delivery</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="live-streaming-e-vod" >5. Live Streaming & VOD</h2>
+
+<p>O produto Content Delivery suporta HLS (Apple HTTP Live Streaming) para transmissões live e também para áudio e vídeo on demand.</p>
+
+<p>Se seu encoder trabalhar apenas com o protocolo RTMP, você precisará do produto <a href="{% tl documentation_products_live_ingest %}" class="orng-link">Live Ingest</a> para receber sua transmissão e disponibilizar seu stream em HLS para distribuição pelo Content Delivery.</p>
+
+<p>Para áudio e vídeo on demand (VOD), você pode distribuir suas mídias através de Progressive Download diretamente pelo Azion Content Delivery, ou pode otimizar seu fluxo de produção de conteúdo e melhorar a experiência para seus usuários ao utilizar a funcionalidade de Dynamic Packaging do produto Media Packager, que se encarrega de converter suas mídias para HLS para distribuição através do Content Delivery.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="analytics-e-data-streaming" >6. Analytics & Data Streaming</h2>
+
+<p>Monitore os principais indicadores de acesso ao seu conteúdo e aplicações através dos produtos:</p>
+
+<ul class="list-v">
+    <li><a href="{% tl  documentation_products_real_time_analytics %}">Analytics</a></li>
+    <li><a href="{% tl documentation_products_data_streaming %}">Data Streaming</a></li>
+    <li><a href="{% tl documentation_products_content_delivery_rawlogs %}">Rawlogs</a></li>
+</ul>
+
+<hr class="breaker">
+
+<ul class="paper-list">
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_content_delivery_single_origin %}" class="orng-link">Single Origin</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_content_delivery_rawlogs %}" class="orng-link">Rawlogs</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_content_delivery_rules_engine %}" class="orng-link">Rules Engine</a>
+    </li>
+</ul>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>  

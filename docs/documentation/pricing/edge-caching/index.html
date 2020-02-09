@@ -1,0 +1,164 @@
+<h1 class="title">Edge <span>Caching</span></h1>
+
+<a href="{% tl contact %}" class="orng-link button top-right" target="_new">Create your Account</a>
+
+<p>
+    Accelerate delivery by caching content at the edge of the network, closer to your users
+</p>
+
+<p>
+    <a href="{% tl edge_services_networking_modules_caching %}" class="orng-link underline" target="_new">Edge Caching</a> is a default module for all your Azion edge applications. This product reduces latency and has a high throughput through Azion's highly distributed global edge network.
+</p>
+
+<p class="gray-small-text">
+    <em>The prices on the table below refer to the On Demand model. If you wish to purchase under the Capacity Reserve model <a href="{% tl contact %}" class="orng-link underline" target="_new">click here</a> to contact our sales team.</em>
+</p>
+
+<h2 class="medium-title-gray">On Demand Pricing</h2>
+
+<p>You will be charged based on product usage by the sum of the values calculated for the Total Data Transferred, Requests, and Real-Time Purge Operations metrics.</p>
+
+<h3 class="small-title-orange">Total Data Transferred</h3>
+
+<p>Refers to the total volume of GB transferred by Azion for all customer domains, regardless of the modules enabled in each edge application. It is the sum of (a) traffic between users and Azion, and (b) traffic between Azion and origin, even when the origin is an Azion service, such as Live Ingest, L2 Caching, among others.</p>
+
+<div class="table-orange-gray last-line-orange small first-left-all-center">
+    <table>
+        <thead>
+            <tr>
+                <td>Total Data Transferred (Per GB)</td>
+                <td>United States</td>
+                <td>Canada</td>
+                <td>Europe</td>
+                <td>Brazil</td>
+                <td>Latam</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>First 10 TB / month</td>
+                <td>0.085 USD</td>
+                <td>0.085 USD</td>
+                <td>0.085 USD</td>
+                <td>0.110 USD</td>
+                <td>0.198 USD</td>
+            </tr>
+
+            <tr>
+                <td>Next 40 TB / month</td>
+                <td>0.080 USD</td>
+                <td>0.080 USD</td>
+                <td>0.080 USD</td>
+                <td>0.105 USD</td>
+                <td>0.189 USD</td>
+            </tr>
+
+            <tr>
+                <td>Next 100 TB / month</td>
+                <td>0.060 USD</td>
+                <td>0.060 USD</td>
+                <td>0.060 USD</td>
+                <td>0.090 USD</td>
+                <td>0.162 USD</td>
+            </tr>
+
+            <tr>
+                <td>Next 350 TB / month</td>
+                <td>0.040 USD</td>
+                <td>0.040 USD</td>
+                <td>0.040 USD</td>
+                <td>0.080 USD</td>
+                <td>0.144 USD</td>
+            </tr>
+
+            <tr>
+                <td>Next 500 TB / month</td>
+                <td>0.030 USD</td>
+                <td>0.030 USD</td>
+                <td>0.030 USD</td>
+                <td>0.060 USD</td>
+                <td>0.108 USD</td>
+            </tr>
+
+            <tr>
+                <td>Next 4 PB / month</td>
+                <td>0.025 USD</td>
+                <td>0.025 USD</td>
+                <td>0.025 USD</td>
+                <td>0.050 USD</td>
+                <td>0.090 USD</td>
+            </tr>
+
+            <tr>
+                <td>Over 5 PB / month</td>
+                <td>0.020 USD</td>
+                <td>0.020 USD</td>
+                <td>0.020 USD</td>
+                <td>0.040 USD</td>
+                <td>0.072 USD</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<h3 class="small-title-orange">Requests</h3>
+
+<p>It is the total sum of HTTP and HTTPS user requests to your edge applications, regardless of the method used.</p>
+
+<div class="table-orange-gray last-line-orange small first-left-all-center">
+    <table>
+        <thead>
+            <tr>
+                <td>Requests (per 10,000)</td>
+                <td>United States</td>
+                <td>Canada</td>
+                <td>Europe</td>
+                <td>Brazil</td>
+                <td>Latam</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>HTTP/HTTPS Requests, all methods</td>
+                <td>0.009 USD</td>
+                <td>0.009 USD</td>
+                <td>0.009 USD</td>
+                <td>0.016 USD</td>
+                <td>0.029 USD</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="small-title-orange">Real-Time Purge Operations</h3>
+
+<p>This is the number of operations to <em>purge</em> objects from the cache, whether by URLs, <em>Wildcard URLs</em>, or <em>Cache Keys</em>.</p>
+
+<p>The first 1,000 purge operations each month are included for all customers. From this volume on, you will pay $ 5 per 1,000 additional purges.</p>
+
+<h2 class="medium-title-gray">Pricing Example</h2>
+
+<p>If your applications received 750 million requests from the United States in 1 month, consuming total traffic of 30 TB, and you were within the limit of 1,000 purges that month, the amount will be calculated as follows:</p>
+
+<h3 class="small-title-orange">Total Data Transferred</h3>
+
+<p>The first 10 TB of traffic is priced at $ 0.085 per GB, so 10,000 x $ 0.085 = $ 850.</p>
+
+<p>The next 20 TB of traffic is priced at $ 0.080 per GB, so 20,000 x $ 0.080 = $ 1,600.</p>
+
+<p>In this example, the value for the month will be $ 2,450.</p>
+
+<h3 class="small-title-orange">Requests</h3>
+
+<p>Requests are billed every 10,000 for the unit price of $ 0.009, so (750,000,000 / 10,000) x $ 0.009 = $ 675.</p>
+
+<h3 class="small-title-orange">Total charges</h3>
+
+<p>The total amount to be paid in the month will be $ 3,125, according to the simulation.</p>
+
+<h2 class="medium-title-gray">L2 Caching</h2>
+
+<p>An additional layer of cache that reduces traffic to your origin while improving performance and availability.</p>
+
+<p>Optional item, when using L2 Caching, Total Data Transferred will be calculated as the sum of Edge Caching traffic and L2 Caching traffic.</p>

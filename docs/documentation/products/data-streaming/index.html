@@ -1,0 +1,115 @@
+<h1 class="title">Data <span>Streaming</span></h1>
+    
+<p>Data Streaming é um produto de Edge Analytics que permite que você alimente suas plataformas de SIEM, big data e stream processing com dados de acesso ao seu conteúdo e aplicações, em tempo real, adicionando ainda mais inteligência ao seu negócio.</p>
+
+<p>Essa integração permite que você analise o comportamento de seus usuários e da performance dos seus conteúdos, aplicações e troubleshooting, de forma simples e ágil.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#DataSources">1. Data Sources</a></li>
+    <li><a href="#Template">2. Template</a></li>
+    <li><a href="#Domains">3. Domains</a></li>
+    <li><a href="#Endpoint">4. Endpoint</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="DataSources" >1. Data Sources</h2>
+
+<p>A primeira etapa é a escolha do Data Source, que representa a aplicação na Azion que gerou os registros de eventos, para isso, você deve selecionar de onde seus dados serão coletados.</p>
+
+<ul>
+    <li>
+        <span class="black-sm-sub">Edge Applications:</span> requisições de seus usuários a seus Edge Applications na Azion.
+    </li>
+    <li>
+        <span class="black-sm-sub">WAF Events:</span> se você tiver contratado o produto <a href="{% tl documentation_products_web_application_firewall %}" class="orng-link">Web Application Firewall</a>, o data source WAF Events apresentará as requisições analisadas pelo WAF.
+    </li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="Template" >2. Template</h2>
+
+<p>O template representa uma seleção de variáveis que devem ser coletadas e um formato para transferência. Você pode selecionar templates criados e mantidos pela Azion ou customizar sua própria seleção.</p>
+
+<p>Quando selecionada a opção "Custom Template", é possível criar seu próprio Data Set personalizado, no formato JSON, e selecionar as variáveis mais adequadas às suas necessidades.</p>
+
+<p>Consulte a documentação que segue para obter a descrição das variáveis disponíveis: <a href="{% tl documentation_products_data_streaming_fields %}" class="orng-link">Fields</a>.</p>
+
+<p>Seus eventos serão agrupados em blocos de até 2.000 registros separados pelo caracter \n, e enviados no payload para seu endpoint. O Data Streaming enviará seus eventos quando o bloco atingir 2000 registros ou a cada 60 segundos, o que ocorrer antes.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="Domains" >3. Domains</h2>
+
+<p>Você pode associar ao Data Streaming um ou mais de seus domínios cadastrados na Azion.</p>
+
+<p>Ao associar um domínio ao Data Streaming, os eventos associados a esse domínio serão coletados e enviados para seu endpoint.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="Endpoint" >4. Endpoint</h2>
+
+<p>Endpoint é o destino para onde você deseja enviar os dados coletados pela Azion.</p>
+
+<p>O tipo de endpoint representa o método que seu endpoint está configurado para receber os dados do Data Streaming.</p>
+
+<p class="gray-small-title">Standard HTTP/HTTPS POST</p>
+
+<p>A utilização deste tipo de endpoint, faz com que o serviço de Data Streaming envie os dados no payload de um POST HTTP, para o processamento em sua plataforma.</p>
+
+<ul >
+    <li>
+        <p class="black-sm-sub">Endpoint URL</p>A URL configurada em sua plataforma para receber os dados do Data Streaming. Utilize o formato <em>scheme://domain/path</em>.
+    </li>
+    <li>
+        <p class="black-sm-sub">Custom Headers</p> Você pode informar um ou mais cabeçalhos customizados para a sua requisição HTTP/HTTPS. Para a configuração dos cabeçalhos, é necessário informar o Nome e o Valor para cada cabeçalho.
+    </li>
+</ul>
+
+<p class="gray-small-title">Apache Kafka</p>
+
+<p>A utilização deste tipo de endpoint, faz com que o serviço de Data Streaming envie os dados para um endpoint Kafka em sua infraestrutura.</p>
+
+<ul >
+    <li>
+        <p class="black-sm-sub">Bootstrap Servers</p> Os servers no cluster Kafka, no formato "host1:port1, host2:port2, ...". A lista não precisa conter todos os servidores de seu cluster, apenas alguns servidores que serão utilizados para a conexão inicial. Recomendamos que você utilize mais de um server para aumentar a redundância e disponibilidade.
+    </li>
+    <li>
+        <p class="black-sm-sub">Topic</p> Você precisa definir um Topic onde deseja que o Data Streaming publique as mensagens em seu cluster.
+    </li>
+</ul>
+
+<p class="gray-small-title">Simple Storage Service (S3)</p>
+
+<p>A utilização deste tipo de endpoint, faz com que o serviço de Data Streaming envie os dados diretamente para qualquer storage que trabalhe com o protocolo S3, como por exemplo Amazon S3, Cloud Storage, entre outros.</p>
+
+<ul>
+    <li>
+        <p class="black-sm-sub">Host URL</p> A URL do seu Host S3. Você pode conectar com qualquer provedor que trabalhe com o protocolo S3.
+    </li>
+    <li>
+        <p class="black-sm-sub">Bucket Name</p> O nome do Bucket que o objeto será enviado. É importante que o Bucket já esteja criado para que o Data Streaming possa enviar os objetos.
+    </li>
+    <li>
+        <p class="black-sm-sub">Region</p> A região a qual o Bucket está hospedado. Por exemplo, "us-east-1".
+    </li>
+    <li>
+        <p class="black-sm-sub">Access Key</p> O chave para acesso ao Bucket.
+    </li>
+    <li>
+        <p class="black-sm-sub">Secret Key</p> O segredo da chave para acessar ao Bucket.
+    </li>
+    <li>
+        <p class="black-sm-sub">Object Key Prefix</p> Um prefixo para os arquivos enviados. Por exemplo "waf_logs", então todos os objetos enviados serão salvos com "waf_logs_&lt;TIMESTAMP&gt;_&lt;UUID&gt;".
+    </li>
+    <li>
+        <p class="black-sm-sub">Content Type</p> O formato que o objeto será criado no Bucket. Tendo "plain/text" e "application/gzip" como opções.
+    </li>
+</ul>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

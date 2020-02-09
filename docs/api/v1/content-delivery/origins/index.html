@@ -1,0 +1,1328 @@
+<h1 class="title">Origins</h1>
+    
+<p>
+    Através da API do Content Delivery você pode consultar, remover ou atualizar suas configurações existentes, bem como criar novas configurações de Content Delivery. Para origens, utilize os endpoints que seguem.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-origens">1. Consulta lista de origens</a></li>
+    <li><a href="#consulta-dados-de-uma-origem">2. Consulta dados de uma origem</a></li>
+    <li><a href="#deletar-uma-origem">3. Deletar uma origem</a></li>
+    <li><a href="#criar-uma-nova-origem">4. Criar uma nova origem</a></li>
+    <li><a href="#sobrescrever-uma-origem">5. Sobrescrever uma origem</a></li>
+    <li><a href="#atualizar-campos-de-uma-origem">6. Atualizar campos de uma origem</a></li>
+</ul>    
+
+<hr class="breaker">
+
+<h2 id="consulta-lista-de-origens" class="black-small-title">1. Consulta lista de origens</h2>
+
+<p>Retorna a lista de origens de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/origins</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1492081095/origins
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 1545,
+      "name": "Default Single Origin",
+      "origin_type": "single_origin",
+      "method": "",
+      "host_header": "www.domain.com",
+      "origin_protocol_policy": "preserve",
+      "addresses": [
+         {
+            "address": "single-origin.domain.com",
+            "weight": null,
+            "server_role": "primary",
+            "is_active": true
+         }
+      ],
+      "connection_timeout": 60,
+      "timeout_between_bytes": 120
+   },
+   {
+      "id": 1546,
+      "name": "Azion Load Balancer",
+      "origin_type": "load_balancer",
+      "method": "round_robin",
+      "host_header": "www.domain.com",
+      "origin_protocol_policy": "preserve",
+      "addresses": [
+         {
+            "address": "origin-1.domain.com",
+            "weight": 1,
+            "server_role": "primary",
+            "is_active": true
+         },
+         {
+            "address": "origin-2.domain.com",
+            "weight": 1,
+            "server_role": "primary",
+            "is_active": true
+         },
+         {
+            "address": "origin-3.domain.com",
+            "weight": 3,
+            "server_role": "primary",
+            "is_active": true
+         },
+         {
+            "address": "fallback-origin.domain.com",
+            "weight": null,
+            "server_role": "backup",
+            "is_active": true
+         }
+      ],
+      "connection_timeout": 60,
+      "timeout_between_bytes": 120
+   },
+   {
+      "id": 1547,
+      "name": "Azion Cloud Storage",
+      "origin_type": "single_origin",
+      "method": "",
+      "host_header": "11368h.st.azioncdn.net",
+      "origin_protocol_policy": "preserve",
+      "addresses": [
+         {
+            "address": "11368h.st.azioncdn.net",
+            "weight": null,
+            "server_role": "primary",
+            "is_active": true
+         }
+      ],
+      "connection_timeout": 60,
+      "timeout_between_bytes": 120
+   },
+   {
+      "id": 1548,
+      "name": "Azion Media Packager",
+      "origin_type": "single_origin",
+      "method": "",
+      "host_header": "21368h.st.azioncdn.net",
+      "origin_protocol_policy": "preserve",
+      "addresses": [
+         {
+            "address": "21368h.st.azioncdn.net",
+            "weight": null,
+            "server_role": "primary",
+            "is_active": true
+         }
+      ],
+      "connection_timeout": 60,
+      "timeout_between_bytes": 120
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="consulta-dados-de-uma-origem" class="black-small-title">2. Consulta dados de uma origem</h2>
+
+<p>Retorna dados de uma origem de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/origins/</span>:origin_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :origin_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da origem a ser consultada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1492081095/origins/1546
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 1546,
+    "name": "Azion Load Balancer",
+    "origin_type": "load_balancer",
+    "method": "round_robin",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "preserve",
+    "addresses": [
+       {
+          "address": "origin-1.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "origin-2.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "origin-3.domain.com",
+          "weight": 3,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "fallback-origin.domain.com",
+          "weight": null,
+          "server_role": "backup",
+          "is_active": true
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+ } 
+{% endhighlight %}
+</div>
+                    
+<hr class="breaker">
+
+<h2 id="deletar-uma-origem" class="black-small-title">3. Deletar uma origem</h2>
+
+<p>Remove uma Origem de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/origins/</span>:origin_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery que possui a origem que será removida.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :origin_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da Origem a ser removida.
+                    Para obter o Id de uma Origem, consulte a
+                    <a href="#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /content_delivery/configurations/1467640447/origins/1526
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+                                                                                
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                                        
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 204 NO CONTENT
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="criar-uma-nova-origem" class="black-small-title">4. Criar uma nova origem</h2>
+
+<p>Cria uma nova origem em uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/origins</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser criada.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser criada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A origem que se deseja criar deve ser enviada codificada no formato json com os seguintes campos:
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): o nome da origem que se quer criar.
+                        </li>
+                            
+                    
+                        <li>
+                            <span class="black-sm-sub">origin_type</span>
+                            (choice): escolha entre <em>single_origin</em> ou <em>load_balancer</em> (requer o produto Azion Load Balancer).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">method</span>
+                            (choice): para uma origem Load Balancer, utilize os valores <em>ip_hash</em>, <em>least_connections</em> ou <em>round_robin</em>. 
+                            Para single_origin utilize o valor vazio (“”).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">host_header</span>
+                            (string): o cabeçalho Host que será enviado para sua origem.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">origin_protocol_policy</span>
+                            (choice): escolha <em>preserve</em> se desejar que o mesmo scheme (http ou https) 
+                            de conexão do usuário com o Edge seja utilizado pelo Edge para se conectar 
+                            em sua origem; <em>http</em> se desejar forçar a conexão com a origem por http, 
+                            independentemente do scheme utilizado pelo usuário; ou <em>https</em> se desejar 
+                            forçar a conexão com a origem por https.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">addresses</span>
+                            (array): array de endereços estruturados como segue. Para single_origin, apenas 1 endereço pode ser definido.
+                            
+                            <ul>
+                                <li>
+                                    <span class="black-sm-sub">address</span>
+                                    (string): hostname (FQDN) ou endereço IP de sua origem.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">weight</span>
+                                    (number): peso atribuído a uma origem Load Balancer. Utilize <em>null</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">server_role</span>
+                                    (choice): escolha entre <em>primary</em> e <em>backup</em> em uma origem Load Balancer. Utilize <em>primary</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">is_active</span>
+                                    (boolean): utilize <em>true</em> ou <em>false</em> para definir se o endereço está ativo em uma configuração Load Balancer. Utilize <em>true</em> para single_origin.
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">connection_timeout</span>
+                            (number): timeout de conexão com a origem (em segundos).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">timeout_between_bytes</span>
+                            (number): timeout em segundos para uma conexão sem transferência de dados.
+                        </li>
+                    </ul>
+                </td>
+
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /content_delivery/configurations/1473450681/origins
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": “Another_Origin”,
+    "origin_type": "single_origin",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "preserve",
+    "addresses": [
+       {
+          "address": "single-origin.domain.com"
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+} 
+{% endhighlight %}
+</div>
+
+                                                                                                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                                                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 201 CREATED
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1549,
+    "name": "Another_Origin",
+    "origin_type": "single_origin",
+    "method": "",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "preserve",
+    "addresses": [
+       {
+          "address": "single-origin.domain.com",
+          "weight": null,
+          "server_role": "primary",
+          "is_active": true
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="sobrescrever-uma-origem" class="black-small-title">5. Sobrescrever uma origem</h2>
+
+<p>
+    Sobrescreve todos os campos de uma Origem, preservando o id. Os 
+    campos opcionais não informados serão substituídos pelos valores default. 
+    Considere utilizar o método PATCH no lugar de PUT, para atualizar somente alguns 
+    campos da configuração sem alterar o valor dos demais.
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>
+                    :conf_id
+                    <span class="bold">/origins/</span>
+                    :origin_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a Origem deve ser substituída.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :origin_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da origem a ser sobrescrita.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Os novos valores de cada campo da configuração. Os campos não preenchidos 
+                    serão substituídos pelo valor default. Se você desejar alterar apenas um dos 
+                    campos, utilize o método PATCH ao invés do PUT.
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            o nome da origem que se quer sobrescrever.
+                        </li>
+                            
+                        <li>
+                            <span class="black-sm-sub">origin_type</span>
+                            (choice): escolha entre <em>single_origin</em> ou <em>load_balancer</em> (requer o produto Azion Load Balancer).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">method</span>
+                            (choice): para uma origem Load Balancer, utilize os valores <em>ip_hash</em>, <em>least_connections</em> ou <em>round_robin</em>. 
+                            Para single_origin utilize o valor vazio (“”).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">host_header</span>
+                            (string): o cabeçalho Host que será enviado para sua origem.
+                        </li>
+
+                        
+                        
+                        <li>
+                            <span class="black-sm-sub">origin_protocol_policy</span>
+                            (choice): escolha <em>preserve</em> se desejar que o mesmo scheme (http ou https) 
+                            de conexão do usuário com o Edge seja utilizado pelo Edge para se conectar 
+                            em sua origem; <em>http</em> se desejar forçar a conexão com a origem por http, 
+                            independentemente do scheme utilizado pelo usuário; ou <em>https</em> se desejar 
+                            forçar a conexão com a origem por https.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">addresses</span>
+                            (array): array de endereços estruturados como segue. Para single_origin, apenas 1 endereço pode ser definido.
+                            <ul>
+                                <li>
+                                    <span class="black-sm-sub">address</span>
+                                    (string): hostname (FQDN) ou endereço IP de sua origem.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">weight</span>
+                                    (number): peso atribuído a uma origem Load Balancer. Utilize <em>null</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">server_role</span>
+                                    (choice): escolha entre <em>primary</em> e <em>backup</em> em uma origem Load Balancer. Utilize <em>primary</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">is_active</span>
+                                    (boolean): utilize <em>true</em> ou <em>false</em> para definir se o endereço está ativo em uma configuração Load Balancer. Utilize <em>true</em> para single_origin.
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">connection_timeout</span>
+                            (number): timeout de conexão com a origem (em segundos).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">timeout_between_bytes</span>
+                            (number): timeout em segundos para uma conexão sem transferência de dados.
+                        </li>
+                    </ul>
+                </td>
+
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1492081095/origins/1549
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Another_Origin",
+    "origin_type": "single_origin",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "http",
+    "addresses": [
+       {
+          "address": "single-origin.domain.com:8080"
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+ } 
+{% endhighlight %}
+</div>
+                                                                                                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                                                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1549,
+    "name": "Another_Origin",
+    "origin_type": "single_origin",
+    "method": "",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "http",
+    "addresses": [
+       {
+          "address": "single-origin.domain.com:8080",
+          "weight": null,
+          "server_role": "primary",
+          "is_active": true
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+} 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 id="atualizar-campos-de-uma-origem" class="black-small-title">6. Atualizar campos de uma origem</h2>
+
+<p>Atualiza um ou mais campos de uma Origem de uma configuração de Content Delivery, preservando o valor dos campos não informados.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/origins/</span>:origin_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser atualizada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v1_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :origin_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da origem a ser atualizada.
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="#consulta-lista-de-origens" class="orng-link">Lista de Origens</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Devem ser informados um ou mais campos a serem atualizados. 
+                    Os campos não informados não terão o seu valor alterado.
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span> (string): o nome da origem que se quer atualizar.
+                        </li>
+                            
+                        <li>
+                            <span class="black-sm-sub">origin_type</span>
+                            (choice): escolha entre <em>single_origin</em> ou <em>load_balancer</em> (requer o produto Azion Load Balancer).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">method</span>
+                            (choice): para uma origem Load Balancer, utilize os valores <em>ip_hash</em>, <em>least_connections</em> ou <em>round_robin</em>. 
+                            Para single_origin utilize o valor vazio (“”).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">host_header</span>
+                            (string): o cabeçalho Host que será enviado para sua origem.
+                        </li>
+
+                        
+                        
+                        <li>
+                            <span class="black-sm-sub">origin_protocol_policy</span>
+                            (choice): escolha <em>preserve</em> se desejar que o mesmo scheme (http ou https) 
+                            de conexão do usuário com o Edge seja utilizado pelo Edge para se conectar 
+                            em sua origem; <em>http</em> se desejar forçar a conexão com a origem por http, 
+                            independentemente do scheme utilizado pelo usuário; ou <em>https</em> se desejar 
+                            forçar a conexão com a origem por https.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">addresses</span>
+                            (array): array de endereços estruturados como segue. Para single_origin, apenas 1 endereço pode ser definido.
+                            <ul>
+                                <li>
+                                    <span class="black-sm-sub">address</span>
+                                    (string): hostname (FQDN) ou endereço IP de sua origem.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">weight</span>
+                                    (number): peso atribuído a uma origem Load Balancer. Utilize <em>null</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">server_role</span>
+                                    (choice): escolha entre <em>primary</em> e <em>backup</em> em uma origem Load Balancer. Utilize <em>primary</em> para single_origin.
+                                </li>
+
+                                <li>
+                                    <span class="black-sm-sub">is_active</span>
+                                    (boolean): utilize <em>true</em> ou <em>false</em> para definir se o endereço está ativo em uma configuração Load Balancer. Utilize <em>true</em> para single_origin.
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">connection_timeout</span>
+                            (number): timeout de conexão com a origem (em segundos).
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">timeout_between_bytes</span>
+                            (number): timeout em segundos para uma conexão sem transferência de dados.
+                        </li>
+                    </ul>
+                </td>
+
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /content_delivery/configurations/1492081095/origins/1546
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "addressess": [
+       {
+          "address": "origin-1.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": false
+       },
+       {
+          "address": "origin-2.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "origin-3.domain.com",
+          "weight": 3,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "fallback-origin.domain.com",
+          "weight": null,
+          "server_role": "backup",
+          "is_active":true
+       }
+    ]
+ } 
+{% endhighlight %}
+</div>
+                                                                                                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                                                                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1546,
+    "name": "Azion Load Balancer",
+    "origin_type": "load_balancer",
+    "method": "round_robin",
+    "host_header": "www.domain.com",
+    "origin_protocol_policy": "preserve",
+    "addresses": [
+       {
+          "address": "origin-1.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "origin-2.domain.com",
+          "weight": 1,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "origin-3.domain.com",
+          "weight": 3,
+          "server_role": "primary",
+          "is_active": true
+       },
+       {
+          "address": "fallback-origin.domain.com",
+          "weight": null,
+          "server_role": "backup",
+          "is_active": true
+       }
+    ],
+    "connection_timeout": 60,
+    "timeout_between_bytes": 120
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

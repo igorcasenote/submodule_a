@@ -1,0 +1,67 @@
+<h1 class="title">Edge <span>Applications</span></h1>
+
+<p>O Azion Edge Applications permite que você construa suas aplicações web para serem executadas na plataforma de edge computing da Azion.</p>
+
+<p>Você pode utilizar as funcionalidades de cache (CDN), compute, network e security para construir aplicações web mais robustas, capazes de atender a grandes picos de acesso com melhor performance e segurança para seus usuários.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#como-funciona">1. Como funciona?</a></li>
+    <li><a href="#caching-cdn">2. Caching (CDN)</a></li>
+    <li><a href="#edge-application-modules">3. Edge Application Modules</a></li>
+    <li><a href="#documentacoes-de-suporte">4. Documentações de suporte</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="como-funciona" >1. Como funciona?</h2>
+
+<p>A Azion trabalha com uma arquitetura de proxy reverso, através da qual seus usuários se conectarão nos Intelligent Edges de nossa rede global altamente distribuída, que poderá realizar <em>caching</em> de seu conteúdo ou mesmo executar funções de sua aplicação, além de contar com um amplo arsenal de optimizações e segurança.</p>
+
+<p>Quando um usuário requisita um conteúdo na internet, seu navegador ou aplicativo inicia pela resolução de DNS para traduzir o domínio solicitado para um endereço IP. Ao utilizar a Azion, você irá configurar o DNS de sua aplicação web para apontar para um endereço gerado ao criar um Domain na Azion.</p>
+
+<p>A Azion seleciona, através de seu SDN Router, a infraestrutura de Intelligent Edge mais próxima do usuário, reduzindo latência e aumentando a velocidade da transferência do conteúdo.</p>
+
+<p>Nessa arquitetura, seu conteúdo ou aplicação web precisa ser disponibilizado a partir de uma origem, que pode ser um ou mais web servers em sua infraestrutura, um serviço na cloud ou um dos Origin Services da Azion.
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="caching-cdn" >2. Caching (CDN)</h2>
+
+<p>A CDN da Azion viabiliza que você entregue seu conteúdo com muito mais eficiência.  O conteúdo que estiver em cache (<em>cache hit</em>) nos Intelligent Edges da Azion pode ser entregue diretamente para seus usuários, a partir do ponto de presença mais próximo, sem necessidade de acessar sua origem. Além de aumentar o desempenho e escalabilidade para seu conteúdo, você poderá economizar em sua infraestrutura de origem.</p>
+
+<p>Um <em>cache miss</em> ocorre quando um conteúdo é solicitado e não está cacheado nos edges. A Azion minimiza o efeito do <em>cache miss</em>, ao manter uma conexão keepalive com sua origem, sempre que possível, evitando o overhead do handshake TCP/IP. Independente do volume de requisições simultâneas realizadas aos Intelligent Edges da Azion, cada edge buscará o conteúdo em sua origem apenas uma vez por <em>cache miss</em>, o que reduz substancialmente o impacto em sua infraestrutura.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="edge-application-modules" >3. Edge Application Modules</h2>
+
+<p>A Azion disponibiliza para você módulos de <em>network</em>, <em>compute</em> e <em>security</em> para que você possa construir web applications de alta performance, escalabilidade e segurança, com muito mais simplicidade e livre de tarefas operacionais. Consulte as documentações de cada produto:</p>
+
+<ul class="list-v">
+    <li><a href="{% tl documentation_products_application_acceleration %}" class="orng-link">Application Acceleration</a></li>
+    <li>Caching (CDN)</li>
+    <li><a href="{% tl documentation_products_adaptative_delivery %}" class="orng-link">Device Detection</a></li>
+    <li><a href="{% tl documentation_products_edge_firewall %}" class="orng-link">Edge Firewall</a></li>
+    <li>Edge Functions</li>
+    <li><a href="{% tl documentation_products_image_optimization %}" class="orng-link">Image Optimization</a></li>
+    <li><a href="{% tl documentation_products_load_balancer %}" class="orng-link">Load Balancer</a></li>
+    <li><a href="{% tl documentation_products_content_delivery_rawlogs %}" class="orng-link">Raw Logs</a></li>
+    <li><a href="{% tl documentation_products_web_application_firewall %}" class="orng-link">Web Application Firewall</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="documentacoes-de-suporte" >4. Documentações de suporte</h2>
+
+<ul class="paper-list">
+    <li><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_edge_applications_real_time_purge %}">Real-Time Purge</a></li>
+    <li><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_edge_applications_rules_engine %}">Rules Engine</a></li>
+    <li><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_products_edge_applications_digital_certificates %}">Digital Certificates</a></li>
+</ul>
+
+<hr class="breaker">
+
+<p>Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a></p> 

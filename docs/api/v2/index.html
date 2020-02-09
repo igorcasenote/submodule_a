@@ -1,0 +1,269 @@
+<h1 class="title">API <span>V2</span></h1>
+
+<p>
+    A Azion API é uma RESTful API baseada em requisições HTTPS, que permite que você integre seus sistemas com a nossa plataforma de forma simples, rápida e segura.
+</p>
+
+<p>
+    Esta documentação técnica tem como público alvo clientes e desenvolvedores e aqui você irá encontrar instruções sobre como funciona a API e quais as funções disponibilizadas. Este documento está em constante evolução e recomendamos que você o consulte antes do desenvolvimento de sua aplicação, mesmo que já esteja familiarizado com a nossa API.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#primeiros-passos">1. Primeiros Passos</a></li>
+    <li><a href="#endpoints">2. Endpoints</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="primeiros-passos">1. Primeiros Passos</h2>
+
+<p>
+    Tanto requisições quanto respostas HTTPS deverão ser formatadas em JavaScript Object Notation (JSON). Todas as requisições e respostas HTTPS respeitarão as convenções que seguem.
+</p>
+
+<p class="black-sm-sub">Base URL</p>
+
+<p>A URL base da API que deve ser utilizada é:</p>
+
+<p class="blue-box">
+    https://api.azionapi.net/
+</p>
+
+<p class="black-sm-sub">HTTP Methods</p>
+
+<p>Cada método HTTP define o tipo de operação que se deseja executar.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td>HTTP Method</td>
+                <td>CRUD</td>
+                <td>Coleção Inteira (ex. /items)</td>
+                <td>Item Específico (ex. /items/:item_id)</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>Read</td>
+                <td>Consulta lista de itens de uma coleção</td>
+                <td>Consulta um item específico da coleção</td>
+            </tr>
+
+            <tr>
+                <td>POST</td>
+                <td>Create</td>
+                <td>Cria um novo item na coleção</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>PUT</td>
+                <td>Update/Replace</td>
+                <td>Substitui uma coleção inteira por uma nova</td>
+                <td>Substitui um item da coleção por um novo</td>
+            </tr>
+
+            <tr>
+                <td>PATCH</td>
+                <td>Update/Modify</td>
+                <td>Atualiza parcialmente uma coleção</td>
+                <td>Atualiza parcialmente um item da coleção</td>
+            </tr>
+
+            <tr>
+                <td>DELETE</td>
+                <td>Delete</td>
+                <td>Deleta uma coleção inteira</td>
+                <td>Deleta um item da coleção</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Status Codes</p>
+
+<p>O código de retorno HTTP define o status de sucesso ou falha na execução da operação requisitada.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 30%;">Status Code</td>
+                <td style="width: 70%;">Significado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>Status geral de sucesso na realização da operação.</td>
+            </tr>
+
+            <tr>
+                <td>201 CREATED</td>
+                <td>Sucesso na criação de uma coleção ou item, através dos métodos POST ou PUT.</td>
+            </tr>
+
+            <tr>
+                <td>204 NO CONTENT</td>
+                <td>Sucesso na realização da operação, mas sem conteúdo para ser retornado no Body. Geralmente utilizado para operações de DELETE ou PUT.</td>
+            </tr>
+
+            <tr>
+                <td>207 MULTI-STATUS</td>
+                <td>
+                    Um lote de operações foi solicitado em uma única requisição e a execução apresentou diferentes códigos de retorno para algumas das operações. Os códigos são apresentados nos campos “status”, no corpo 
+                    da resposta,  para cada sub-lote de operações para os quais se aplicam.
+                </td>
+            </tr>
+
+            <tr>
+                <td>400 BAD REQUEST</td>
+                <td>
+                    Erro na requisição, tais como parâmetros inválidos, ausência de parâmetros obrigatórios ou outros.
+                </td>
+            </tr>
+
+            <tr>
+                <td>401 UNAUTHORIZED</td>
+                <td>
+                    Erro resultante da ausência do cabeçalho HTTP Authentication.
+                </td>
+            </tr>
+
+            <tr>
+                <td>403 FORBIDDEN</td>
+                <td>
+                    Falta de permissão do usuário para executar a operação solicitada.
+                </td>
+            </tr>
+
+            <tr>
+                <td>404 NOT FOUND</td>
+                <td>
+                    O recurso solicitado não existe.
+                </td>
+            </tr>
+
+            <tr>
+                <td>405 METHOD NOT ALLOWED</td>
+                <td>
+                    O método solicitado não é aplicável a URL.
+                </td>
+            </tr>
+
+            <tr>
+                <td>406 NOT ACCEPTABLE</td>
+                <td>
+                    Ausência do cabeçalho Accept na requisição HTTP ou cabeçalho contendo formato ou versão não suportados pela API.
+                </td>
+            </tr>
+
+            <tr>
+                <td>409 CONFLICT</td>
+                <td>
+                    Conflito na execução da requisição, como a solicitação de criação de um registro já existente.
+                </td>
+            </tr>
+
+            <tr>
+                <td>429 TOO MANY REQUESTS</td>
+                <td>
+                    A requisição foi rejeitada temporariamente por exceder o limite de operações. Aguarde até o momento definido no cabeçalho X-Ratelimit-Reset e tente novamente.
+                </td>
+            </tr>
+
+            <tr>
+                <td>500 INTERNAL SERVER ERROR</td>
+                <td>
+                    Erro não intencional, por falha não identificada no processamento da requisição.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">HTTP Headers</p>
+
+<p>
+    Todas as requisições devem ser feitas enviando o HTTP Header especificando o formato de codificação desejado para as respostas e a versão utilizada da API. A versão atual da API é a 2 e o formato é application/json.
+</p>
+
+<div class="white-code ">
+{% highlight console %}
+Accept: application/json; version=2
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Rate Limit</p>
+
+<p>O limite de operações que pode ser executado via API é definido por 3 cabeçalhos HTTP de resposta:</p>
+
+<ul class="list-v">
+    <li>X-ratelimit-limit: limite de operações permitida em uma janela de tempo.</li>
+    <li>X-ratelimit-remaining: número de operações ainda disponíveis na janela de tempo.</li>
+    <li>X-ratelimit-reset: é a data e hora, no formato ISO 8601, que representa o momento no futuro em que a janela de tempo encerrará, quando os limites totais serão, então, reinicializados.</li>
+</ul>
+
+<p>
+    Exemplo de cabeçalhos HTTP de resposta a uma requisição:
+</p>
+                    
+<div class="white-code ">
+{% highlight console %}
+Date: Thu, 02 Nov 2017 12:30:28 GMT
+X-ratelimit-remaining: 199
+X-ratelimit-limit: 200
+X-ratelimit-reset: 2017-11-02T12:31:28.675446
+{% endhighlight %}
+</div>
+
+<p>
+    No exemplo dado, são permitidas no total 200 operações na janela de tempo de 1 minuto, das quais ainda estão disponíveis 199, pois uma foi executada, sendo que o limite total será restabelecido após 1 minuto.
+</p>
+
+<p>
+    Quando o X-ratelimit-limit é alcançado, ou em outras palavras, quando o X-ratelimit-remaining chega a zero, a API irá responder com um erro HTTP 429 TOO MANY REQUESTS. Se sua aplicação receber esse erro, será necessário aguardar até o horário definido em X-ratelimit-reset para realizar uma nova requisição.
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="endpoints">2. Endpoints</h2>
+
+<p>Os endpoints definem as funções disponíveis na API.</p>
+
+<p>Você deve começar pela criação de um Token em Authentication, para então poder utilizar as demais funções disponíveis.</p>
+
+<ul class="paper-list">
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl api_v2_authentication %}" class="orng-link">Authentication</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl api_v2_real_time_analytics %}" class="orng-link">Analytics</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl api_v2_cloud_security %}" class="orng-link">Cloud Security</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl api_v2_content_delivery %}" class="orng-link">Content Delivery</a>
+    </li>
+
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl api_v2_real_time_purge %}" class="orng-link">Real-Time Purge</a>
+    </li>
+</ul>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

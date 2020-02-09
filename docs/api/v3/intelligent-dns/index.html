@@ -1,0 +1,113 @@
+<h1 class="title">Intelligent <span>DNS</span></h1>
+
+<p>Utilize a API do Intelligent DNS para criar, consultar e atualizar suas Hosted Zones e Records.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#criar-uma-hosted-zone">1. Criar uma nova Hosted Zone</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-solicitacao-de-url-purge">1. Criar uma nova Hosted Zone</h2>
+
+<p>Possibilita a criação de uma nova Hosted Zone.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/intelligent_dns</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Edit Intelligent DNS</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr  class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>
+                    A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Accept</td>
+                <td>Informações sobre o tipo de retorno e versão</td>
+                <td>header</td>
+                <td>string;<br><br>obrigatório: <em>application/json;version=3</em></td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>           
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /intelligent_dns
+Accept: application/json; version=3
+Authorization: token cf2078926f91a6e638af3f4a6977b505edfe5941
+Content-Type: application/json
+{
+    "name": "Hosted Zone criado pela API",
+    "domain": "meudomain.com",
+    "is_active": true
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "results": {
+        "domain": "meudomain.com",
+        "expiry": 1209600,
+        "id": 1,
+        "is_active": true,
+        "name": "Hosted Zone criado pela API",
+        "nameservers": [
+            "ns1.aziondns.net",
+            "ns2.aziondns.com"
+        ],
+        "nx_ttl": 3600,
+        "refresh": 43200,
+        "retry": 7200,
+        "soa_ttl": 3600
+    },
+    "schema_version": 3
+}  
+{% endhighlight %}  
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

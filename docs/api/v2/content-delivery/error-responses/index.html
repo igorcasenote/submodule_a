@@ -1,0 +1,519 @@
+<h1 class="title">Error <span>Responses</span></h1>
+    
+<p>
+    Por meio da API do Content Delivery você pode consultar, criar, remover ou atualizar suas configurações. Para gerenciamento de Error Responses, utilize os endpoints que seguem.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consultar-lista-de-error-responses">1. Consultar lista de Error Responses</a></li>
+    <li><a href="#sobrescrever-lista-de-error-responses">2. Sobrescrever lista de Error Responses</a></li>
+    <li><a href="#atualizar-um-campo-de-error-responses">3. Atualizar um campo de Error Responses</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-lista-de-error-responses">1. Consultar lista de Error Responses</h2>
+
+<p>Retorna a lista de Error Responses de uma configuração de Content Delivery e seus respectivos tempos de cache em segundos.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/error_responses</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table >
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v2_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery a ser consultada.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+                    
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1492081095/error_responses
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "cache_error_400": 0,
+    "cache_error_403": 0,
+    "cache_error_404": 30,
+    "cache_error_405": 30,
+    "cache_error_414": 30,
+    "cache_error_416": 30,
+    "cache_error_501": 30
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-lista-de-error-responses">2. Sobrescrever lista de Error Responses</h2>
+
+<p>Sobrescreve todos os tempos de cache de Error Responses. Considere utilizar o método PATCH no lugar de PUT, para atualizar somente alguns campos da configuração sem alterar o valor dos demais.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/error_responses</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table >
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v2_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json 
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a Origem deve ser substituída.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>   
+            </tr>
+
+            <tr>
+                    <td>
+                        Error Responses
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        A lista de tempos de cache (em segundos) para Error Responses deve 
+                        ser enviada codificada no formato json, com os seguintes campos:
+                        <br><br>
+
+                        <ul>
+                            <li>
+                                <span class="black-sm-sub">cache_error_400</span>
+                                (number): tempo de cache na CDN para o código de erro 400 Bad Request.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_403</span>
+                                (number): tempo de cache na CDN para o código de erro 403 Forbidden.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_404</span>
+                                (number): tempo de cache na CDN para o código de erro 404 Not Found.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_405</span>
+                                (number): tempo de cache na CDN para o código de erro 405 Method Not Allowed.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_414</span>
+                                (number): tempo de cache na CDN para o código de erro 414 URI Too Long.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_414</span>
+                                (number): tempo de cache na CDN para o código de erro 416 Range Not Satisfiable.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_501</span>
+                                (number): tempo de cache na CDN para o código de erro 501 Not Implemented.
+                            </li>
+                        </ul>
+                    </td>
+
+                    <td>body</td>
+
+                    <td>json</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1492081095/error_responses
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "cache_error_400": 0,
+    "cache_error_403": 0,
+    "cache_error_404": 300,
+    "cache_error_405": 30,
+    "cache_error_414": 30,
+    "cache_error_416": 30,
+    "cache_error_501": 30
+} 
+{% endhighlight %}
+</div>
+        
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "cache_error_400": 0,
+    "cache_error_403": 0,
+    "cache_error_404": 300,
+    "cache_error_405": 30,
+    "cache_error_414": 30,
+    "cache_error_416": 30,
+    "cache_error_501": 30
+ }
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="atualizar-um-campo-de-error-responses">3. Atualizar um campo de Error Responses</h2>
+
+<p>Atualiza um ou mais campos da lista de tempos de cache para Error Responses em uma configuração de Content Delivery, preservando o valor dos campos não informados.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/error_responses</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em >Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table >
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint 
+                    de <a href="{% tl api_v2_authentication %}#criacao-de-token">Criação de Token</a>.
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+
+                <td>header</td>
+
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.:
+                    <br><br>
+                    Content-Type: application/json 
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+
+            <tr>
+                <td>
+                    :conf_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da configuração de Content Delivery para a qual a origem deve ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a
+                    <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes" class="orng-link">Lista de Configurações</a>.
+                </td>
+                
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>   
+            </tr>
+
+            <tr>
+                    <td>
+                        Error Responses
+                        <br><br>
+                        (obrigatório)
+                    </td>
+
+                    <td>
+                        A lista de tempos de cache (em segundos) para Error Responses, 
+                        que se deseja atualizar, deve ser enviada codificada no formato json:
+                        <br><br>
+
+                        <ul>
+                            <li>
+                                <span class="black-sm-sub">cache_error_400</span>
+                                (number): tempo de cache na CDN para o código de erro 400 Bad Request.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_403</span>
+                                (number): tempo de cache na CDN para o código de erro 403 Forbidden.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_404</span>
+                                (number): tempo de cache na CDN para o código de erro 404 Not Found.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_405</span>
+                                (number): tempo de cache na CDN para o código de erro 405 Method Not Allowed.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_414</span>
+                                (number): tempo de cache na CDN para o código de erro 414 URI Too Long.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_414</span>
+                                (number): tempo de cache na CDN para o código de erro 416 Range Not Satisfiable.
+                            </li>
+
+                            <li>
+                                <span class="black-sm-sub">cache_error_501</span>
+                                (number): tempo de cache na CDN para o código de erro 501 Not Implemented.
+                            </li>
+                        </ul>
+                    </td>
+
+                    <td>body</td>
+
+                    <td>json</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1492081095/error_responses
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "cache_error_404": 30
+} 
+{% endhighlight %}
+</div>
+                                                                
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                    
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "cache_error_400": 0,
+    "cache_error_403": 0,
+    "cache_error_404": 30,
+    "cache_error_405": 30,
+    "cache_error_414": 30,
+    "cache_error_416": 30,
+    "cache_error_501": 30
+} 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

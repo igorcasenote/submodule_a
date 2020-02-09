@@ -1,0 +1,423 @@
+<h1 class="title">Analytics</h1>
+
+<p>
+    Para utilizar o Analytics você deve acessar o <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a> e clicar em <span class="black-sm-sub">Control your traffic</span>.
+</p>
+
+<p>A tela do Analytics possui algumas regiões para que possa ser feito alguns filtros, tais como:</p>
+
+<ul class="list-v">
+    <li>Área para Filtrar o Intervalo de Dados: Onde você pode selecionar o período que gostaria que fosse exibido.</li>
+    <li>Área de Dados: Onde são exibidos os gráficos com os dados solicitados.</li>
+</ul>
+
+<ul class="orng-bar-list">
+    <li><a href="#FiltrarIntevaloDados">1.  Filtrar Intervalo de dados</a></li>
+    <li><a href="#ExportCSV">2.  Export to CSV</a></li>
+    <li><a href="#ComoInterpretarGraficos">3.  Como Interpretar os Gráficos</a></li>
+    <li><a href="#DataTransferred">4.  Data Transferred</a></li>
+    <li><a href="#Requestss">5.  Requests</a></li>
+    <li><a href="#StatusCodes">6.  Status Codes</a></li>
+    <li><a href="#HTTPMethods">7.  HTTP Methods</a></li>
+    <li><a href="#LiveStreamingConnections">8.  Connections</a></li>
+    <li><a href="#cloudstorage">9.  Storage</a></li>
+    <li><a href="#WebApplicationFirewall">10. WAF</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="FiltrarIntevaloDados" >1. Filtrar Intervalo de Dados</h2>
+
+<p>
+    Todas as opções de gráficos de produtos no Analytics possuem o Filtro de Intervalo de Dados. 
+</p>
+
+<p>
+    Os gráficos são atualizados e apresentam as informações conforme os critérios selecionados no filtro.
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="ExportCSV">2. Export to CSV (Exportando para CSV)</h2>
+
+<p>
+    Após aplicar os filtros, você pode exportar as informações para um arquivo CSV, para realizar esta ação, clique no ícone CSV ao lado do gráfico desejado.
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="ComoInterpretarGraficos">3. Como Interpretar os Gráficos</h2>
+
+<p>
+    As informações são apresentadas conforme a solução e o intervalo de tempo selecionados nos filtros, os gráficos apresentados estão agrupados em:
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="DataTransferred">4. Data Transferred (Dados Transferidos)</h2>
+
+<p>
+    Esta guia apresenta gráficos com as informações referentes ao volume de dados 
+    transferidos pela solução que você selecionou, esta aba apresenta 4 gráficos referentes ao volume de dados trafegados na solução e no período selecionado, como segue:
+</p>
+
+<p>
+    <span class="black-sm-sub">Total Data (Total de Dados)</span>: Este gráfico apresenta o somatório (Saved Data + Missed Data) do volume de dados trafegados na solução e no período selecionado, passe o mouse sobre o gráfico para visualizar o valor exato trafegada no período.
+</p>
+
+<p>
+    Os valores exibidos no rodapé do gráfico são os somatórios do volume no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Data Offloaded (Dados Entregues)</span>: Este gráfico apresenta o percentual do volume de dados que foram entregues pela solução da Azion, ou seja, é a representação do gráfico Saved Data só que em percentuais,
+    passe o mouse sobre o gráfico para visualizar o percentual exato no intervalo selecionado.
+</p>
+
+<p>
+    Os valores exibidos no rodapé do gráfico são as médias no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Saved Data (Dados Entregues pelo Cache)</span>: Este gráfico apresenta o 
+    volume de dados que foram entregues pelos servidores da Azion, ou seja, sem buscar o conteúdo no servidor de origem, passe o mouse sobre o gráfico para visualizar o valor exato do período.
+</p>
+
+<p>
+    Os valores exibidos no rodapé são os somatórios do volume do intervalo. 
+</p>
+
+<p>
+    <span class="black-sm-sub">Missed Data (Datos Entregues pela Origem)</span>: Este gráfico apresenta o volume de dados que foram entregues pelo servidor de origem, ou seja, a solicitação foi feita aos servidores da Azion, mas o conteúdo não havia sido transferido da origem para eles. No momento que o
+    servidor de origem atende a solicitação, ele também envia para os servidores da Azion o conteúdo.
+</p>
+
+<p>
+    Os valores exibidos no rodapé do gráfico são os somatórios do volume no intervalo.
+</p>
+
+<p class="black-sm-sub">Bandwitdh Usage (Utilização de Banda)</p>
+
+<p><span class="black-sm-sub">Total Bandwidth Usage (Total de Banda Utilizada)</span>: Quantidade de Mbps utilizados da banda.</p>
+
+<p>No rodapé do gráfico mostra a média da banda utilizada no intervalo.</p>
+
+<p><span class="black-sm-sub">Bandwidth Offload</span>: Percentual de banda que foi descarregado.</p>
+
+<p>No rodapé do gráfico é exibida a média da banda utilizada no intervalo.</p>
+
+<p><span class="black-sm-sub">Saved Bandwidth</span>: Quantidade de Mbps da banda que foi entregue pela CDN sem precisar buscar o conteúdo no servidor de origem.</p>
+
+<p>No rodapé do gráfico é exibida a média da banda utilizada no intervalo.</p>
+
+<p><span class="black-sm-sub">Missed Bandwidth</span>: Quantidade de Mbps da banda, até o servidor de origem do conteúdo.</p>
+
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="Requestss">5. Requests (Solicitações)</h2>
+
+<p>
+    <span class="black-sm-sub">Total de Requests</span>: Quantidade de solicitações de clientes ao conteúdo. No rodapé do gráfico mostra o
+    somatório de solicitações do intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Saved Requests</span>: Quantidade de solicitações que foram entregues pelos servidores da Azion, ou seja, sem buscar o conteúdo no servidor de origem. No rodapé do gráfico temos o total de solicitações entregues no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Missed Reuqests</span>: Quantidade de solicitações que foram entregues pelo servidor de origem, ou seja, a
+        solicitação foi feita aos servidores da Azion, mas o conteúdo não havia sido transferido da origem para eles. No rodapé do gráfico temos o total de solicitações para a origem no intervalo.
+</p>
+
+<p class="black-sm-sub">Requests per Second (Solicitações por Segundo)</p>
+
+<p>
+    <span class="black-sm-sub">Total Requests per Second</span>: Quantidade de solicitações de clientes ao conteúdo por segundo.
+    No rodapé do gráfico temos a média de solicitações por segundo no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Requests per Second Offloaded</span>: 
+    Percentual por segundo de solicitações que foram entregues pelos servidores da Azion, ou seja, sem buscar o conteúdo no servidor de origem. No rodapé temos a média no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Saved Requests per Second</span>: 
+    Quantidade de solicitações por segundo que foram entregues pelos servidores da Azion, ou seja, sem buscar o conteúdo no servidor de origem. No rodapé do gráfico temos a média de solicitações entregues no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Missed Requests per Second</span>: 
+    Quantidade de solicitações por segundo que foram entregues pelo servidor de origem, ou seja, 
+    a solicitação foi feita aos servidores da Azion, mas o conteúdo não havia sido transferido da origem para eles. No rodapé do gráfico é exibido a média de solicitações por segundo no intervalo.
+</p>
+
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="StatusCodes">6. Status Codes</h2>
+
+<p>
+    Esta guia apresenta os gráficos com as informações referentes aos códigos de Status de entrega de conteúdo. Uma excelente
+    documentação para aprofundar o conhecimento sobre HTTP Status Codes pode ser encontrada neste link: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List of HTTP Status Codes</a> . Disponível apenas no Analytics Premium.
+</p>
+
+<p>
+    <span class="black-sm-sub">HTTP Status Codes 2xx</span>:
+    Essa classe de status indica que a requisição do usuário foi recebida, entendida, aceita e processada pelo servidor.
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Código</td>
+                <td style="width: 85%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200</td>
+                <td><span class="black-sm-sub">OK</span>: Status padrão de uma requisição HTTP bem sucedida. Significa que o conteúdo foi entregue para o usuário corretamente.</td>
+            </tr>
+
+            <tr>
+                <td>204</td>
+                <td><span class="black-sm-sub">No Content</span>: Significa que o servidor completou a requisição mas não havia nenhum conteúdo a ser entregue.</td>
+            </tr>
+
+            <tr>
+                <td>206</td>
+                <td><span class="black-sm-sub">Parcial Content</span>: O servidor está entregando somente parte do conteúdo pois ele foi dividido em partes.</td>
+            </tr>
+
+            <tr>
+                <td>2xx</td>
+                <td><span class="black-sm-sub">Outros Status</span>: Aqui podem constar outros tipos de Status de requisições que também foram atendidas mas que não são muito comuns.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <span class="black-sm-sub">HTTP Status Codes 3xx</span>:
+    Essa classe de status indica que a requisição do usuário foi redirecionada e precisa mais um passo para ser entregue.
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Código</td>
+                <td style="width: 85%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>301</td>
+                <td><span class="black-sm-sub">Moved Permanently</span>: Essa e todas as requisições futuras serão redirecionadas para outra URL.</td>
+            </tr>
+
+            <tr>
+                <td>302</td>
+                <td><span class="black-sm-sub">Found</span>: Essa requisição foi temporariamente redirecionada para outra URL.</td>
+            </tr>
+
+            <tr>
+                <td>304</td>
+                <td><span class="black-sm-sub">Not Modified</span>: É identificado pelo Header do conteúdo que ele ainda não foi modificado e não precisa ser requisitado novamente. Pode-se entregar o arquivo existente no Browser do usuário.</td>
+            </tr>
+
+            <tr>
+                <td>3xx</td>
+                <td><span class="black-sm-sub">Redirection</span>: Aqui podem constar outros tipos de Status de requisições que também foram redirecionadas mas que não são muito comuns.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <span class="black-sm-sub">HTTP Status Codes 4xx</span>:
+    Essa classe de status indica que ocorreu um erro na requisição do usuário:
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Código</td>
+                <td style="width: 85%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>400</td>
+                <td><span class="black-sm-sub">Bad request</span>: O servidor não pode processar a requisição, geralmente por algum erro no formato da requisição.</td>
+            </tr>
+
+            <tr>
+                <td>403</td>
+                <td><span class="black-sm-sub">Forbidden</span>:  A requisição é válida mas não foi autorizada no servidor, significa que o usuário ou o IP que está fazendo a requisição não é autorizado para tal.</td>
+            </tr>
+
+            <tr>
+                <td>404</td>
+                <td><span class="black-sm-sub">Not Found</span>: O arquivo ao qual a requisição solicitou não existe na origem.</td>
+            </tr>
+
+            <tr>
+                <td>4xx</td>
+                <td><span class="black-sm-sub">Client Error</span>: Aqui podem constar outros tipos de Status de requisições que também geraram erros mas que não são muito comuns.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <span class="black-sm-sub">HTTP Status Codes 5xx</span>:
+    Essa classe de status indica que o servidor falhou ao tentar entregar uma requisição aparentemente válida.
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Código</td>
+                <td style="width: 85%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>500</td>
+                <td><span class="black-sm-sub">Internal Server Error</span>: É uma mensagem genérica que é dada quando há um erro inesperado no servidor não conseguindo tratar a requisição.</td>
+            </tr>
+
+            <tr>
+                <td>502</td>
+                <td><span class="black-sm-sub">Bad Gateway</span>: Quando o servidor está servindo como Gateway ou Proxy e recebe uma resposta inválida da origem. Geralmente ocorre quando a origem está fora.</td>
+            </tr>
+
+            <tr>
+                <td>503</td>
+                <td><span class="black-sm-sub">Service Unavailable</span>: Servidor não está disponível. Geralmente um Status temporário.</td>
+            </tr>
+
+            <tr>
+                <td>5xx</td>
+                <td><span class="black-sm-sub">Server Error</span>: Aqui podem constar outros tipos de Status de requisições que também geraram erros mas que não são muito comuns.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="HTTPMethods">7. HTTP Methods</h2>
+
+<p>
+    Esse gráfico mostra as requisições para o seu site segregadas por método HTTP utilizado. Para informações mais aprofundadas sobre métodos HTTP pode-se ler neste
+    link: <a class="orng-link" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Hypertext Transfer Protocol</a> . Gráfico disponível apenas no produto Analytics Premium.
+</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Método</td>
+                <td style="width: 85%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>Esse método de requisição só recebe dados do servidor.</td>
+            </tr>
+
+            <tr>
+                <td>POST</td>
+                <td>Esse método de requisição envia dado para o servidor.</td>
+            </tr>
+
+            <tr>
+                <td>HEAD</td>
+                <td>Esse método de requisição é igual a um GET, mas não recebe o corpo do HTML, somente o cabeçalho.</td>
+            </tr>
+
+            <tr>
+                <td>OTHERS</td>
+                <td>Outros métodos de requisição que não são tão comuns, são agrupados neste tipo.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="LiveStreamingConnections">8. Connections</h2>
+
+<p>
+    Esta aba está disponível quando a solução <em>Live Streaming</em> é selecionada. Ela apresenta as informações referentes ao número de usuários conectados aos streams da sua empresa.
+</p>
+
+<p>
+    <span class="black-sm-sub">Average Connected Users</span>:
+    Média de usuários conectados no Stream selecionado. No rodapé do gráfico é exibido a média de usuários conectados no intervalo.
+</p>
+
+<p>
+    <span class="black-sm-sub">Max Connected Users</span>:
+    Máximo de usuários conectados no Stream selecionado. No rodapé do gráfico é exibido o número máximo de usuários conectados no intervalo.
+</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="cloudstorage">9. Storage (Dados Armazenados)</h2>
+
+<p>Esta guia apresenta gráficos com as informações referentes ao do produto Cloud Storage.</p>
+
+<p>
+    <span class="black-sm-sub">Used Space</span>:
+    Quantidade de informação armazenada pela sua empresa ao longo do tempo. No rodapé do gráfico é exibido o máximo de utilização do storage no intervalo.
+</p>
+
+<hr class="breaker">
+
+
+<h2 class="black-small-title" id="WebApplicationFirewall">10. Web Application Firewall (WAF)</h2>
+
+<p>Para os clientes que possuem o produto Web Application Firewall há um gráfico específico para mostrar os comportamentos das requests.</p>
+
+<p>
+    <span class="black-sm-sub">Threats vs Requests</span>:
+    Esse gráfico apresenta a média de ataques bloqueados no período selecionado.
+</p>
+
+<p>
+    <span class="black-sm-sub">Cross-Site Scripting (XSS) Threats</span>:
+    Esse gráfico representa a média de ataques do tipo Cross-Site Scripting, um tipo de vulnerabilidade tipicamente encontrado em web applications, que permite ao atacante 
+    inserir no lado do cliente scripts em uma página da web vista por outros usuários.
+</p>
+
+<p>
+    <span class="black-sm-sub">Remote File Inclusion (RFI) Threats</span>:
+    Esse gráfico representa a média de ataques do tipo Remote File Inclusion, um tipo de vulnerabilidade tipicamente 
+    encontrado em websites. Permite ao atacante incluir um arquivo no web server.
+</p>
+
+<p>
+    <span class="black-sm-sub">SQL Injection Threats</span>:
+    Esse gráfico representa a média de ataques do tipo SQL Injection, uma técnica de inserção de códigos usada para atacar data-driven applications.
+</p>
+
+<p>
+    <span class="black-sm-sub">Other Threats</span>:
+    Esse gráfico apresenta a média de ataques bloqueados pelo WAF e que não estão separados pelas classificações de ataques acima.
+</p>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

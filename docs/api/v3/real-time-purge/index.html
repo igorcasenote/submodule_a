@@ -1,0 +1,341 @@
+<h1 class="title">Real-Time <span>Purge</span></h1>
+
+<p>Se você precisa deletar um objeto das camadas de Edge Caching ou de L2 Caching antes que ele expire, você pode utilizar a API do Real-Time Purge. Se desejar, integre a API da Azion ao seu CMS para automatizar seus processos de atualização de conteúdo.</p>
+
+<p>Veja, a seguir, como proceder para:</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#criar-uma-solicitacao-de-url-purge">1. Criar uma solicitação de URL Purge</a></li>
+    <li><a href="#criar-uma-solicitacao-de-cache-key-purge">2. Criar uma solicitação de Cache Key Purge</a></li>
+    <li><a href="#criar-uma-solicitacao-de-wildcard-purge">3. Criar uma solicitação de Wildcard Purge</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-solicitacao-de-url-purge">1. Criar uma solicitação de URL Purge</h2>
+
+<p>Para deletar uma lista de objetos da camada Edge Caching da Azion por meio de suas URLs, você pode utilizar o endpoint:</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/purge/url</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Purge</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr  class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Body (obrigatório)</td>
+                <td>Listagem de URLs que você deseja remover do cache dos Edge Servers da Azion.
+                    <ul>
+                        <li><span class="black-sm-sub">urls</span> (array): lista de até 50 URLs a serem expiradas do cache, por requisição.</li>
+                        <li><span class="black-sm-sub">method</span> (choice): método de purge, utilize o valor “delete” para remoção.</li>
+                    </ul></td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /purge/url
+Accept: application/json; version=3
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "urls": [
+       "http://www.domain.com/", 
+       "http://www.domain.com/test.js", 
+       "http://static.mistaken-domain.com/image1.jpg"
+    ],
+    "method": "delete"
+ }
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 207 MULTI-STATUS
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+[
+   {
+      "status": "HTTP/1.1 201 CREATED",
+      "urls": [
+         "http://www.domain.com/", 
+         "http://www.domain.com/test.js"
+      ],
+      "details": "Purge request successfully created"
+   },
+   {
+      "status": "HTTP/1.1 403 FORBIDDEN",
+      "urls": ["http://static.mistaken-domain.com/image1.jpg"],
+      "details": "Unauthorized domain for your account"
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-solicitacao-de-cache-key-purge">2. Criar uma solicitação de Cache Key Purge</h2>
+
+<p>Para deletar uma lista de objetos das camadas de Edge Caching ou de L2 Caching da Azion por meio de suas Cache Keys, você pode utilizar o endpoint:</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/purge/cachekey</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Purge</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Body (obrigatório)</td>
+                <td>Listagem de Cache Keys que você deseja remover do cache dos Edge Servers da Azion.
+                    <ul>
+                        <li><span class="black-sm-sub">urls</span> (array): lista de até 50 Cache Keys a serem expiradas do cache, por requisição.</li>
+                        <li><span class="black-sm-sub">method</span> (choice): método de purge, utilize o valor “delete” para remoção.</li>
+                        <li><span class="black-sm-sub">Layer </span> (choice): camada onde será feito o purge. Utilize o valor "edge_caching" (valor default caso não informado) para purge na camada Edge Caching e o valor "l2_caching" para purge no L2 Caching.</li>
+                    </ul></td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /purge/cachekey
+Accept: application/json; version=3
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "urls": [
+       "http://www.domain.com/@@cookie_name=cookie_value", 
+       "http://www.domain.com/test.js", 
+       "http://static.domain.com/image1.jpg?ims=arguments@@variants"
+    ],
+    "method": "delete",
+    "layer": "l2_caching"
+
+ }
+ 
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 201 CREATED
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "details": "Purge request successfully created"
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-solicitacao-de-wildcard-purge">3. Criar uma solicitação de Wildcard Purge</h2>
+
+<p>Para deletar uma lista de objetos da camada Edge Caching da Azion por meio de uma Wildcard URL ou Wildcard Cache Key, você pode utilizar o endpoint:</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/purge/wildcard</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub">Purge</span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v3_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td>O tipo de codificação utilizada no Body (application/json).<br><br> 
+                    ex.:<br><br>
+                    Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Body (obrigatório)</td>
+                <td>A expressão Wildcard que representa a listagem de objetos que você deseja remover do cache dos Edge Servers da Azion.
+                    <ul>
+                        <li><span class="black-sm-sub">urls</span> (array): a Wildcard URL ou Wildcard Cache Key que representa a listagem de objetos que você deseja expirar. Você só pode utilizar uma expressão Wildcard por requisição.</li>
+                        <li><span class="black-sm-sub">method</span> (choice): método de purge, utilize o valor “delete” para remoção.</li>
+                    </ul></td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /purge/wildcard
+Accept: application/json; version=3
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+                    </div>
+
+                    <div class="white-code put">
+{% highlight console %}
+{
+    "urls": ["http://www.domain.com/path/image.jpg*"],
+    "method": "delete"
+ }
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/1.1 201 CREATED
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "detail": "Purge request successfully created"
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

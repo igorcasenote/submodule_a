@@ -1,0 +1,163 @@
+<h1 class="title">Usuários e <span>times</span></h1>
+
+<p class="black-small-title">
+    Como Adicionar Usuários e Times no Real-Time Manager
+</p>
+
+<p class="blue-box">
+    Para garantir a segurança de acesso às soluções, não recomendamos o compartilhamento de logins de acesso.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#adicionarusuario">1. Adicionar Usuários</a></li>
+    <li><a href="#AlterarUsuario">2. Alterar informações de Usuário</a></li>
+    <li><a href="#alterarSeuUsuario">3. Alterar informações do SEU Usuário</a></li>
+    <li><a href="#excluirUsuario">4. Excluir Usuário</a></li>
+    <li><a href="#adicionarTimes">5. Adicionar Times</a></li>
+    <li><a href="#alterarPermissoesTime">6. Alterar as permissões de um Time</a></li>
+    <li><a href="#excluirTimes">7. Excluir Times</a></li>
+</ul>
+
+<hr class="breaker">
+
+
+<h2 class="black-small-title" id="adicionarusuario" >1. Adicionar Usuários</h2>
+
+<p>
+    Para adicionar um usuário, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Users</span> e em <span class="black-sm-sub">Add Users</span>.
+</p>
+
+<p>
+    Preencha os campos apresentados nesta tela, os campos marcados com * são obrigatórios.
+</p>
+
+<p class="black-sm-sub">Observações:</p>
+
+<ul class="list-v">
+    <li>
+        O campo <span class="black-sm-sub">E-mail</span> é utilizado posteriormente como login de acesso do usuário ao sistema.
+    </li>   
+    <li>
+        No campo <span class="black-sm-sub">Timezone</span> inclua o fuso horário em que o usuário se encontra, no caso do Brasil por exemplo (UTC -03:00) America/São Paulo. O fuso horário determinará as datas e os horários apresentados no History e as informações visualizadas no Analytics & Monitoring.
+    </li> 
+    <li>
+        No campo <span class="black-sm-sub">Language</span>, selecione o idioma que o usuário deseja visualizar as informações do sistema.
+    </li>
+    <li>
+        Assinale o Checkbox <span class="black-sm-sub">Admin</span> no caso de o novo usuário possuir privilégios de Administrador do Sistema. Nesse caso ele poderá realizar todas as ações no Real Time Manager, independente dos times associados a ele.
+    </li>
+    <li>
+        No campo <span class="black-sm-sub">Teams</span> , selecione os times para o usuário. Os times determinam as soluções ou grupo de soluções que o usuário pode acessar. Caso o time desejado não exista na lista, você deve adicioná-lo antes de iniciar o cadastro do usuário.
+    </li>                     
+    <li>
+        Consulte a documentação sobre <a href="{% tl documentation_accounts_multi_factor %}" class="orng-link">Multi-Factor Autentication</a>.
+    </li>                     
+    <li>
+        Ao confirmar o cadastramento, o sistema envia um e-mail para o usuário indicando a criação do acesso e com instruções para a criação da senha. Solicite ao usuário que siga as informações descritas no e-mail para a criação da senha.
+    </li>      
+</ul>
+<p><span class="black-sm-sub">Importante:</span> A senha deve conter no mínimo 06 (seis) caracteres e o sistema diferencia letras maiúsculas de minúsculas (case sensitive).</p>
+<p><span class="black-sm-sub">Obs.:</span> Esta solicitação ficará disponível por 14 dias. No sétimo dia o usuário novo receberá um lembrete que terá mais 7 dias para ativar sua conta. Passados estes 14 dias, se o usuário não for ativado, ele será excluído do RTM.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="AlterarUsuario">2. Alterar informações de Usuário</h2>
+
+<p>Para alterar as informações de um usuário, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Users</span> e após isso clique em <span class="black-sm-sub">User Edit (lápis)</span> ao lado do usuário.</p>
+
+<p>Os campos são os mesmos da inclusão de usuário, exceto o campo <span class="black-sm-sub">Active</span>, este campo define se a conta do usuário está ativa.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="alterarSeuUsuario">3. Alterar informações do SEU Usuário</h2>
+
+<p>
+    Para alterar as informações do SEU usuário, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique no nome da sua empresa e em <span class="black-sm-sub">User Preferences</span>.
+</p>
+<p class="black-sm-sub">Observações:</p>
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 15%;">Campo</td>
+                <td style="width: 85%;">Definição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    E-mail
+                </td>
+                <td>
+                    Informe o seu e-mail de contato.<br><br>
+                    Estes endereço é utilizado para comunicação do sistema com você.<br><br>                                    
+                    Por exemplo, ao solicitar o reinício da senha, o sistema envia um e-mail para estes endereço.<br> <br>                                   
+                    A alteração de e-mail só é realizada após clicar no link de confirmação recebido no novo e-mail.<br><br>                                    
+                    Este e-mail também é utilizado para acessar o Real-Time Manager.<br>
+                </td>
+            </tr>  
+            <tr>
+                <td>
+                    Timezone
+                </td>
+                <td>
+                    Seleciona o fuso horário que você está utilizando o sistema.<br><br>
+                    O fuso horário selecionado determina as datas e horários apresentados no History e as informações visualizadas no Analytics
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Multi-Factor Authentication
+                </td>
+                <td>
+                    Para mais informações sobre autenticação em duas etapas, consulte a documentação sobre <a href="{% tl documentation_accounts_multi_factor %}" class="orng-link">MFA</a>.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="excluirUsuario">4. Excluir Usuário</h2>
+
+<p>Para excluir um usuário, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Users</span> e após isso clique em <span class="black-sm-sub">User Delete (lixeira)</span> ao lado do usuário.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="adicionarTimes">5. Adicionar Times</h2>
+
+<p class="blue-box">
+    Antes de criar um time, você precisa saber as soluções que participarão deste time.
+</p>
+
+<p>Para adicionar time, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Teams and Permissions</span> e <span class="black-sm-sub">Add Team</span>.</p>
+
+<p>Escolha um nome para o time e assinale as soluções participantes do time.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="alterarPermissoesTime">6. Alterar as permissões de um Time</h2>
+
+<p>Para alterar as permissões de um time, acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Teams and Permissions</span> e clique em <span class="black-sm-sub">Team Edit</span> (lápis) ao lado do time.</p>
+
+<p>Os campos são os mesmos da inclusão de time, exceto o campo Active, este campo define se o time está ativo.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="excluirTimes">7. Excluir Times</h2>
+
+<p>Para excluir um time, nenhum usuário pode estar associado a este time.</p>
+
+<p>Para excluir um time, acesso o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> com uma conta com privilégios de administrador, clique em <span class="black-sm-sub">Manage Teams and Permissions</span> e clique em <span class="black-sm-sub">Team Delete</span> (lixeira) ao lado do time.</p>
+<ul class="paper-list">
+    <li>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-list" viewBox="0 0 60 60"><g stroke="#333" fill="#333" stroke-width="0"><g stroke="none"><path d="M42.5 22h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm-25-6h10a1 1 0 1 0 0-2h-10a1 1 0 1 0 0 2zm25 14h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2zm0 8h-25a1 1 0 1 0 0 2h25a1 1 0 1 0 0-2z"/><path d="M38.914 0H6.5v60h47V14.586L38.914 0zm.586 3.414L50.086 14H39.5V3.414zM8.5 58V2h29v14h14v42h-43z"/></g></g></svg>
+        <a href="{% tl documentation_accounts_multi_factor %}" class="orng-link">Multi-Factor Authentication</a>
+    </li>
+</ul>
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

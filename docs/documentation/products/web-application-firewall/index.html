@@ -1,0 +1,294 @@
+<h1 class="title">WAF</h1>
+
+<p>Web Application Firewall protege as suas aplicações contra ameaças como SQL Injections, Remote File Inclusion (RFI), Cross-Site Scripting (XSS) e muito mais. O WAF analisa as requisições HTTP e HTTPS, detecta e bloqueia ameaças antes que elas alcancem a sua infraestrutura e sem impactar na performance de suas aplicações.</p>           
+
+<ul class="orng-bar-list">
+    <li><a href="#como-funciona">1. Como funciona</a></li>
+    <li><a href="#crie-uma-rule-set-do-waf-para-monitorar-o-trafego-de-suas-aplicacoes">2. Crie uma rule set do WAF para monitorar o tráfego de suas aplicações</a></li>
+    <li><a href="#associe-a-rule-set-criada-com-as-aplicacoes-que-deseja-monitorar">3. Associe a rule set criada com as aplicações que deseja monitorar</a></li>
+    <li><a href="#utilize-o-analytics-ou-o-rawlogs-para-acompanhar-as-ameacas-detectadas">4. Utilize o Analytics ou o Rawlogs para acompanhar as ameaças detectadas</a></li>
+    <li><a href="#aprove-a-whitelist-desejada">5. Aprove a whitelist desejada</a></li>
+    <li><a href="#ative-o-bloqueio-de-ameacas-na-rule-set">6. Ative o bloqueio de ameaças na rule set</a></li>
+</ul> 
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="como-funciona" >1. Como funciona</h2>
+
+<p>O Azion WAF é baseado na metodologia de <em>scoring</em> de requisições. Cada requisição http/https é comparada com um conjunto extremamente restritivo de regras de bloqueio e recebe uma pontuação para cada família de ameaças.</p>
+
+<p>De acordo com a pontuação recebida pela requisição, a mesma poderá ser liberada ou bloqueada diretamente nos Edge Servers da Azion, antes que a ameaça atinja sua origem. Você define o nível desejado de sensibilidade para o bloqueio de cada família de ameaças.</p>
+
+<p>Para evitar o bloqueio de requisições lícitas e o mal funcionamento de sua aplicação, você deve executar uma etapa de aprendizagem, na qual o WAF identifica os comportamentos legítimos de sua aplicação, inserindo-os em uma <em>whitelist</em>.</p>
+
+<p class="black-sm-sub">Modo de Operação</p>
+
+<p>Para obter o máximo de desempenho e precisão do produto é necessária a etapa de aprendizagem. Você conta com dois modos de operação para lhe apoiar nessa etapa:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Counting Mode:</span> é utilizado para especificar que o WAF não deve bloquear nenhuma requisição. O tráfego de suas aplicações será analisado e as ameaças encontradas serão apenas contabilizadas. Utilize esse modo de operação durante a primeira etapa de aprendizagem.</li>
+    <li><span class="black-sm-sub">Blocking Mode:</span> é utilizado para analisar e bloquear as ameaças detectadas, protegendo as suas aplicações dos usuários maliciosos. Você pode executar a etapa de aprendizagem sempre que julgar necessário, mesmo em Blocking Mode.</li>
+</ul>
+
+<p class="black-sm-sub">Famílias de Ameaças</p>
+
+<p>As ameaças são categorizadas em famílias de acordo com o objetivo do ataque. Você pode ativar ou desativar a proteção para cada família de ameaças individualmente de acordo com as proteções requeridas pelo tipo de sua aplicação e funcionalidades que ela apresente.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 30%;">Threat Type</td>
+                <td style="width: 70%;">Description</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>SQL Injections</td>
+                <td>Previne tentativas de ataque através de injeção de código SQL na aplicação.</td>
+            </tr>
+            <tr>
+                <td>Remote File Inclusions (RFI)</td>
+                <td>Previne tentativas de incluir arquivos, usualmente através de scripts no servidor web.</td>
+            </tr>
+            <tr>
+                <td>Directory Traversal</td>
+                <td>Previne a exploração de vulnerabilidade referente a sanitização insuficiente de campos de nomes de arquivo fornecidos pelos usuários, de modo que caracteres representando atalhos para o diretório pai sejam passados através da API de arquivos.</td>
+            </tr>
+            <tr>
+                <td>Cross-Site Scripting (XSS)</td>
+                <td>Previne a injeção de scripts client-side em páginas vistas por seus visitantes.</td>
+            </tr>
+            <tr>
+                <td>File Upload</td>
+                <td>Previne a tentativa de envio de arquivos para o servidor web.</td>
+            </tr>
+            <tr>
+                <td>Evading Tricks</td>
+                <td>Previne contra algunas truques de codificação utilizados para tentar escapar dos mecanismos de proteção.</td>
+            </tr>
+            <tr>
+                <td>Unwanted Access</td>
+                <td>Previne as tentativas de acesso a páginas administrativas ou vulneráveis, bots e ferramentas de scanning de segurança.</td>
+            </tr>
+            <tr>
+                <td>Identified Attacks</td>
+                <td>Previne vários tipos de ataques comuns e vulnerabilidades conhecidas que certamente deverão ser bloqueados.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Sensibilidade</p>
+
+<p>A sensibilidade define o rigor com o qual o WAF irá considerar uma requisição como uma ameaça:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Low:</span> é nível de sensibilidade mais baixo, a requisição será considerada uma ameaça se apresentar indícios muito fortes e receber uma pontuação alta. Essa sensibilidade tem um menor nível de proteção para suas aplicações, mas também evitará o bloqueio de requisições com menor chance de representar ameaças (falsos positivos).</li>
+    <li><span class="black-sm-sub">Medium:</span> é o nível de sensibilidade recomendado pela Azion. A requisição será considerada como ameaça se apresentar indícios suficientes e receber uma pontuação intermediária.</li>
+    <li><span class="black-sm-sub">High:</span> é o maior nível de proteção para sua aplicação. Ao menor indício de uma ameaça, a requisição poderá ser bloqueada, mesmo quando apresentar uma pontuação relativamente baixa. Esse nível de sensibilidade pode apresentar mais falsos positivos, se a etapa de aprendizagem não tiver cobertura suficiente sobre a variabilidade de cenários e usos de sua aplicação.</li>
+</ul>
+
+<p id="regras" class="black-sm-sub">Regras</p>
+
+<p>O conjunto de regras que incrementam o score de uma requisição. Quanto maior o <em>score</em>, maior a probabildade da requisição ser considerada um ataque pelo WAF.</p>
+
+<p>A Azion trabalha com um conjunto extremamente restritivo de regras para assegurar a segurança de sua aplicação. Cada regra é composta pelos campos que seguem.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 30%;">Campo</td>
+                <td style="width: 70%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Rule Id</td>
+                <td>Id numérico único de cada regra do WAF.</td>
+            </tr>
+            <tr>
+                <td>Rule Description</td>
+                <td>Uma descrição textual do que a regra faz.</td>
+            </tr>
+            <tr>
+                <td>Match Pattern</td>
+                <td>Condição de comparação, string ou regex, que será buscada na requisição.</td>
+            </tr>
+            <tr>
+                <td>Path</td>
+                <td>Quando especificado, restringe a aplicação da <em>Match Zone</em> somente ao <em>path</em> definido. O <em>path</em> delimita o escopo de atuação da regra.</td>
+            </tr>
+            <tr>
+                <td>Match Zones</td>
+                <td>Partes ou campos da requisição que serão comparados com o <em>Match Pattern</em>. Pode ser:<br>
+                    <ul>
+                        <li><span class="black-sm-sub">Path:</span> o <em>match pattern</em> será comparado com o <em>path</em> da requisição.</li>
+                        <li><span class="black-sm-sub">Query String:</span> o <em>match pattern</em> será comparado com a <em>query string</em>, também chamada de GET <em>arguments</em>.</li>
+                        <li><span class="black-sm-sub">Request Header:</span> o <em>match pattern</em> será comparado com os cabeçalhos HTTP da requisição.</li>
+                        <li><span class="black-sm-sub">Request Body:</span> o <em>match pattern</em> será comparado com o <em>body</em> de um POST, também chamado de POST <em>arguments</em>.</li>
+                        <li><span class="black-sm-sub">File Name (Multipart Body):</span> o <em>match pattern</em> será comparado com o nome de arquivos em <em>multipart POSTs</em>.</li>
+                        <li><span class="black-sm-sub">Raw Body:</span> o <em>match pattern</em> será comparado com o <em>body</em> não interpretado de uma requisição, também chamado de <em>unparsed body</em>.</li>
+                    </ul></td>
+            </tr>
+            <tr>
+                <td>Attack Family</td>
+                <td>A(s) família(s) de ataques para as quais a regra incrementa a pontuação.</td>
+            </tr>
+            <tr>
+                <td>Score</td>
+                <td>A pontuação que será incrementada em caso de <em>match</em>.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Whitelist</p>
+
+<p>É a listagem de comportamentos legítimos de sua aplicação, que não devem incrementar o <em>score</em> das requisições. Pode ser gerada automaticamente durante a etapa de aprendizagem ou inserida manualmente por meio de regras customizadas.</p>
+
+<p>Cada regra de bloqueio possui <em>match zones</em>, conforme explicado na seção <a href="#regras" class="orng-link">Regras</a>. A <em>whitelist</em> tem o objetivo de desativar determinadas <em>Match Zones</em> de uma regra de bloqueio.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 30%;">Campo</td>
+                <td style="width: 70%;">Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Rule Id</td>
+                <td>Id numérico único da regra de bloqueio para a qual a <em>whitelist</em> foi gerada.</td>
+            </tr>
+            <tr>
+                <td>Rule Description</td>
+                <td>Uma descrição textual do que faz a regra de bloqueio para a qual a <em>whitelist</em> foi gerada.</td>
+            </tr>
+            <tr>
+                <td>Path</td>
+                <td>Quando especificado, restringe a aplicação da <em>whitelist</em> somente ao path definido. O <em>path</em> delimita o escopo de atuação da <em>whitelist</em>.</td>
+            </tr>
+            <tr>
+                <td>Whitelist Match Zone</td>
+                <td>É a <em>whitelist</em> propriamente dita. Define a parte ou campo da requisição para a qual a regra de bloqueio deve ser desativada .<br>
+                    <ul>
+                        <li><span class="black-sm-sub">Path:</span> a <em>rule id</em> não será aplicada ao <em>path</em> da requisição.</li>
+                        <li><span class="black-sm-sub">Query String:</span> a <em>rule id</em> não será aplicada a <em>query string</em>, também chamada de <em>GET arguments</em>. Pode ser restrito tanto ao nome quanto ao valor dos argumentos. É possível delimitar o escopo da whitelist a um único GET argument utilizando Conditional Query String.</li>
+                        <li><span class="black-sm-sub">Request Header:</span> a rule id não será aplicada aos cabeçalhos HTTP da requisição. Pode ser restrito tanto ao nome quanto ao valor dos cabeçalhos. É possível delimitar o escopo da whitelist a um único cabeçalho HTTP utilizando Conditional Request Header.</li>
+                        <li><span class="black-sm-sub">Request Body:</span> a rule id não será aplicada ao body de um POST, também chamado de POST arguments. Pode ser restrito tanto ao nome quanto ao valor dos argumentos. É possível delimitar o escopo da whitelist a um único POST argument utilizando Conditional Request Body.</li>
+                        <li><span class="black-sm-sub">File Name (Multipart Body):</span> a rule id não será aplicada ao nome de arquivo em um multipart POST.</li>
+                        <li><span class="black-sm-sub">Raw Body:</span> a rule id não será aplicada ao body não interpretado de uma requisição, também chamado de unparsed body.</li>
+                    </ul></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>O status de ativação da regra na whitelist.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="crie-uma-rule-set-do-waf-para-monitorar-o-trafego-de-suas-aplicacoes" >2. Crie uma rule set do WAF para monitorar o tráfego de suas aplicações</h2>
+
+<p><em>Rule set</em> é o conjunto de regras do WAF que habilita a proteção contra os mais variados tipos de ataque. Nela estão definidas as proteções que você deseja ativar, o nível de sensibilidade da detecção e a <em>whitelist</em>.</p>
+
+<p>Para criar uma <em>rule set</em>:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a> e entre no menu Cloud Security > WAF, ou acesse o atalho “Manage WAF” na tela inicial.</li>
+    <li>Adicione uma nova <em>rule set</em> clicando no botão <em>Add</em>.</li>
+    <li>Na aba Main Settings, ative as proteções e o nível de sensibilidade desejados.</li>
+    <li>Salve sua <em>rule set</em> com um nome sugestivo. Você vai precisar dele para realizar posteriormente a associação da <em>rule set</em> com o <em>path</em> de sua aplicação.</li>
+</ol>
+
+<p>No primeiro momento, recomendamos que você ative a regra em <em>Counting Mode</em>, para que possa acompanhar o número de ameaças detectadas e realizar a etapa de aprendizagem, antes de efetivamente bloquear as requisições. Dessa forma você poderá também regular a sensibilidade da detecção, de acordo com a sua aplicação.</p>
+
+<p>Durante o Counting Mode é recomendado que você deixe todas as proteções ativadas para que possa monitorar as ameaças detectadas pelo WAF.</p>
+
+<p>Se forem detectados falsos positivos, algumas regras poderão ser incluídas na <em>whitelist</em> pelo Suporte da Azion, sem a necessidade de desativar a proteção completa para uma família de ameaças. Entre em contato se desejar avaliar a necessidade de incluir regras em <em>whitelist</em>, antes de desabilitar a sua proteção.</p>
+
+<p>Por fim, a <em>rule set</em> deve estar ativa para que o WAF analise as suas requisições. O checkbox Active serve para permitir que você habilite e desabilite o WAF rapidamente para todos os <em>paths</em> que estiverem associados a rule set.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="associe-a-rule-set-criada-com-as-aplicacoes-que-deseja-monitorar" >3. Associe a rule set criada com as aplicações que deseja monitorar</h2>
+
+<p>Você deve associar a <em>rule set</em> criada aos <em>paths</em> de sua aplicação. Para tanto:</p>
+
+<ol>
+    <li>Acesse o menu Content Delivery e edite a Configuration que você deseja proteger.</li>
+    <li>Na aba Rules Engine, edite as regras referentes ao <em>path</em> de sua aplicação.</li>
+    <li>Para associar uma <em>rule set</em> do WAF a um <em>path</em> em Rules Engine, o behavior selecionado deve ser Application Acceleration.</li>
+    <li>A associação da <em>rule set</em> do WAF ao <em>path</em> é feita na seção WAF Settings, mas lembre-se que essa seção só aparece se o <em>behavior</em> for Application Acceleration.</li>
+</ol>
+
+<p>A partir deste momento, as requisições realizadas para essa aplicação serão analisadas pelo WAF. Enquanto sua <em>rule set</em> estiver em Counting Mode, os ataques estão sendo apenas detectados, mas não serão bloqueados.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="utilize-o-analytics-ou-o-rawlogs-para-acompanhar-as-ameacas-detectadas" >4. Utilize o Analytics ou o Rawlogs para acompanhar as ameaças detectadas</h2>
+
+<p>Recomenda-se que você deixe a <em>rule set</em> do WAF em modo Counting pelo tempo que julgar necessário para que a maior parte das funcionalidades de sua aplicação sejam cobertas. Você deve acompanhar os gráficos da aba WAF pelo Analytics ou os logs do WAF por meio do produto Rawlogs.</p>
+
+<p>No Analytics, o primeiro gráfico da aba WAF (Threats vs Requests) apresenta três séries temporais:</p>
+
+<ul class="list-v">
+    <li><span class="black-sm-sub">Regular Requests:</span> todas as requisições HTTP e HTTPS analisadas pelo WAF e consideradas seguras.</li>
+    <li><span class="black-sm-sub">Threats:</span> o volume de ameaças detectadas pelo WAF e contabilizadas, quando em modo Counting. Essas ameaças não estão sendo bloqueadas nesse momento.</li>
+    <li><span class="black-sm-sub">Threats Blocked:</span> ameaças efetivamente bloqueadas pelo WAF. Para começar a bloquear as ameaças encontradas, a rule set tem que estar em Blocking Mode.</li>
+</ul>
+
+<p>Se você possuir também o serviço Rawlogs, poderá solicitar a configuração dos logs para o Suporte da Azion. Através dos logs é possível acompanhar informações mais detalhadas sobre IP, data e horário de acesso, status code, família de ataque detectada e modo de atuação configurado.</p>
+
+{% highlight console %}
+$time-iso8601 $azion-client-id $azion-virtualhost-id $azion-configuration-id $azion-solution $azion-solution-id $host $conn-request-time $req-method $resp-status $req-uri $waf-threat-family $waf-threat-action $client-geoip-country-name $client-geoip-region-name $client-addr $client-port $req-header(User-Agent) $req-header(Referer)
+
+2017-01-04T17:00:19+00:00 1234a 10203b 1020304050 ha 1441740010 www.yoursite.com 0.129 GET 200 /request-uri?key=value $XSS $LEARNING-BLOCK Brazil Sao Paulo 1.2.3.4 61511 Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 https://www.yoursite.com/referrer
+2017-01-04T17:00:19+00:00 1234a 10203b 1020304050 ha 1441740010 www.yoursite.com 0.025 POST 200 /request-uri $SQL $LEARNING-BLOCK Brazil Santa Catarina 2.3.4.5 61513 Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 https://www.yoursite.com/referrer
+2017-01-04T17:00:40+00:00 1234a 10203b 1020304050 ha 1441740010 www.yoursite.com 0.026 GET 301 /request-uri?key=value $RFI $LEARNING-BLOCK Brazil Rio de Janeiro 5.6.7.8 26102 Mozilla/5.0 (Linux; Android 5.1.1; SM-G800H Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Mobile Safari/537.36 https://www.yoursite.com/referrer
+2017-01-04T17:00:41+00:00 1234a 10203b 1020304050 ha 1441740010 www.yoursite.com 0.391 POST 200 /request-uri $UWA $LEARNING-BLOCK Brazil Rio Grande do Sul 9.10.11.12 26102 Mozilla/5.0 (Linux; Android 5.1.1; SM-G800H Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Mobile Safari/537.36 https://www.yoursite.com/referrer
+{% endhighlight %}  
+
+<p>Com base nessas informações, você pode ajustar a sensibilidade da <em>rule</em> set do WAF, como mencionado anteriormente, até que não ocorram mais falsos positivos. Ou mesmo solicitar para Azion a geração de <em>whitelist</em> para sua aplicação.</p>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="aprove-a-whitelist-desejada" >5. Aprove a whitelist desejada</h2>
+
+<p>Solicite ao Suporte da Azion a geração da proposta de whitelist, baseada na etapa de aprendizagem de sua aplicação.</p>
+
+<p>A proposta de whitelist gerada pela Azion será inserida na plataforma e estará disponível para sua aprovação:</p>
+
+<ol>
+    <li>Acesse o menu Cloud Security > WAF, ou acesse o atalho “Manage WAF” na tela inicial.</li>
+    <li>Edite a <em>rule set</em> para a qual deseja avaliar a <em>whitelist</em>.</li>
+    <li>Na aba <em>Whitelist</em>, habilite todas as regras que desejar aprovar.</li>
+    <li>Salve sua <em>rule set</em>.</li>
+</ol>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="ative-o-bloqueio-de-ameacas-na-rule-set" >6. Ative o bloqueio de ameaças na rule set</h2>
+
+<p>Após monitorar o comportamento de sua aplicação e as ameaças detectadas após a etapa de aprendizagem e aprovação da <em>whitelist</em>, você deve alterar a <em>rule set</em> para Blocking:</p>
+
+<ol>
+    <li>Acesse o menu Cloud Security > WAF</li>
+    <li>Edite a <em>rule set</em> do WAF desejada.</li>
+    <li>Altere o modo de Counting para Blocking.</li>
+</ol>
+
+<p>A partir desse momento, sua aplicação estará protegida e as ameaças detectadas serão efetivamente bloqueadas.</p>
+
+<p class="blue-box">O WAF só bloqueia as ameaças se estiver configurado em Blocking Mode.</p>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

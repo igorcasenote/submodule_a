@@ -1,0 +1,273 @@
+<h1 class="title">WAF</h1>
+    
+<p>
+    Através da API do Web Application Firewall você pode consultar suas rule sets existentes.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-rule-sets-do-waf">1. Consulta lista de rule sets do WAF</a></li>
+    <li><a href="#consulta-dados-de-uma-rule-set-do-waf">2. Consulta dados de uma rule set do WAF</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-rule-sets-do-waf">1. Consulta lista de rule sets do WAF</h2>
+
+<p>Retorna a lista de rule sets do WAF.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/waf/rulesets</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /waf/rulesets
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf   
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                        
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 3,
+      "name": "WAF for myApp",
+      "mode": "blocking",
+      "active": true,
+      "sql_injection": true,
+      "sql_injection_sensitivity": "medium",
+      "remote_file_inclusion": true,
+      "remote_file_inclusion_sensitivity": "medium",
+      "directory_traversal": true,
+      "directory_traversal_sensitivity": "medium",
+      "cross_site_scripting": true,
+      "cross_site_scripting_sensitivity": "medium",
+      "evading_tricks": true,
+      "evading_tricks_sensitivity": "medium",
+      "file_upload": true,
+      "file_upload_sensitivity": "medium",
+      "unwanted_access": true,
+      "unwanted_access_sensitivity": "medium",
+      "identified_attack": true,
+      "identified_attack_sensitivity": "medium",
+      "whitelist": "BasicRule wl:1 \"mz:$ARGS_VAR:foo|$URL:/x\";"
+   },
+   {
+      "id": 4,
+      "name": "WAF for Stage",
+      "mode": "counting",
+      "active": true,
+      "sql_injection": true,
+      "sql_injection_sensitivity": "medium",
+      "remote_file_inclusion": true,
+      "remote_file_inclusion_sensitivity": "medium",
+      "directory_traversal": true,
+      "directory_traversal_sensitivity": "medium",
+      "cross_site_scripting": true,
+      "cross_site_scripting_sensitivity": "medium",
+      "evading_tricks": true,
+      "evading_tricks_sensitivity": "medium",
+      "file_upload": true,
+      "file_upload_sensitivity": "medium",
+      "unwanted_access": true,
+      "unwanted_access_sensitivity": "medium",
+      "identified_attack": true,
+      "identified_attack_sensitivity": "medium"
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-de-uma-rule-set-do-waf">2. Consulta dados de uma rule set do WAF</h2>
+
+<p>Retorna dados de uma rule set do WAF.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/waf/rulesets/</span>:ruleset_id
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :ruleset_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da rule set de WAF a ser consultada.
+                    Para obter o Id de uma rule set, consulte a
+                    <a href="#consulta-lista-de-rule-sets-do-waf" class="orng-link">Lista de Rule Sets.</a>
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /waf/rulesets/3
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf 
+{% endhighlight %}
+</div>
+                    
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 3,
+    "name": "WAF for myApp",
+    "mode": "blocking",
+    "active": true,
+    "sql_injection": true,
+    "sql_injection_sensitivity": "medium",
+    "remote_file_inclusion": true,
+    "remote_file_inclusion_sensitivity": "medium",
+    "directory_traversal": true,
+    "directory_traversal_sensitivity": "medium",
+    "cross_site_scripting": true,
+    "cross_site_scripting_sensitivity": "medium",
+    "evading_tricks": true,
+    "evading_tricks_sensitivity": "medium",
+    "file_upload": true,
+    "file_upload_sensitivity": "medium",
+    "unwanted_access": true,
+    "unwanted_access_sensitivity": "medium",
+    "identified_attack": true,
+    "identified_attack_sensitivity": "medium",
+    "whitelist": "BasicRule wl:1 \"mz:$ARGS_VAR:foo|$URL:/x\";"
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p> 
+    

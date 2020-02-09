@@ -1,0 +1,62 @@
+<div class="page use-cases">
+        <header class="page-header">
+            <div class="container title-wrapper">
+                <div class="content-wrapper">
+                    <h1 class="title">Success <span class="bold-title">Cases</span></h1>
+                </div>
+            </div>
+            <div id="menu-sticky" >
+                <div class="container menu-wrapper" >
+                    <div class="content-wrapper">
+                        <ul class="menu links-list local-menu">
+                            <li><a href="#" data-filter="*" class="is-active">All</a></li>
+                            <li><a href="#" data-filter=".ecommerce">E-commerce</a></li>
+                            <li><a href="#" data-filter=".media">Media</a></li>
+                            <li><a href="#" data-filter=".education">Education</a></li>
+                            <li><a href="#" data-filter=".configuration">First Configuration</a></li>
+                            <li><a href="#" data-filter=".delivery">Adaptive Delivery</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>            
+        </header>
+        <section class="container results show-less">
+            <div class="content-wrapper">
+                <div class="clients-cards grid-x grid-margin-x">
+                        {% assign total = 0 %}
+                        {% for case in site.cases limit: 8%}
+                        <div class="cell small-6 medium-4 large-3 client-item {{ case.class }}">
+                            <div class="info">
+                                <figure class="client-logo">
+                                    <img src="{{ site.url }}/images/{{ case.img }}" alt="">
+                                </figure>
+                                <p class="desc">{{ case.excerpt }}</p>
+                            </div>
+                            <div class="link">
+                                <a href="/{{ site.lang }}{{ case.url }}">Leia mais</a>
+                            </div>
+                        </div>
+                        {% assign total = forloop.index %}
+                        {% endfor %}           
+                </div>
+                <div class="text-center ctas">
+                    
+                    {% if total < 8 %}
+                        <a href="" data-loaded="{{total}}"  data-url="{% tl all-cases %}" class="button primary view-more disabled">No more cases</a>
+                    {% else %}
+                        <a href="" data-loaded="{{total}}"  data-url="{% tl all-cases %}"  data-empty="No more cases" class="button primary view-more">View More</a>
+                    {% endif %}		
+                </div>
+            </div>
+        </section>
+        <footer class="container page-footer work">
+            <div class="content-wrapper grid-x">
+                <div class="cell medium-6 info">
+                    <p class="footer-title">Work with Us</p>
+                </div>
+                <div class="cell medium-6 ctas">
+                    <a href="{% tl contact %}" class="button primary">Send your Message</a>
+                </div>
+            </div>
+        </footer>
+    </div>

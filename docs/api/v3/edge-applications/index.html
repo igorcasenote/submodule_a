@@ -1,0 +1,267 @@
+<h1 class="title">Edge <span>Applications</span></h1>
+    
+<p>
+    Através da API do Edge Applications você pode consultar, remover ou atualizar suas configurações existentes, bem como criar novas configurações.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consultar-lista-de-edge-applications">1. Consultar lista de Edge Applications</a></li>
+    <li><a href="#consultar-dados-de-um-edge-applications">2. Consultar dados de uma Edge Application</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-lista-de-edge-applications">1. Consultar lista de Edge Applications</h2>
+
+<p>Retorna a lista de Edge Applications.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_applications</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<p class="black-sm-sub">Parâmetros obrigatórios</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>  
+            <tr>
+                <td>
+                    Accept
+                </td>
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /edge_applications
+Accept: application/json; version=3
+Authorization: Token cf2078926f91a6e638af3f4a6977b505edfe5941           
+{% endhighlight %}
+</div>
+                                        
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "count": 36,
+    "total_pages": 18,
+    "schema_version": 3,
+    "links": {
+        "previous": null,
+        "next": "https://api.azionapi.net/edge_applications?page=2&page_size=2"
+    },
+    "results": [
+        {
+            "id": 1528990724,
+            "name": "Edge Cloud Storage",
+            "active": true,
+            "origins": [
+                {
+                    "name": "Default Origin",
+                    "origin_type": "cloud_storage",
+                    "origin_id": "c2434ff9-b9a9-4937-8721-60d58ac54976"
+                }
+            ]
+        },
+        {
+            "id": 1528990725,
+            "name": "Edge Media Packager",
+            "active": true,
+            "origins": [
+                {
+                    "name": "Default Origin",
+                    "origin_type": "media_packager",
+                    "origin_id": "25fe91c0-1a2c-4ce1-9e3f-a109d2cd3204"
+                },
+                {
+                    "name": "Z1",
+                    "origin_type": "media_packager",
+                    "origin_id": "0924c04d-b00a-4653-8575-92053e0d0e2f"
+                }
+            ]
+        }
+    ]
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consultar-dados-de-um-edge-applications">2. Consultar dados de um Edge Application</h2>
+
+<p>Retorna detalhes de uma Edge Application. As informações que são retornadas nessa chamada se referem as main settings de uma Application.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_applications/</span>:id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<p class="black-sm-sub">Parâmetros obrigatórios</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v3_authentication %}/#criacao-de-token" class="orng-link">Criação de Token</a>.
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Accept
+                </td>
+                <td>
+                    Informações sobre o tipo de retorno e versão
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    String; 
+                    <br><br>
+                    obrigatório: <em>application/json;version=3</em>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    :id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O id da edge application que se pretende consultar. 
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /edge_applications/1528990724
+Accept: application/json; version=3
+Authorization: token cf2078926f91a6e638af3f4a6977b505edfe5941  
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "results": {
+        "id": 1528990724,
+        "name": "Edge Cloud Storage",
+        "delivery_protocol": "http",
+        "active": true,
+        "application_acceleration": false,
+        "caching": true,
+        "device_detection": false,
+        "edge_firewall": false,
+        "edge_functions": false,
+        "image_optimization": false,
+        "load_balancer": false,
+        "raw_logs": false,
+        "web_application_firewall": false
+    },
+    "schema_version": 3
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>  

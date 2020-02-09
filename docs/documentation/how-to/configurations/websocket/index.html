@@ -1,0 +1,43 @@
+<h1 class="title">WebSocket</h1>
+
+<p>O protocolo WebSocket fornece um caminho para criação de aplicações web que suportam comunicação bidirecional, em tempo real, entre cliente e servidor.</p>
+
+<p>A Azion suporta o protocolo WebSocket, por meio do produto <a href="{% tl documentation_products_application_acceleration %}" class="orng-link">Application Acceleration</a>.</p>
+
+<p>Para habilitar o suporte a WebSocket em uma configuração:</p>
+
+<ol>
+    <li>Acesse o menu Content Delivery do <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a>.</li>
+    <li>Edite a configuração de Content Delivery desejada.</li>
+    <li>Na aba Main Settings, ative o Application Acceleration e salve a configuração.</li>
+    <li>Na aba Rules Engine, crie uma nova regra na Request Phase, como no exemplo que segue.</li>
+</ol>
+
+<div class="table-orange-gray">
+    <table>
+        <tbody>
+            <tr>
+                <td><strong>Name:</strong></td>
+                <td>WebSocket</td>
+            </tr>
+            <tr>
+                <td><strong>Criteria:</strong></td>
+                <td>
+                    <strong>if</strong> ${<em>http_upgrade</em>} <strong>is equal</strong> <em>websocket</em><br>
+                    <strong>and</strong> ${<em>http_connection</em>} <strong>is equal</strong> <em>Upgrade</em>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Behavior:</strong></td>
+                <td><strong>then</strong> Bypass Cache Phase<br>
+                    <strong>and</strong> Add Request Header <em>Upgrade: websocket</em><br>
+                    <strong>and</strong> Add Request <em>Header Connection: Upgrade</em><br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<p>Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a></p>       

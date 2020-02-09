@@ -1,0 +1,83 @@
+<h1 class="title">Cross-Origin Resource Sharing <span>(CORS)</span></h1>
+
+<p>Cross-Origin Resource Sharing (CORS) é um mecanismo que se utiliza de cabeçalhos HTTP para dar permissão de acesso para um User Agent a determinados recursos que estão em uma origem diferente do documento em uso.</p>
+
+<p>Um exemplo de cross-origin request, uma página HTML servida a partir de um domínio “A” que solicita um CSS stylesheet servido a partir de um domínio “B”. Por questões de segurança, muitos navegadores restringem cross-origin HTTP requests iniciadas por scripts.</p>
+
+<p>Confira alguns exemplos de configurações de CORS:</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#permissao-de-cors-para-todas-as-origens">1. Permissão de CORS para todas as origens</a></li>
+    <li><a href="#permissao-de-cors-para-origens-determinadas">2. Permissão de CORS para origens determinadas</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="permissao-de-cors-para-todas-as-origens" >1. Permissão de CORS para todas as origens</h2>
+
+<p>Para permitir CORS em uma configuração, sem restrições por origem:</p>
+
+<ol>
+    <li>Acesse o menu Content Delivery do <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a>.</li>
+    <li>Edite a configuração de Content Delivery desejada.</li>
+    <li>Na aba Rules Engine, crie uma nova regra na Response Phase, como no exemplo que segue.</li>
+</ol>
+
+<div class="table-orange-gray">
+    <table>
+        <tbody>
+            <tr>
+                <td><strong>Name:</strong></td>
+                <td>CORS</td>
+            </tr>
+            <tr>
+                <td><strong>Criteria:</strong></td>
+                <td><strong>if</strong> ${<em>uri</em>} <strong>starts with</strong> <em>/your-uri</em></td>
+            </tr>
+            <tr>
+                <td><strong>Behavior:</strong></td>
+                <td><strong>then</strong> Add Response Header <em>Access-Control-Allow-Origin: *</em></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="permissao-de-cors-para-origens-determinadas" >2. Permissão de CORS para origens determinadas</h2>
+<p>Para permitir CORS em uma configuração para algumas origens determinadas, você vai precisar do produto <a href="{% tl documentation_products_application_acceleration %}" class="orng-link">Application Acceleration</a>.</p>
+
+<ol>
+    <li>Acesse o menu Content Delivery do <a href="https://manager.azion.com/" class="orng-link">Real-Time Manager</a>.</li>
+    <li>Edite a configuração de Content Delivery desejada.</li>
+    <li>Na aba Main Settings, ative o Application Acceleration e salve a configuração.</li>
+    <li>Na aba Rules Engine, crie uma nova regra na Response Phase, como no exemplo que segue.</li>
+</ol>
+
+<div class="table-orange-gray">
+    <table>
+        <tbody>
+            <tr>
+                <td><strong>Name:</strong></td>
+                <td>CORS</td>
+            </tr>
+            <tr>
+                <td><strong>Criteria:</strong></td>
+                <td>
+                    <strong>if</strong> <em>${http_origin}</em> <strong>is equal</strong> <em>http://your.domain1.com</em><br>
+                    <strong>or</strong> <em>${http_origin}</em> <strong>is equal</strong> <em>http://your.domain2.com</em><br>
+                    <strong>or</strong> <em>${http_origin}</em> <strong>is equal</strong> <em>http://your.domain3.com</em>
+                </td>
+            </tr>
+            <tr>
+                <td>Behavior:</td>
+                <td><strong>then</strong> Add Response Header <em>Access-Control-Allow-Origin: ${http_origin}</em>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<p>Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a></p>       

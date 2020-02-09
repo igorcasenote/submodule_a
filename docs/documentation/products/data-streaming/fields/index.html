@@ -1,0 +1,228 @@
+<h1 class="title">Fields</h1>
+
+<p>A Azion disponibiliza um amplo conjunto de variáveis relacionadas aos acessos aos seus conteúdos e aplicações. Você pode alimentar suas plataformas de big data e stream processing, selecionando templates criados e mantidos pela Azion, os quais possuem uma coleção de variáveis disponíveis; ou customizar seu próprio Data Set no produto <a href="{% tl documentation_products_data_streaming %}" class="orng-link">Data Streaming</a>.</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td>Variável</td>
+                <td style="width: 145px;">Fonte dos dados</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$blocked</td>
+                <td>WAF</td>
+                <td>Informa se o WAF bloqueou ou não a ação; 0 quando não bloqueado e 1 quando bloqueado. Quando em "Learning Mode", não será bloqueado, independente do retorno.</td>
+            </tr>
+            <tr>
+                <td>$bytes_sent</td>
+                <td>Edge Applications</td>
+                <td>Bytes enviados para o usuário, incluindo cabeçalho e corpo.</td>
+            </tr>
+            <tr>
+                <td>$client</td>
+                <td>Edge Applications, WAF</td>
+                <td>Identificador único de cliente Azion.</td>
+            </tr>
+            <tr>
+                <td>$configuration</td>
+                <td>Edge Applications, WAF</td>
+                <td>Identificador único de configuração Azion.</td>
+            </tr>
+            <tr>
+                <td>$country</td>
+                <td>Edge Applications, WAF</td>
+                <td>Nome do país do cliente remoto, por exemplo "Russian Federation", "United States". Detecção por geolocalização de endereço IP.</td>
+            </tr>
+            <tr>
+                <td>$headers</td>
+                <td>WAF</td>
+                <td>Cabeçalhos da requisição analisados pelo WAF.</td>
+            </tr>
+            <tr>
+                <td>$host</td>
+                <td>Edge Applications, WAF</td>
+                <td>Informação de Host enviada na linha de requisição; ou campo Host do cabeçalho HTTP.</td>
+            </tr>
+            <tr>
+                <td>$http_referrer</td>
+                <td>Edge Applications</td>
+                <td>Informação da última página a qual o usuário estava, antes de realizar a requisição.</td>
+            </tr>
+            <tr>
+                <td>$http_user_agent</td>
+                <td>Edge Applications</td>
+                <td>A identificação da aplicação que realizou a requisição, por exemplo: Mozilla/5.0 (Windows NT 10.0; Win64; x64).</td>
+            </tr>
+            <tr>
+                <td>$remote_addr</td>
+                <td>Edge Applications, WAF</td>
+                <td>Endereço IP da requisição.</td>
+            </tr>
+            <tr>
+                <td>$remote_port</td>
+                <td>Edge Applications</td>
+                <td>Porta remota da requisição.</td>
+            </tr>
+            <tr>
+                <td>$request_length</td>
+                <td>Edge Applications</td>
+                <td>Tamanho da requisição, incluindo a linha de request, cabeçalhos e corpo.</td>
+            </tr>
+            <tr>
+                <td>$request_method</td>
+                <td>Edge Applications</td>
+                <td>Método da requisição; usualmente "GET" ou "POST".</td>
+            </tr>
+            <tr>
+                <td>$request_time</td>
+                <td>Edge Applications</td>
+                <td>Tempo de processamento da requisição com resolução de milisegundos;</td>
+            </tr>
+            <tr>
+                <td>$request_uri</td>
+                <td>Edge Applications</td>
+                <td>URI da requisição realizada pelo usuário, sem a informação do Host e Protocolo.</td>
+            </tr>
+            <tr>
+                <td>$requestPath</td>
+                <td>Edge Applications, WAF</td>
+                <td>A URI da requisição sem a informação da Query String, Host e Protocol.</td>
+            </tr>
+            <tr>
+                <td>$requestQuery</td>
+                <td>Edge Applications, WAF</td>
+                <td>Somente os parâmetros da URI da requisição.</td>
+            </tr>
+            <tr>
+                <td>$scheme</td>
+                <td>Edge Applications</td>
+                <td>Esquema da requisição: "http" ou "https.</td>
+            </tr>
+            <tr>
+                <td>$sent_http_content_type</td>
+                <td>Edge Applications</td>
+                <td>Cabeçalho "Content-Type" enviado na resposta da origem.</td>
+            </tr>
+            <tr>
+                <td>$sent_http_x_original_image_size</td>
+                <td>Edge Applications</td>
+                <td>Cabeçalho "X-Original-Image-Size" enviado na resposta da origem (utilizado pela IMS para informar tamanho da imagem original).</td>
+            </tr>
+            <tr>
+                <td>$server_protocol</td>
+                <td>Edge Applications, WAF</td>
+                <td>O protocolo da conexão estabelecida, usualmente "HTTP/1.1" ou "HTTP/2.0".</td>
+            </tr>
+            <tr>
+                <td>$ssl_cipher</td>
+                <td>Edge Applications</td>
+                <td>String de cifra utilizada para estabelecimento de conexão SSL.</td>
+            </tr>
+            <tr>
+                <td>$ssl_protocol</td>
+                <td>Edge Applications</td>
+                <td>O protocolo de uma conexão SSL estabelecida, por exemplo "TLS v1.2".</td>
+            </tr>
+            <tr>
+                <td>$state</td>
+                <td>Edge Applications</td>
+                <td>Nome do estado do cliente remoto, por exemplo "RS", "SP". Detecção por geolocalização de endereço IP.</td>
+            </tr>
+            <tr>
+                <td>$status</td>
+                <td>Edge Applications</td>
+                <td>O código do status da requisição, por exemplo: 200.</td>
+            </tr>
+            <tr>
+                <td>$tcpinfo_rtt</td>
+                <td>Edge Applications</td>
+                <td>Tempo em microsegundos do RTT medido pela Edge para o usuário.</td>
+            </tr>
+            <tr>
+                <td>$time</td>
+                <td>Edge Applications, WAF</td>
+                <td>Timestamp do início da requisição.</td>
+            </tr>
+            <tr>
+                <td>$upstream_bytes_received</td>
+                <td>Edge Applications</td>
+                <td>Quantidade de bytes recebidos pela Edge da origem, caso o conteúdo não esteja em cache.</td>
+            </tr>
+            <tr>
+                <td>$upstream_cache_status</td>
+                <td>Edge Applications</td>
+                <td>Status de cache da Edge. Pode assumir os valores "MISS", "BYPASS", "EXPIRED", "STALE", "UPDATING", "REVALIDATED" ou "HIT".</td>
+            </tr>
+            <tr>
+                <td>$upstream_connect_time</td>
+                <td>Edge Applications</td>
+                <td>Tempo em milisegundos para a Edge estabelecer uma conexão com a origem ("0" em caso de KeepAlive e "-" em caso de cache).</td>
+            </tr>
+            <tr>
+                <td>$upstream_response_time</td>
+                <td>Edge Applications</td>
+                <td>Tempo em milisegundos para a Edge receber toda a resposta da origem, incluindo cabeçalhos e corpo ("-" em caso de cache).</td>
+            </tr>
+            <tr>
+                <td>$upstream_status</td>
+                <td>Edge Applications</td>
+                <td>HTTP Status Code da origem ("-" em caso de cache).</td>
+            </tr>
+            <tr>
+                <td>$version</td>
+                <td>Edge Applications, WAF</td>
+                <td>A versão do Azion Log utilizada.</td>
+            </tr>
+            <tr>
+                <td>$waf_args</td>
+                <td>WAF</td>
+                <td>Os argumentos da requisição.</td>
+            </tr>
+            <tr>
+                <td>$waf_attack_action</td>
+                <td>Edge Applications, WAF</td>
+                <td>Informa a ação do WAF perante a ação ($BLOCK, $PASS, $LEARNING_BLOCK, $LEARNING_PASS).</td>
+            </tr>
+            <tr>
+                <td>$waf_attack_family</td>
+                <td>Edge Applications, WAF</td>
+                <td>Informa a classificação da infração de WAF detectada na requisição (SQL, XSS, TRAVERSAL, entre outros).</td>
+            </tr>
+            <tr>
+                <td>$waf_learning</td>
+                <td>WAF</td>
+                <td>Informa se o WAF está em modo learning, usualmente 0 ou 1.</td>
+            </tr>
+            <tr>
+                <td>$waf_match</td>
+                <td>WAF</td>
+                <td>Lista de infrações encontradas na request, é formada por elementos chave-valor; a chave é referente ao tipo de infração detectada; o valor apresenta a string que gerou a infração.</td>
+            </tr>
+            <tr>
+                <td>$waf_score</td>
+                <td>WAF</td>
+                <td>Informa a pontuação que será incrementada em caso de match.</td>
+            </tr>
+            <tr>
+                <td>$waf_server</td>
+                <td>WAF</td>
+                <td>Hostname utilizado na requisição.</td>
+            </tr>
+            <tr>
+                <td>$waf_uri</td>
+                <td>WAF</td>
+                <td>URI utilizada na requisição.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

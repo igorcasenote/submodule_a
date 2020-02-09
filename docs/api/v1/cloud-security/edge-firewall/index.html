@@ -1,0 +1,1115 @@
+<h1 class="title">Edge <span>Firewall</span></h1>
+    
+<p>
+    Através da API do Edge Firewall você pode consultar, remover ou atualizar suas rule sets existentes, bem como criar novas rule sets de Edge Firewall.
+</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-rule-sets-do-edge-firewall">1. Consulta lista de rule sets do Edge Firewall</a></li>
+    <li><a href="#consulta-dados-de-uma-rule-set-do-edge-firewall">2. Consulta dados de uma rule set do Edge Firewall</a></li>
+    <li><a href="#deletar-uma-rule-set-do-edge-firewall">3. Deletar uma rule set do Edge Firewall</a></li>
+    <li><a href="#criar-uma-nova-rule-set-do-edge-firewall">4. Criar uma nova rule set do Edge Firewall</a></li>
+    <li><a href="#sobrescrever-uma-rule-set-do-edge-firewall">5. Criar uma nova rule set do Edge Firewall</a></li>
+    <li><a href="#atualizar-campos-de-uma-rule-set-do-edge-firewall">6. Atualizar campos de uma rule set do Edge Firewall</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-rule-sets-do-edge-firewall">1. Consulta lista de rule sets do Edge Firewall</h2>
+
+<p>Retorna a lista de rule sets do Edge Firewall.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /edge_firewall/rulesets
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf                  
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 533,
+      "name": "Bloqueio por HTTP Referrer",
+      "block_access_by_referer": true,
+      "allow_blank_referer": true,
+      "geo_block": "disabled",
+      "accepted_domains": [
+         {"url": "*.azion.com"},
+         {"url": "*.azion.com.br"}
+      ],
+      "geo_countries": [],
+      "ip_blocking_rule": "allow_from_all",
+      "ip_blocking_addresses": [],
+      "require_secure_token": false,
+      "secret": null,
+      "is_active": true
+   },
+   {
+      "id": 534,
+      "name": "Bloqueio de Países",
+      "block_access_by_referer": false,
+      "allow_blank_referer": false,
+      "geo_block": "blacklist",
+      "accepted_domains": [],
+      "geo_countries": ["CHN","PRK","RUS"],
+      "ip_blocking_rule": "allow_from_all",
+      "ip_blocking_addresses": [],
+      "require_secure_token": false,
+      "secret": null,
+      "is_active": true
+   },
+   {
+      "id": 535,
+      "name": "Secure Token",
+      "block_access_by_referer": false,
+      "allow_blank_referer": false,
+      "geo_block": "disabled",
+      "accepted_domains": [],
+      "geo_countries": [],
+      "ip_blocking_rule": "allow_from_all",
+      "ip_blocking_addresses": [],
+      "require_secure_token": true,
+      "secret": "mysecret",
+      "is_active": true
+   }
+]
+
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-de-uma-rule-set-do-edge-firewall">2. Consulta dados de uma rule set do Edge Firewall</h2>
+
+<p>Retorna dados de uma rule set do Edge Firewall.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets/</span>:ruleset_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :ruleset_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                        Id da rule set de Edge Firewall a ser consultada.
+                        Para obter o Id de uma rule set, consulte a
+                        <a href="#consulta-lista-de-rule-sets-do-edge-firewall" class="orng-link">Lista de Rule Sets</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /edge_firewall/rulesets/534
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf              
+{% endhighlight %}
+</div>
+                                                            
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                            
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 534,
+    "name": "Bloqueio de Países",
+    "block_access_by_referer": false,
+    "allow_blank_referer": false,
+    "geo_block": "blacklist",
+    "accepted_domains": [],
+    "geo_countries": ["CHN","PRK","RUS"],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": false,
+    "secret": null,
+    "is_active": true
+ }
+ 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="deletar-uma-rule-set-do-edge-firewall">3. Deletar uma rule set do Edge Firewall</h2>
+
+<p>Remove uma rule set do Edge Firewall. A rule set não pode estar em uso para ser removida.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets/</span>:ruleset_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    :ruleset_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                        Id da rule set de Edge Firewall a ser removida.
+                        Para obter o Id de uma rule set, consulte a
+                        <a href="#consulta-lista-de-rule-sets-do-edge-firewall" class="orng-link">Lista de Rule Sets.</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /edge_firewall/rulesets/535
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf       
+{% endhighlight %}
+</div>
+                                                                                
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 204 NO CONTENT
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-nova-rule-set-do-edge-firewall">4. Consulta lista de rule sets do Edge Firewall</h2>
+
+<p>Cria uma nova rule set do Edge Firewall.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A rule set que se deseja criar deve ser enviada codificada no formato json com os seguintes campos:
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): campo obrigatório que define o nome da rule set do Edge Firewall.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">block_access_by_referer </span>
+                            (boolean): utilize <em>true</em> para ativar o bloqueio da entrega de 
+                            conteúdo baseada no HTTP Referrer; ou <em>false</em> para desativar o
+                            bloqueio. 
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">allow_blank_referer</span>
+                            (boolean):  defina o valor de allow_blank_referer como <em>true</em> se desejar 
+                            permitir a entrega de conteúdo para uma requisição sem Referrer; ou <em>false</em> 
+                            se desejar bloquear, caso você tenha ativado o bloqueio por HTTP Referrer.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">accepted_domains</span>
+                            (array): caso você tenha ativado o bloqueio por HTTP Referrer,
+                            liste os domínios para os quais as requisições devem ser liberadas.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_block</span>
+                            (choice): utilize o valor <em>“whitelist“</em>, para ativar o 
+                            bloqueio para todos os países, com exceção dos que você listar; 
+                            <em>“blacklist”</em> para listar apenas os países que deseja bloquear; ou <em>“disabled”</em>
+                            para desativar o bloqueio por geo localização.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_countries</span>
+                            (array): caso você tenha ativado geo_block por <em>whitelist</em> ou <em>blacklist</em>, 
+                            liste os códigos de 3 letras dos países (ISO 3166-1 alpha-3) que deseja 
+                            liberar ou bloquear, de acordo com sua seleção de geo_block.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_rule</span>
+                            (choice): utilize o valor <em>“allow_from_all“</em>, para configurar o Edge Firewall 
+                            para permitir o acesso de todos os IPs, por default, e definir uma blacklist no 
+                            campo ip_blocking_address; ou utilize o valor “deny_from_all”, para bloquer o acesso de 
+                            todos os IPs, por default, com exceção da whitelist configurada no campo ip_blocking_address.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_addresses</span>
+                            (array): liste os endereços IP, ou máscaras CIDR, que você bloquear ou liberar. 
+                            Caso você tenha configurado ip_blocking_rule como “allow_from_all”,
+                            este campo funciona como uma blacklist para bloquear os IPs listados; 
+                            deixe o array vazio, caso não deseje bloquear nenhum endereço. 
+                            Caso você tenha configurado ip_blocking_rule como “deny_from_all”, 
+                            este campo funciona como uma whitelist para liberar apenas os IPs listados.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">require_secure_token</span>
+                            (boolean): utilize <em>true</em> para ativar a validação de
+                            secure token ou <em>false</em>, para desativar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">secret</span>
+                            (string): caso tenha ativado a validação de secure token,
+                            defina a secret que será utilizada para composição do hash. 
+                            Caso contrário, utilize <em>null</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active</span>
+                            (boolean): utilze <em>true</em> para ativar a rule set, ou 
+                            <em>false</em>, caso deseje criar a rule set, sem ativá-la.
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /edge_firewall/rulesets
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Regra para liberar apenas Brasil",
+    "block_access_by_referer": false,
+    "accepted_domains": [],
+    "geo_block": "whitelist",
+    "geo_countries": ["BRA"],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": true,
+    "secret":"myscret",
+    "is_active": true
+ } 
+{% endhighlight %}
+</div>
+                   
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 201 CREATED
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 536,
+    "name": "Regra para liberar apenas Brasil",
+    "block_access_by_referer": false,
+    "allow_blank_referer": false,
+    "geo_block": "whitelist",
+    "accepted_domains": [],
+    "geo_countries": ["BRA"],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": true,
+    "secret": "myscret",
+    "is_active": true
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-uma-rule-set-do-edge-firewall">5. Consulta lista de rule sets do Edge Firewall</h2>
+
+<p>
+    Sobrescreve todos os campos de uma rule set do Edge Firewall, preservando o id. 
+    Os campos opcionais não informados serão substituídos pelos valores default. 
+    Considere utilizar o método PATCH no lugar de PUT, para atualizar somente 
+    alguns campos de uma rule set, sem alterar o valor dos demais.
+</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets/</span>:ruleset_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :ruleset_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da rule set de Edge Firewall a ser sobrescrita.
+                    Para obter o Id de uma rule set do Edge Firewall, consulte a
+                    <a href="#consulta-lista-de-rule-sets-do-edge-firewall" class="orng-link">Lista de Rule Sets</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Os novos valores de cada campo da rule set. Os campos não 
+                    preenchidos serão substituídos pelo valor default, com exceção dos 
+                    campos obrigatórios, que precisam ser preenchidos. Se você desejar alterar 
+                    apenas um dos campos, utilize o método PATCH ao invés do PUT.
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): campo obrigatório que define o nome da rule set do Edge Firewall.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">block_access_by_referer </span>
+                            (boolean): utilize <em>true</em> para ativar o bloqueio da entrega de 
+                            conteúdo baseada no HTTP Referrer; ou <em>false</em> para desativar o
+                            bloqueio. 
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">allow_blank_referer</span>
+                            (boolean):  defina o valor de allow_blank_referer como <em>true</em> se desejar 
+                            permitir a entrega de conteúdo para uma requisição sem Referrer; ou <em>false</em> 
+                            se desejar bloquear, caso você tenha ativado o bloqueio por HTTP Referrer.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">accepted_domains</span>
+                            (array): caso você tenha ativado o bloqueio por HTTP Referrer,
+                            liste os domínios para os quais as requisições devem ser liberadas.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_block</span>
+                            (choice): utilize o valor <em>“whitelist“</em>, para ativar o 
+                            bloqueio para todos os países, com exceção dos que você listar; 
+                            <em>“blacklist”</em> para listar apenas os países que deseja bloquear; ou <em>“disabled”</em>
+                            para desativar o bloqueio por geo localização.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_countries</span>
+                            (array): caso você tenha ativado geo_block por <em>whitelist</em> ou <em>blacklist</em>, 
+                            liste os códigos de 3 letras dos países (ISO 3166-1 alpha-3) que deseja 
+                            liberar ou bloquear, de acordo com sua seleção de geo_block.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_rule</span>
+                            (choice): utilize o valor <em>“allow_from_all“</em>, para configurar o Edge Firewall 
+                            para permitir o acesso de todos os IPs, por default, e definir uma blacklist no 
+                            campo ip_blocking_address; ou utilize o valor “deny_from_all”, para bloquer o acesso de 
+                            todos os IPs, por default, com exceção da whitelist configurada no campo ip_blocking_address.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_addresses</span>
+                            (array): liste os endereços IP, ou máscaras CIDR, que você bloquear ou liberar. 
+                            Caso você tenha configurado ip_blocking_rule como “allow_from_all”,
+                            este campo funciona como uma blacklist para bloquear os IPs listados; 
+                            deixe o array vazio, caso não deseje bloquear nenhum endereço. 
+                            Caso você tenha configurado ip_blocking_rule como “deny_from_all”, 
+                            este campo funciona como uma whitelist para liberar apenas os IPs listados.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">require_secure_token</span>
+                            (boolean): utilize <em>true</em> para ativar a validação de
+                            secure token ou <em>false</em>, para desativar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">secret</span>
+                            (string): caso tenha ativado a validação de secure token,
+                            defina a secret que será utilizada para composição do hash. 
+                            Caso contrário, utilize <em>null</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active</span>
+                            (boolean): utilze <em>true</em> para ativar a rule set, ou 
+                            <em>false</em>, para desativá-la.
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /edge_firewall/rulesets/536
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "Secure Token",
+    "block_access_by_referer": false,
+    "accepted_domains": [],
+    "geo_block": "disabled",
+    "geo_countries": [],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": true,
+    "secret": "myscret"
+ } 
+{% endhighlight %}
+</div>
+                                                         
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 536,
+    "name": "Secure Token",
+    "block_access_by_referer": false,
+    "accepted_domains": [],
+    "geo_block": "disabled",
+    "geo_countries": [],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": true,
+    "secret": "myscret",
+    "is_active": true
+ } 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="atualizar-campos-de-uma-rule-set-do-edge-firewall">6. Atualizar campos de uma rule set do Edge Firewall</h2>
+
+<p>Atualiza um ou mais campos de uma rule set do Edge Firewall, preservando o valor dos campos não informados.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/edge_firewall/rulesets/</span>:ruleset_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Security Settings</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Authorization
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    A autenticação por Token previamente criado através do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.
+                    <br><br>
+
+                    ex.:
+                    <br><br>
+                    Authorization:
+                    <br>
+                    583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    Content-Type
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    O tipo de codificação utilizada no Body (application/json).
+                    <br><br>
+                    ex.: 
+                    <br><br>
+                    Content-Type: application/json
+                </td>
+                <td>
+                    header
+                </td>
+                <td>
+                    string
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    :ruleset_id
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Id da rule set de Edge Firewall a ser atualizada.
+                    Para obter o Id de uma rule set, consulte a
+                    <a href="#consulta-lista-de-rule-sets-do-edge-firewall" class="orng-link">Lista de Rule Sets</a>.
+                </td>
+                <td>
+                    path
+                </td>
+                <td>
+                    number
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Configuration
+                    <br><br>
+                    (obrigatório)
+                </td>
+
+                <td>
+                    Devem ser informados um ou mais campos a serem atualizados. Os 
+                    campos não informados não terão o seu valor alterado.
+                    <br><br>
+                    <ul>
+                        <li>
+                            <span class="black-sm-sub">name</span>
+                            (string): define o nome da rule set do Edge Firewall.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">block_access_by_referer </span>
+                            (boolean): utilize <em>true</em> para ativar o bloqueio da entrega de 
+                            conteúdo baseada no HTTP Referrer; ou <em>false</em> para desativar o
+                            bloqueio. 
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">allow_blank_referer</span>
+                            (boolean):  defina o valor de allow_blank_referer como <em>true</em> se desejar 
+                            permitir a entrega de conteúdo para uma requisição sem Referrer; ou <em>false</em> 
+                            se desejar bloquear, caso você tenha ativado o bloqueio por HTTP Referrer.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">accepted_domains</span>
+                            (array): caso você tenha ativado o bloqueio por HTTP Referrer,
+                            liste os domínios para os quais as requisições devem ser liberadas.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_block</span>
+                            (choice): utilize o valor <em>“whitelist“</em>, para ativar o 
+                            bloqueio para todos os países, com exceção dos que você listar; 
+                            <em>“blacklist”</em> para listar apenas os países que deseja bloquear; ou <em>“disabled”</em>
+                            para desativar o bloqueio por geo localização.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">geo_countries</span>
+                            (array): caso você tenha ativado geo_block por <em>whitelist</em> ou <em>blacklist</em>, 
+                            liste os códigos de 3 letras dos países (ISO 3166-1 alpha-3) que deseja 
+                            liberar ou bloquear, de acordo com sua seleção de geo_block.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_rule</span>
+                            (choice): utilize o valor <em>“allow_from_all“</em>, para configurar o Edge Firewall 
+                            para permitir o acesso de todos os IPs, por default, e definir uma blacklist no 
+                            campo ip_blocking_address; ou utilize o valor “deny_from_all”, para bloquer o acesso de 
+                            todos os IPs, por default, com exceção da whitelist configurada no campo ip_blocking_address.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">ip_blocking_addresses</span>
+                            (array): liste os endereços IP, ou máscaras CIDR, que você bloquear ou liberar. 
+                            Caso você tenha configurado ip_blocking_rule como “allow_from_all”,
+                            este campo funciona como uma blacklist para bloquear os IPs listados; 
+                            deixe o array vazio, caso não deseje bloquear nenhum endereço. 
+                            Caso você tenha configurado ip_blocking_rule como “deny_from_all”, 
+                            este campo funciona como uma whitelist para liberar apenas os IPs listados.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">require_secure_token</span>
+                            (boolean): utilize <em>true</em> para ativar a validação de
+                            secure token ou <em>false</em>, para desativar.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">secret</span>
+                            (string): caso tenha ativado a validação de secure token,
+                            defina a secret que será utilizada para composição do hash. 
+                            Caso contrário, utilize <em>null</em>.
+                        </li>
+
+                        <li>
+                            <span class="black-sm-sub">is_active</span>
+                            (boolean): utilze <em>true</em> para ativar a rule set, ou 
+                            <em>false</em>, para desativá-la.
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    body
+                </td>
+                <td>
+                    json
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /edge_firewall/rulesets/533
+Accept: application/json; version=1
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+                    
+<div class="white-code put">
+{% highlight console %}
+{
+    "accepted_domains": [
+       {"url": "*.azion.com"},
+       {"url": "*.azion.com.br"},
+       {"url":"anotherdomain.com"}
+    ]
+ } 
+{% endhighlight %}
+</div>
+                                                         
+<p class="black-sm-sub">Exemplo de Resposta</p>
+                                                                    
+<div class="white-code ">
+{% highlight console %}
+HTTP/1.1 200 OK
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 533,
+    "name": "Bloqueio por HTTP Referrer",
+    "block_access_by_referer": true,
+    "allow_blank_referer": true,
+    "geo_block": "disabled",
+    "accepted_domains": [
+       {"url":"*.azion.com"},
+       {"url":"*.azion.com.br"},
+       {"url":"anotherdomain.com"}
+    ],
+    "geo_countries": [],
+    "ip_blocking_rule": "allow_from_all",
+    "ip_blocking_addresses": [],
+    "require_secure_token": false,
+    "secret": null,
+    "is_active": true
+ }  
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link no-break">Abra um ticket.</a>
+</p>

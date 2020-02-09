@@ -1,0 +1,98 @@
+<h1 class="title">Verificar tempo de cache da <span>página</span></h1>            
+
+<p>Para verificar o tempo de cache da página/objeto e quanto tempo falta para a próxima expiração pode-se seguir os seguintes passos:</p>
+
+<p>1. Instalar o Plugin Modify Headers for Chrome</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/Modify-Headers-Plugin1.png">
+
+<p>2. Clicar no ícone do plugin que foi adicionado ao Chrome:<img src="{{ site.url }}/images/docs/verify-cache/icone-plugin-modify-headers.png"></p>
+
+<p>3. Clicar em Add New para adicionar uma nova Regra:</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/Adicionar-regra.png">
+
+<p>4. Inserir os seguintes dados:</p>
+
+<p><span class="black-sm-sub">Action</span> = Add</p>
+
+<p><span class="black-sm-sub">Name</span> = Pragma</p>
+
+<p><span class="black-sm-sub">Value</span> = azion-debug-cache</p>
+
+<p><span class="black-sm-sub">Description</span> = </p>
+
+<p>Depois clique em Salvar e logo após no ícone play</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/Adiciona-regra1.png">
+
+<p>5. Clique em Enable All e depois confirme.</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/enable-all.png">
+
+<p>6. Após isso ative a função Developer Tools do Chrome</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/ativando-developer-tools.png">
+
+<p>7. No Developer Tools, vá em Network – Carregue a página que deve ser analisada – Encontre o html da página ou objeto- clique em Headers</p>
+
+<img src="{{ site.url }}/images/docs/verify-cache/developertools.png">
+
+<p>8. Você verá as informações de Cache aparecerem como:</p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td>Campo</td>
+                <td>Descrição</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>X-Cache</td>
+                <td>Status da requisição, podendo ser HIT, MISS, EXPIRED, UPDATING ou STALE.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Key</td>
+                <td>Chave de cache do objeto, normalmente utilizada a combinação de host + uri + argumentos.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-File</td>
+                <td>Arquivo de cache do objeto, sendo ele composto do md5 da chave de cache.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Since</td>
+                <td>Unix Time Stamp* da entrada do objeto em cache.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Expire</td>
+                <td>Unix Time Stamp* da saída do objeto em cache.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Expire-In</td>
+                <td>Tempo restante do objeto em cache contabilizados em segundos.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Valid</td>
+                <td>Tempo configurado para o objeto no cache. Este tempo pode ser configurado incondicionalmente no webserver ou pode vir da origem via headers Cache-Control.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-Config</td>
+                <td>ID da configuração do virtual host no webserver. Este valor é gerado pelo RTM.</td>
+            </tr>
+            <tr>
+                <td>X-Cache-ID</td>
+                <td>Identificador único da requisição.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p><span class="black-sm-sub">* O Unix Time Stamp</span> pode ser convertido em formato humano utilizando o site <a href="http://www.unixtimestamp.com/" class="orng-link">http://www.unixtimestamp.com/</a></p>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>

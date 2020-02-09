@@ -1,0 +1,1006 @@
+<h1 class="title">Rules <span>Engine</span></h1>
+    
+<p>Através da API do Content Delivery você pode consultar, remover ou atualizar suas configurações existentes, bem como criar novas configurações de Content Delivery. Para Rules Engine, utilize os endpoints que seguem.</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#consulta-lista-de-regras-do-rules-engine">1. Consulta lista de regras do Rules Engine</a></li>
+    <li><a href="#consulta-dados-de-uma-regra-do-rules-engine">2. Consulta dados de uma regra do Rules Engine</a></li>
+    <li><a href="#deletar-uma-regra-do-rules-engine">3. Deletar uma regra do Rules Engine</a></li>
+    <li><a href="#criar-uma-nova-regra-do-rules-engine">4. Criar uma nova regra do Rules Engine</a></li>
+    <li><a href="#sobrescrever-uma-regra-do-rules-engine">5. Sobrescrever uma regra do Rules Engine</a></li>
+    <li><a href="#atualizar-campos-de-uma-regra-do-rules-engine">6. Atualizar campos de uma regra do Rules Engine</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-lista-de-regras-do-rules-engine" >1. Consulta lista de regras do Rules Engine</h2>
+
+<p>Retorna a lista de regras de uma fase do Rules Engine, para uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine</span>/:phase/<span class="bold">rules</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr>
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery a ser consultada.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.<a/>
+                </td>
+                <td>path</td>
+                <td>header</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td> Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li>request</li>
+                        <li>cache</li>
+                        <li>response</li>
+                    </ul>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1473450681/rules_engine
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+[
+   {
+      "id": 524,
+      "name": "Default Rule",
+      "phase": "default",
+      "criteria": [
+         [
+            {
+               "conditional": "if",
+               "variable": "${uri}",
+               "operator": "starts_with",
+               "input_value": "/"
+            }
+         ]
+      ],
+      "behaviors": [
+         {
+            "name": "set_origin",
+            "target": "3764"
+         },
+         {
+            "name": "index_document",
+            "target": "index.html"
+         }
+      ],
+      "order": 1
+   },
+   {
+      "id": 852,
+      "name": "Rewrite Request",
+      "phase": "request",
+      "criteria": [
+         [
+            {
+               "conditional": "if",
+               "variable": "${arg_resize}",
+               "operator": "exists",
+               "input_value": ""
+            }
+         ]
+      ],
+      "behaviors": [
+         {
+            "name": "capture_match_groups",
+            "target": {
+               "regex": "(?<width>\\d*):(?<height>\\d*)",
+               "captured_array": "size",
+               "subject": "${arg_resize}"
+            }
+         },
+         {
+            "name": "rewrite_request",
+            "target": "${uri}?ims=%{size[width]}x%{size[height]}"
+         },
+         {
+            "name": "set_origin",
+            "target": "3564"
+         }
+      ],
+      "order": 1
+   }
+]
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="consulta-dados-de-uma-regra-do-rules-engine" >2. Consulta dados de uma regra do Rules Engine</h2>
+
+<p>Retorna dados de uma regra do Rules Engine de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar get"><span>GET</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>View Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery a ser consultada.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td>Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li>request</li>
+                        <li>cache</li>
+                        <li>response</li>
+                    </ul>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigatório)</td>
+                <td>Id da regra de Rules Engine a ser consultada.<br>
+                        Para obter o Id de uma origem, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+GET /content_delivery/configurations/1487160529/rules_engine/852
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code get">
+{% highlight console %}
+{
+    "id": 852,
+    "name": "Rewrite Request",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${arg_resize}",
+             "operator": "exists",
+             "input_value": ""
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "capture_match_groups",
+          "target": {
+          "regex": "(?<width>\\d*):(?<height>\\d*)",
+          "captured_array": "size",
+          "subject": "${arg_resize}"
+       }
+       },
+       {
+          "name": "rewrite_request",
+          "target": "${uri}?ims=%{size[width]}x%{size[height]}"
+       },
+       {
+          "name": "set_origin",
+          "target": "3564"
+       }
+    ],
+    "order": 1
+}
+{% endhighlight %}
+</div>
+<hr class="breaker">
+
+<h2 class="black-small-title" id="deletar-uma-regra-do-rules-engine" >3. Deletar uma regra do Rules Engine</h2>
+
+<p>Remove uma regra do Rules Engine de uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar delete"><span>DELETE</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td> Id da configuração de Content Delivery que possui a regra que será removida.<br>
+                        Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td>Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li><span class="black-sm-sub">request</span></li>
+                        <li><span class="black-sm-sub">cache</span></li>
+                        <li><span class="black-sm-sub">response</span></li>
+                    </ul>
+                </a>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigatório)</td>
+                <td>Id da regra de Rules Engine a ser removida.<br>
+                        Para obter o Id de uma origem, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+DELETE /content_delivery/configurations/1467640447/rules_engine/852
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 204
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="criar-uma-nova-regra-do-rules-engine" >4. Criar uma nova regra do Rules Engine</h2>
+
+<p>Cria uma nova regra do Rules Engine em uma configuração de Content Delivery.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>POST</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id<span class="bold">/rules</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser criada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td>Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li><span class="black-sm-sub">request</span></li>
+                        <li><span class="black-sm-sub">cache</span></li>
+                        <li><span class="black-sm-sub">response</span></li>
+                    </ul>
+                </a>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>A regra que se deseja criar deve ser enviada codificada no formato json com os seguintes campos:
+                        <ul>
+                            <li><span class="black-sm-sub">name</span> (string): o nome da regra.</li>
+                            <li><span class="black-sm-sub">phase</span> (choice): a fase de execução da regra. Pode assumir os valores “request”, “cache” ou “response”.</li>
+                            <li><span class="black-sm-sub">criteria</span> (array): a lista de condições para execução da regra. A primeira condição da lista deve necessariamente conter o “conditional”: “if”.
+                                <ul>
+                                    <li><span class="black-sm-sub">conditional</span> (choice): pode assumir os valore “if”, “and” ou “or”.</li>
+                                    <li><span class="black-sm-sub">variable</span> (string): a variável de comparação.</li>
+                                    <li><span class="black-sm-sub">operator</span> (choice): o operador de comparação. Pode assumir os valores “is_equal”, “is_not_equal”, “starts_with”, “does_not_start_with”, “matches”, “does_not_match”, “exists”, “does_not_exist”.</li>
+                                    <li><span class="black-sm-sub">input_value</span> (string): o argumento de comparação.</li>
+                                </ul></li>
+                            <li><span class="black-sm-sub">behavior</span> (array): a lista de comportamentos a serem executados pela regra.
+                                <ul>
+                                    <li><span class="black-sm-sub">name</span> (choice): o nome do behavior em letras minúsculas, substituindo-se espaços por underscore. Por exemplo “Set Origin” vira “set_origin”.</li>
+                                    <li><span class="black-sm-sub">target</span> : o argumento para o behavior. Pode ser null, uma string, um id de um preset ou um estrutura de argumentos, dependendo do tipo de behavior. Exemplos:
+                                        <ul>
+                                            <li>O behavior “forward_cookies” não requer argumentos e, nesse caso, o target deve ser setado para null.</li>
+                                            <li>O behavior “set_origin” requer um id de uma origem e, nesse caso, o target deve ser setado para o id (entre aspas), ex. “3564”.</li>
+                                            <li>O behavior “capture_match_groups” requer 3 argumentos e, nesse caso, o target será uma estrutura composta por  {“regex”: regex, “captured_array”: captured_array , “subject”: subject }.</li>
+                                            <li>O behavior “rewrite_request” requer um string e, nesse caso, o target deve ser setado para a string de rewrite.</li>
+                                        </ul>                                
+                                    </li>
+                                    <li><span class="black-sm-sub">order</span> (number): campo opcional que define a posição relativa da regra na listagem. Caso ocultado, a nova regra é criada no final da listagem.</li>
+                                </ul></li>
+                            </li>
+                        </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+POST /content_delivery/configurations/1473450681/rules_engine/request/rules
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "User Agent Blocking for Home",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${uri}",
+             "operator": "is_equal",
+             "input_value": "/"
+           }
+       ],
+       [
+          {
+             "conditional": "if",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Alexibot"
+          },
+          {
+             "conditional": "or",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Big Brother"
+          },
+          {
+             "conditional": "or", 
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "BotRightHere"
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "deny",
+          "target": null
+       }
+    ]
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 201
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1532,
+    "name": "User Agent Blocking for Home",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${uri}",
+             "operator": "is_equal",
+             "input_value": "/"
+          }
+       ],
+       [
+          {
+             "conditional": "if",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Alexibot"
+          },
+          {
+             "conditional": "or",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Big Brother"
+          },
+          {
+             "conditional": "or", 
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "BotRightHere"
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "deny",
+          "target": null
+       }
+    ],
+    "order":2
+} 
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="sobrescrever-uma-regra-do-rules-engine" >5. Sobrescrever uma regra do Rules Engine</h2>
+
+<p>Sobrescreve todos os campos de uma regra do Rules Engine, preservando o id. Considere utilizar o método PATCH no lugar de PUT, para atualizar somente alguns campos da configuração sem alterar o valor dos demais.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PUT</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v2_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser substituída.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td>Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li><span class="black-sm-sub">request</span></li>
+                        <li><span class="black-sm-sub">cache</span></li>
+                        <li><span class="black-sm-sub">response</span></li>
+                    </ul>
+                </a>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigratório)</td>
+                <td>Id da regra de Rules Engine a ser sobrescrita.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="#consulta-lista-de-regras-do-rules-engine">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>Os novos valores de cada campo da configuração. Os campos não preenchidos serão substituídos pelo valor default. Se você desejar alterar apenas um dos campos, utilize o método PATCH ao invés do PUT.
+                    <ul>
+                        <li><span class="black-sm-sub">name</span> (string): o nome da regra.</li>
+                        <li><span class="black-sm-sub">phase</span> (choice): a fase de execução da regra. Pode assumir os valores “request”, “cache” ou “response”.</li>
+                        <li><span class="black-sm-sub">criteria</span> (array): a lista de condições para execução da regra. A primeira condição da lista deve necessariamente conter o “conditional”: “if”.
+                            <ul>
+                                <li><span class="black-sm-sub">conditional</span> (choice): pode assumir os valore “if”, “and” ou “or”.</li>
+                                <li><span class="black-sm-sub">variable</span> (string): a variável de comparação.</li>
+                                <li><span class="black-sm-sub">operator</span> (choice): o operador de comparação. Pode assumir os valores “is_equal”, “is_not_equal”, “starts_with”, “does_not_start_with”, “matches”, “does_not_match”, “exists”, “does_not_exist”.</li>
+                                <li><span class="black-sm-sub">input_value</span> (string): o argumento de comparação.</li>
+                            </ul></li>
+                        <li><span class="black-sm-sub">behavior</span> (array): a lista de comportamentos a serem executados pela regra.
+                            <ul>
+                                <li><span class="black-sm-sub">name</span> (choice): o nome do behavior em letras minúsculas, substituindo-se espaços por underscore. Por exemplo “Set Origin” vira “set_origin”.</li>
+                                <li><span class="black-sm-sub">target</span> : o argumento para o behavior. Pode ser null, uma string, um id de um preset ou um estrutura de argumentos, dependendo do tipo de behavior. Exemplos:
+                                    <ul>
+                                        <li>O behavior “forward_cookies” não requer argumentos e, nesse caso, o target deve ser setado para null.</li>
+                                        <li>O behavior “set_origin” requer um id de uma origem e, nesse caso, o target deve ser setado para o id (entre aspas), ex. “3564”.</li>
+                                        <li>O behavior “capture_match_groups” requer 3 argumentos e, nesse caso, o target será uma estrutura composta por  {“regex”: regex, “captured_array”: captured_array , “subject”: subject }.</li>
+                                        <li>O behavior “rewrite_request” requer um string e, nesse caso, o target deve ser setado para a string de rewrite.</li>
+                                    </ul>                                
+                                </li>
+                                <li><span class="black-sm-sub">order</span> (number): campo opcional que define a posição relativa da regra na listagem. Caso ocultado, a nova regra é criada no final da listagem.</li>
+                            </ul></li>
+                        </li>
+                    </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PUT /content_delivery/configurations/1473450681/rules_engine/request/rules/1532
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "User Agent Blocking for Home",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${uri}",
+             "operator": "is_equal",
+             "input_value": "/"
+          }
+       ],
+       [
+          {
+             "conditional": "if",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Alexibot"
+          },
+          {
+             "conditional": "or", 
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "BotRightHere"
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "deny",
+          "target": null
+       }
+    ],
+    "order":2
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1532,
+    "name": "User Agent Blocking for Home",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${uri}",
+             "operator": "is_equal",
+             "input_value": "/"
+          }
+       ],
+       [
+          {
+             "conditional": "if",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Alexibot"
+          },
+          {
+             "conditional": "or", 
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "BotRightHere"
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "deny",
+          "target": null
+       }
+    ],
+    "order":2
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="atualizar-campos-de-uma-regra-do-rules-engine" >6. Atualizar campos de uma regra do Rules Engine</h2>
+
+<p>Atualiza um ou mais campos de uma regra do Rules Engine, para uma configuração de Content Delivery, preservando o valor dos campos não informados.</p>
+
+<div class="scrollTable">
+    <table class="button-txt">
+        <tbody>
+            <tr>
+                <td class="button-bar accept"><span>PATCH</span></td>
+                <td class="txt-bar">
+                    <span class="bold">/content_delivery/configurations/</span>:conf_id<span class="bold">/rules_engine/</span>:phase<span class="bold">/rule/</span>:rule_id
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Permissão necessária: <span class="black-sm-sub"><em>Edit Content Delivery</em></span></p>
+
+<div class="table-orange-gray">
+    <table>
+        <thead>
+            <tr class="td-10">
+                <td>Parâmetro</td>
+                <td>Descrição</td>
+                <td>Tipo de Parâmetro</td>
+                <td>Tipo de Dado</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Authorization (obrigatório)</td>
+                <td>A autenticação por Token previamente criado por meio do endpoint de <a href="{% tl api_v1_authentication %}#criacao-de-token" class="orng-link">Criação de Token</a>.<br><br>
+                    ex.:<br><br>                                        
+                    Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>Content-Type (obrigatório)</td>
+                <td> O tipo de codificação utilizada no Body (application/json).<br><br>
+                        ex.:<br><br>                          
+                        Content-Type: application/json
+                </td>
+                <td>header</td>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>:conf_id (obrigatório)</td>
+                <td>Id da configuração de Content Delivery para a qual a regra do Rules Engine deve ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="{% tl api_v2_content_delivery_main_settings %}#consulta-lista-de-configuracoes">Lista de Configurações.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>:phase (obrigatório)</td>
+                <td>Nome da fase de processamento do Rules Engine:
+                    <ul>
+                        <li><span class="black-sm-sub">request</span></li>
+                        <li><span class="black-sm-sub">cache</span></li>
+                        <li><span class="black-sm-sub">response</span></li>
+                    </ul>
+                </a>
+                </td>
+                <td>path</td>
+                <td>choice</td>
+            </tr>
+            <tr>
+                <td>:rule_id (obrigratório)</td>
+                <td>Id da regra de Rules Engine a ser atualizada.<br>
+                    Para obter o Id de uma configuração, consulte a <a href="#consulta-lista-de-configuracoes">Lista de Rules Engine.</a>
+                </td>
+                <td>path</td>
+                <td>number</td>
+            </tr>
+            <tr>
+                <td>Configuration (obrigatório)</td>
+                <td>Os novos valores de cada campo da configuração. Os campos não preenchidos serão substituídos pelo valor default. Se você desejar alterar apenas um dos campos, utilize o método PATCH ao invés do PUT.
+                        <ul>
+                            <li><span class="black-sm-sub">name</span> (string): o nome da regra.</li>
+                            <li><span class="black-sm-sub">phase</span> (choice): a fase de execução da regra. Pode assumir os valores “request”, “cache” ou “response”.</li>
+                            <li><span class="black-sm-sub">criteria</span> (array): a lista de condições para execução da regra. A primeira condição da lista deve necessariamente conter o “conditional”: “if”.
+                                <ul>
+                                    <li><span class="black-sm-sub">conditional</span> (choice): pode assumir os valore “if”, “and” ou “or”.</li>
+                                    <li><span class="black-sm-sub">variable</span> (string): a variável de comparação.</li>
+                                    <li><span class="black-sm-sub">operator</span> (choice): o operador de comparação. Pode assumir os valores “is_equal”, “is_not_equal”, “starts_with”, “does_not_start_with”, “matches”, “does_not_match”, “exists”, “does_not_exist”.</li>
+                                    <li><span class="black-sm-sub">input_value</span> (string): o argumento de comparação.</li>
+                                </ul></li>
+                            <li><span class="black-sm-sub">behavior</span> (array): a lista de comportamentos a serem executados pela regra.
+                                <ul>
+                                    <li><span class="black-sm-sub">name</span> (choice): o nome do behavior em letras minúsculas, substituindo-se espaços por underscore. Por exemplo “Set Origin” vira “set_origin”.</li>
+                                    <li><span class="black-sm-sub">target</span> : o argumento para o behavior. Pode ser null, uma string, um id de um preset ou um estrutura de argumentos, dependendo do tipo de behavior. Exemplos:
+                                        <ul>
+                                            <li>O behavior “forward_cookies” não requer argumentos e, nesse caso, o target deve ser setado para null.</li>
+                                            <li>O behavior “set_origin” requer um id de uma origem e, nesse caso, o target deve ser setado para o id (entre aspas), ex. “3564”.</li>
+                                            <li>O behavior “capture_match_groups” requer 3 argumentos e, nesse caso, o target será uma estrutura composta por  {“regex”: regex, “captured_array”: captured_array , “subject”: subject }.</li>
+                                            <li>O behavior “rewrite_request” requer um string e, nesse caso, o target deve ser setado para a string de rewrite.</li>
+                                        </ul>                                
+                                    </li>
+                                    <li><span class="black-sm-sub">order</span> (number): campo opcional que define a posição relativa da regra na listagem. Caso ocultado, a nova regra é criada no final da listagem.</li>
+                                </ul></li>
+                            </li>
+                        </ul> 
+                </td>
+                <td>body</td>
+                <td>json</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="black-sm-sub">Exemplo de Requisição</p>
+
+<div class="white-code">
+{% highlight console %}
+PATCH /content_delivery/configurations/1473450681/rules_engine/request/rules/1532
+Accept: application/json; version=2
+Authorization: Token 583f8a9ca8d6d5ff2cb50f1d3c4d35cb8939f1bf
+Content-Type: application/json
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "name": "New name"
+}
+{% endhighlight %}
+</div>
+
+<p class="black-sm-sub">Exemplo de Resposta</p>
+
+<div class="white-code">
+{% highlight console %}
+HTTP/2 200
+{% endhighlight %}
+</div>
+
+<div class="white-code put">
+{% highlight console %}
+{
+    "id": 1532,
+    "name": "New name",
+    "phase": "request",
+    "criteria": [
+       [
+          {
+             "conditional": "if",
+             "variable": "${uri}",
+             "operator": "is_equal",
+             "input_value": "/"
+          }
+       ],
+       [
+          {
+             "conditional": "if",
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "Alexibot"
+          },
+          {
+             "conditional": "or", 
+             "variable": "${http_user_agent}",
+             "operator": "matches",
+             "input_value": "BotRightHere"
+          }
+       ]
+    ],
+    "behaviors": [
+       {
+          "name": "deny",
+          "target": null
+       }
+    ],
+    "order":2
+}
+{% endhighlight %}
+</div>
+
+<hr class="breaker">
+
+<p>
+    Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a>
+</p>   

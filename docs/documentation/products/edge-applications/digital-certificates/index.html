@@ -1,0 +1,87 @@
+<h1 class="title">Digital <span>Certificates</span></h1>
+
+<p>Você precisará de um certificado SSL para trafegar dados em HTTPS. O uso de HTTPS garante a você segurança na transmissão de dados de seus clientes pela internet, demonstra a confiabilidade de seu site e a autenticidade de seu domínio, além de melhorar o rankeamento de seu site nos motores de busca como o Google. Você também precisará de HTTPS se desejar utilizar o protocolo HTTP/2, que traz importantes melhorias de desempenho em comparação com o HTTP/1.1.</p>
+
+<p>Na Azion, você poderá contar com as seguintes opções de certificado SSL para tráfego em HTTPS:</p>
+
+<ul class="orng-bar-list">
+    <li><a href="#shared-domain">1. Shared Domain</a></li>
+    <li><a href="#custom-certificate">2. Custom Certificate</a></li>
+</ul>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="shared-domain" >1. Shared Domain</h2>
+
+<p>Ao utilizar o Azion Content Delivery você conta com nosso certificado SSL para tráfego em HTTPS, sem custo adicional, ao utilizar o domínio compartilhado da Azion.</p>
+
+<p>Quando você cria uma configuração de Content Delivery no <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> é atribuído automaticamente um domínio na zona <em>azioncdn.net</em>. Se desejar, você pode utilizar o domínio atribuído para entregar seu conteúdo estático sobre HTTPS, evitando os custos de emissão de certificados SSL para ambientes de homologação ou URLs cujo domínio possa ser compartilhado com outros clientes da Azion.</p>
+
+<p>Para utilizar o certificado SSL da Azion para o Shared Domain:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> e entre no menu Content Delivery</li>
+    <li>Edite a configuração de Content Delivery desejada</li>
+    <li>Na aba Main Settings, selecione o certificado “Azion (SAN)” na seção Digital Certificate</li>
+</ol>
+
+<hr class="breaker">
+
+<h2 class="black-small-title" id="custom-certificate" >2. Custom Certificate</h2>
+
+<p>Para utilizar o seu domínio em HTTPS você precisará de um certificado SSL (X.509) próprio. Você pode, sem custos adicionais, configurar o seu certificado SSL no Real-Time Manager. Caso não possua um, a Azion poderá intermediar o processo de emissão e manutenção do seu certificado SSL junto a uma Autoridade Certificadora (CA) de escolha da Azion. Para tanto, você precisará comprovar que o domínio é realmente seu. Há três tipos de validação que você pode escolher:</p>
+
+<ul class="list-v">
+    <li>DV (<em>Domain Validation</em>)  é a validação sobre o seu direito de uso do domínio, sendo a mais simples das três opções. Esta á a opção recomendada pela Azion para a maioria das empresas.</li>
+    <li>OV (<em>Organization Validation</em>) é a validação sobre o seu direito de uso do domínio e mais algumas validações sobre a organização requisitante.</li>
+    <li>EV (<em>Extended Validation</em>) é uma validação estendida, que exige documentações adicionais para comprovação sobre a existência física, legal e operacional da organização requisitante, sendo a mais complexa das três opções.</li>
+</ul>
+
+<p>Para utilizar seu certificado customizado:</p>
+
+<ol>
+    <li>Acesse o <a href="https://manager.azion.com/" class="orng-link dont-break">Real-Time Manager</a> e entre no menu Cloud Security > Digital Certificates</li>
+    <li>Adicione um novo certificado SSL ou edite um de seus certificados existentes</li>
+    <li>Acesse o menu Content Delivery e edite a configuração desejada</li>
+    <li>Na aba Main Settings, na seção Digital Certificate, selecione o certificado que você adicionou no passo 2</li>
+</ol>
+
+<p>Para adicionar seu Custom Certificate, você irá precisar do par Certificado (X.509) no formato <a href="https://www.google.com.br/search?q=Como+converter+um+certificado+PFX+para+PEM&cad=h" class="orng-link">ASCII PEM</a> e a respectiva chave privada, a qual não pode estar protegida por <em>passphrase</em>.</p>
+
+<p>O certificado é o arquivo que você recebe de sua CA. Ele inicia com:</p>
+
+<div class="white-code">
+{% highlight console %}
+-----BEGIN CERTIFICATE-----
+{% endhighlight %}
+</div>
+
+<p>Você deve copiar todo o conteúdo incluindo o marcador de início e também o marcador de finalização:</p>
+
+<div class="white-code">
+{% highlight console %}
+-----END CERTIFICATE-----
+{% endhighlight %}
+</div>
+    
+<p>A chave privada é o arquivo que você utilizou para gerar a requisição CSR que enviou para sua CA. O conteúdo inicia com:</p>
+
+<div class="white-code">
+{% highlight console %}
+-----BEGIN RSA PRIVATE KEY-----
+{% endhighlight %}
+</div>
+
+<p>Você deve copiar todo o conteúdo incluindo o marcador de início e também o marcador de finalização:</p>
+
+<div class="white-code">
+{% highlight console %}
+-----END RSA PRIVATE KEY-----
+{% endhighlight %}
+</div>
+
+<p>Para utilizar seu Custom Certificate com a Azion utilizamos a extensão SNI (Server Name Indication) do protocolo TLS.  Confira a <a href="https://caniuse.com/#feat=sni" class="orng-link">lista de browsers com suporte a SNI</a>.</p>
+
+<hr class="breaker">
+
+<p>Não encontrou o que procurava? <a href="https://tickets.azion.com/" class="orng-link dont-break">Abra um ticket.</a></p> 
